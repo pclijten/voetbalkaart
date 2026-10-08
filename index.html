@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voetbalkaart maken – Make Your Own Football Card</title>
+<meta name="description" content="Maak je eigen voetbalkaart: kies uit 42 kaarten, vul je stats in, voeg je foto toe en print hem op A4. Gratis, zonder inloggen. Make your own football card.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://voetbalkaart.cluppieasv33.nl/">
+<meta name="theme-color" content="#060a12">
+<meta property="og:site_name" content="Voetbalkaart maken">
+<meta property="og:title" content="Voetbalkaart maken – Make Your Own Football Card">
+<meta property="og:description" content="Ontwerp je eigen voetbalkaart met 42 kaartsoorten, test je echte stats en print hem uit.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://voetbalkaart.cluppieasv33.nl/">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:image" content="https://voetbalkaart.cluppieasv33.nl/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Voetbalkaart maken","alternateName":"Make Your Own Football Card","url":"https://voetbalkaart.cluppieasv33.nl/","applicationCategory":"GameApplication","operatingSystem":"Any","inLanguage":"nl","description":"Maak je eigen voetbalkaart met 42 kaartsoorten, eigen stats en foto, en print hem op A4.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,800&family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Barlow:wght@500;600;700;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Thema: stadion bij nacht. Links het formulier in glazen blokken, rechts de kaart op een spotlight-podium die meebeweegt met je muis. */
+:root{
+  --ground:#060a12;
+  --paper:#0e1526;
+  --ink:#eaf1ff;
+  --muted:#98a8c6;
+  --line:rgba(160,185,235,.2);
+  --accent:#2bff88;
+  --accent-ink:#04140b;
+  --glow:rgba(43,255,136,.35);
+  --display:'Barlow Condensed','Barlow','Arial Narrow',Arial,sans-serif;
+  --cardfont:'Barlow Semi Condensed','Barlow','Arial Narrow',Arial,sans-serif;
+  --body:'Nunito','Trebuchet MS',Verdana,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--ground)}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;
+  background:
+    radial-gradient(60% 38% at 12% -6%,rgba(43,255,136,.2),transparent 70%),
+    radial-gradient(50% 34% at 92% -4%,rgba(90,140,255,.22),transparent 70%),
+    linear-gradient(180deg,#09101d 0%,var(--ground) 520px),
+    var(--ground)}
+.app{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:26px 56px}
+header{display:flex;flex-direction:column;gap:6px;padding-bottom:6px}
+.eyebrow{font-family:var(--display);font-weight:700;letter-spacing:.32em;text-transform:uppercase;font-size:.95rem;color:var(--accent)}
+header h1{font-family:var(--display);font-style:italic;font-weight:800;font-size:clamp(2.2rem,7vw,4.2rem);line-height:.95;margin:0;text-transform:uppercase;letter-spacing:.01em;padding-right:.1em;
+  background:linear-gradient(95deg,#ffffff 20%,var(--accent) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+header p{margin:4px 0 0;color:var(--muted);max-width:60ch}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:26px;margin-top:22px;align-items:start}
+.panel{background:linear-gradient(180deg,rgba(26,38,66,.78),rgba(13,19,35,.82));border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;box-shadow:0 12px 32px rgba(0,0,0,.35)}
+.panel + .panel{margin-top:16px}
+h2{font-family:var(--display);font-size:1.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin:0;display:flex;align-items:center;gap:.5em}
+h2::before{content:"";width:.28em;height:.95em;background:var(--accent);transform:skewX(-14deg);box-shadow:0 0 14px var(--glow);flex:0 0 auto}
+label{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:.9rem;min-width:0}
+input[type=text],input[type=number],input[type=date],select{font:inherit;font-weight:500;padding:10px 11px;border:1.5px solid var(--line);border-radius:8px;background:rgba(4,8,16,.7);color:var(--ink);width:100%;min-width:0}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{display:grid;grid-template-columns:64px minmax(0,1fr) 40px;gap:10px;align-items:center;font-weight:700}
+.stat small{display:block;color:var(--muted);font-weight:500;font-size:.75rem}
+.stat output{font-family:var(--display);font-size:1.7rem;font-weight:800;text-align:right;font-variant-numeric:tabular-nums;color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.check{flex-direction:row;align-items:center;gap:8px;font-weight:600}
+input[type=checkbox]{accent-color:var(--accent);width:1.1em;height:1.1em}
+.colors{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px}
+input[type=color]{width:100%;height:42px;padding:3px;border:1.5px solid var(--line);border-radius:8px;background:rgba(4,8,16,.7);cursor:pointer}
+.presets{display:flex;flex-wrap:wrap;gap:8px}
+.preset{border:2px solid var(--line);border-radius:999px;padding:6px 12px 6px 6px;background:rgba(255,255,255,.05);font:inherit;font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--ink);transition:border-color .12s,transform .12s}
+.preset i{width:22px;height:22px;border-radius:50%;display:block;border:1px solid rgba(255,255,255,.35)}
+.preset:hover{border-color:var(--accent);transform:translateY(-1px)}
+.btn{font-family:var(--display);font-size:1.1rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:10px 16px;border-radius:10px;border:2px solid rgba(190,210,255,.3);background:rgba(255,255,255,.06);color:var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s,background .12s,border-color .12s}
+.btn:hover{background:rgba(255,255,255,.14);border-color:rgba(190,210,255,.6);transform:translateY(-1px)}
+.btn.main{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:0 8px 24px rgba(43,255,136,.28)}
+.btn.main:hover{background:#6bffaa;border-color:#6bffaa;box-shadow:0 10px 30px rgba(43,255,136,.45)}
+.btn.small{font-size:.9rem;padding:6px 10px;letter-spacing:.05em}
+.file{display:flex;flex-direction:column;gap:6px}
+.file input{font:inherit;font-size:.9rem;color:var(--muted);max-width:100%}
+.file input::file-selector-button{font:inherit;font-weight:700;margin-right:10px;padding:6px 10px;border-radius:8px;border:1.5px solid var(--line);background:rgba(255,255,255,.08);color:var(--ink);cursor:pointer}
+.homegrid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:26px;margin-top:18px;align-items:start}
+.homecta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;padding:14px 18px;border-radius:14px;border:1px dashed var(--line);background:rgba(255,255,255,.03)}
+.homecta p{margin:0;font-weight:700}
+.note{margin:18px 0 0;padding:12px 14px;border-radius:12px;background:rgba(255,196,0,.1);border:1.5px solid rgba(255,196,0,.45);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.note[hidden]{display:none}
+.formrow{align-items:end}
+.stack{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.plist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.plist li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.04)}
+.plist small{color:var(--muted);font-weight:800;margin-left:6px}
+#matchList{display:flex;flex-direction:column;gap:14px}
+.match{display:flex;flex-direction:column;gap:12px;padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.04)}
+.match-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 12px}
+.match-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.score{font-family:var(--display);font-size:1.8rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.match-title small{color:var(--muted);font-weight:700}
+.awards{display:flex;flex-direction:column;gap:10px}
+.award{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:8px;align-items:center}
+.abtns{display:flex;gap:8px;align-items:center}
+.ok{color:var(--accent);font-weight:800;white-space:nowrap}
+.backbar{margin-bottom:14px}
+@media (max-width:860px){.homegrid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.award{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.abtns{grid-column:1/-1}}
+.stepper{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:16px;scroll-margin-top:12px}
+.stepbtn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border-radius:12px;border:2px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted);font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;min-width:0;text-align:center;line-height:1.05;transition:border-color .12s,transform .12s}
+.stepbtn i{font-style:normal;width:1.9em;height:1.9em;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid currentColor;font-size:1rem}
+.stepbtn:hover{border-color:rgba(200,220,255,.6);transform:translateY(-2px)}
+.stepbtn.done{color:var(--ink)}
+.stepbtn.done i{background:rgba(43,255,136,.18);border-color:var(--accent);color:var(--accent)}
+.stepbtn[aria-current="step"]{color:var(--accent-ink);background:var(--accent);border-color:var(--accent);box-shadow:0 8px 22px rgba(43,255,136,.3)}
+.stepbtn[aria-current="step"] i{background:var(--accent-ink);color:var(--accent);border-color:var(--accent-ink)}
+.step[hidden]{display:none}
+.step{display:flex;flex-direction:column;gap:16px}
+.step > .panel + .panel{margin-top:0}
+.stepnav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.stepnav .btn[hidden]{display:none}
+.stepnav #stepNext{margin-left:auto}
+.hint{color:var(--muted);font-size:.85rem;margin:0}
+
+.preview{position:sticky;top:16px;display:flex;flex-direction:column;gap:14px;align-items:center}
+.stage{position:relative;width:100%;display:flex;justify-content:center;padding:26px 0 30px;border-radius:16px;border:1px solid var(--line);overflow:hidden;perspective:900px;
+  background:radial-gradient(62% 46% at 50% 40%,rgba(255,255,255,.16),transparent 72%),repeating-linear-gradient(90deg,rgba(43,255,136,.07) 0 34px,rgba(43,255,136,.02) 34px 68px),linear-gradient(#0d1730,#060a14)}
+.stage::before{content:"";position:absolute;left:50%;top:46%;width:320px;height:320px;transform:translate(-50%,-50%);border:2px solid rgba(255,255,255,.1);border-radius:50%}
+.stage::after{content:"";position:absolute;left:0;right:0;top:46%;border-top:2px solid rgba(255,255,255,.1)}
+.stage #cardMount{position:relative;z-index:1}
+.tilt{position:relative;width:fit-content;transform-style:preserve-3d;transition:transform .12s ease-out;will-change:transform}
+.glare{position:absolute;inset:0;clip-path:url(#cardClip);pointer-events:none;z-index:9;opacity:0;transition:opacity .2s;background:radial-gradient(circle at var(--mx,30%) var(--my,20%),rgba(255,255,255,.5),rgba(255,255,255,0) 46%);mix-blend-mode:soft-light}
+.stage:hover .glare{opacity:1}
+.buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.buttons .wide{grid-column:1 / -1}
+.toast{min-height:1.4em;font-weight:700;font-size:.9rem;color:var(--accent);text-align:center}
+
+.saved{margin-top:26px}
+.saved-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.shelf{display:flex;gap:16px;overflow-x:auto;padding:16px 6px 12px;scrollbar-color:var(--accent) transparent}
+.thumb{flex:0 0 auto;display:flex;flex-direction:column;gap:8px;align-items:center}
+.thumb button.open{border:0;background:none;padding:0;cursor:pointer}
+.thumb button.open:hover .card{transform:translateY(-6px) scale(1.03)}
+.thumb .card{transition:transform .15s}
+.empty{color:var(--muted);padding:14px 0}
+
+/* ===== De kaart. Alles in em van de kaart (1em = 15px bij de voorbeeldmaat 300x430) ===== */
+.card{position:relative;width:20em;height:28.67em;font-size:var(--s,15px);font-family:var(--cardfont);color:var(--tx);flex:0 0 auto;filter:drop-shadow(0 .45em .7em rgba(0,0,0,.35))}
+.card .rim{position:absolute;inset:0;clip-path:url(#cardClip);background:linear-gradient(135deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,0) 32%,rgba(0,0,0,0) 52%,rgba(0,0,0,.45) 100%),var(--ac)}
+.card .shape{position:absolute;inset:0;clip-path:url(#cardInner);overflow:hidden;background:linear-gradient(180deg,rgba(0,0,0,0) 52%,rgba(0,0,0,.34) 100%),linear-gradient(170deg,var(--c1) 0%,var(--c2) 80%,var(--c2) 100%)}
+.card .swirl.fade{-webkit-mask-image:linear-gradient(#000 52%,transparent 86%);mask-image:linear-gradient(#000 52%,transparent 86%)}
+.card .shape::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 85% 38% at 50% 0%,rgba(255,255,255,.55),rgba(255,255,255,0) 72%),radial-gradient(circle at 55% 31%,var(--ac) 0%,rgba(255,255,255,0) 46%);opacity:.6}
+.card .shape::after{content:"";position:absolute;inset:0;background:linear-gradient(112deg,rgba(255,255,255,0) 22%,rgba(255,255,255,.36) 37%,rgba(255,255,255,.06) 45%,rgba(255,255,255,0) 50%,rgba(255,255,255,.18) 66%,rgba(255,255,255,0) 79%)}
+.card .swirl{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--ac);stroke-linecap:round}
+.card svg.edge{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--ac);z-index:6}
+.card .photo{position:absolute;left:3em;top:5.8em;width:14em;height:14.2em;z-index:2;-webkit-mask-image:radial-gradient(ellipse 64% 62% at 50% 44%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 64% 62% at 50% 44%,#000 58%,transparent 100%)}
+.card .photo.cut{-webkit-mask-image:linear-gradient(#000 80%,transparent 99%);mask-image:linear-gradient(#000 80%,transparent 99%)}
+.card .photo img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.card.top .rating{top:3.3em}
+.card.top .rating span{font-size:2.3em}
+.card.top .pos{top:6.5em}
+.card.top .pos span{font-size:1.05em}
+.card.top .photo{left:1.4em;top:2.6em;width:17.2em;height:16.6em}
+.card .photo.cut img{object-fit:contain;object-position:center bottom;filter:drop-shadow(0 .4em .6em rgba(0,0,0,.42))}
+.card .photo svg{width:100%;height:100%;fill:var(--tx);opacity:.3}
+/* boxen staan in kaart-em; de lettergrootte zit in het span erin */
+.card .rating,.card .pos,.card .name{position:absolute;display:flex;align-items:center;justify-content:center;z-index:4;white-space:nowrap}
+.card .rating{left:1em;width:4.2em;top:5.3em;height:3.4em}
+.card .rating span{font-size:2.55em;font-weight:800;line-height:1;text-shadow:0 .05em .12em rgba(0,0,0,.35)}
+.card .pos{left:1em;width:4.2em;top:8.6em;height:1.2em}
+.card .pos span{font-size:1.15em;font-weight:600;letter-spacing:.03em;line-height:1}
+.card .icons{position:absolute;left:.7em;top:12.35em;display:flex;flex-direction:column;z-index:4}
+.card .ico{position:relative;width:2.4em;height:2.3em;display:flex;align-items:center;justify-content:center}
+.card .ico::before{content:"";position:absolute;width:1.4em;height:1.4em;transform:rotate(45deg);border:.09em solid var(--ac);border-radius:.3em;background:rgba(0,0,0,.38)}
+.card .ico svg{position:relative;width:.85em;height:.85em;fill:none;stroke:var(--tx);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.card .badge{position:absolute;left:16.8em;top:16.5em;width:2.2em;height:2.8em;border:.09em solid var(--ac);border-radius:.4em;background:rgba(0,0,0,.38);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4em;line-height:1;z-index:4}
+.card .badge b{font-size:.85em;font-weight:700}
+.card .badge span{font-size:.75em;font-weight:600;white-space:nowrap}
+.card .name{left:3em;right:3em;top:17.9em;height:1.9em;overflow:hidden;text-shadow:0 .05em .3em rgba(0,0,0,.35)}
+.card .name span{font-weight:700;line-height:1.1}
+.card .stats{position:absolute;left:2.2em;right:2.2em;top:21.72em;display:grid;grid-template-columns:repeat(6,1fr);text-align:center;z-index:4}
+.card .stats .s{display:flex;flex-direction:column;align-items:center;gap:.18em}
+.card .stats span{font-size:.75em;font-weight:500;letter-spacing:.03em;opacity:.9;line-height:1}
+.card .stats b{font-size:1.4em;font-weight:800;line-height:1;text-shadow:0 .06em .12em rgba(0,0,0,.35)}
+.card .bottom{position:absolute;left:0;right:0;top:24.5em;height:2em;display:flex;justify-content:center;align-items:center;gap:.25em;z-index:4}
+.card .flag{width:2.2em;height:1.45em;border-radius:.12em;box-shadow:0 0 0 .06em rgba(0,0,0,.28)}
+.card .logo{width:2em;height:2em;object-fit:contain}
+.card .logo.ph{fill:none;stroke:var(--tx);stroke-width:1.4;stroke-linejoin:round;opacity:.55}
+.card .clubtxt{font-size:.7em;font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1.05;max-width:7em;overflow:hidden;white-space:nowrap}
+
+.card .label{position:absolute;left:3em;right:3em;top:2.75em;height:1.1em;display:flex;align-items:center;justify-content:center;z-index:4;white-space:nowrap;overflow:hidden}
+.card .label span{font-size:.6em;font-weight:700;letter-spacing:.18em;color:var(--tx);text-transform:uppercase;text-shadow:0 .05em .3em rgba(0,0,0,.35)}
+.types{max-height:440px;overflow-y:auto;padding:4px;border-radius:8px;display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;scrollbar-color:var(--accent) transparent}
+.typebtn{border:2px solid var(--line);border-radius:12px;background:rgba(255,255,255,.04);padding:8px 4px 7px;cursor:pointer;font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;transition:transform .12s,border-color .12s,box-shadow .12s}
+.typebtn:hover{border-color:rgba(200,220,255,.6);transform:translateY(-3px)}
+.typebtn[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 0 22px var(--glow)}
+.tprev{pointer-events:none;height:115px}
+details.panel>summary{font-family:var(--display);font-size:1.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;list-style:none;display:flex;align-items:center;gap:.5em}
+details.panel>summary::before{content:"";width:.28em;height:.95em;background:var(--accent);transform:skewX(-14deg);box-shadow:0 0 14px var(--glow);flex:0 0 auto}
+details.panel>summary::-webkit-details-marker{display:none}
+details.panel>summary::after{content:"+";margin-left:auto;font-size:2rem;line-height:1;color:var(--accent)}
+details.panel[open]>summary::after{content:"\2212"}
+details.panel>summary:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+details.panel[open]{gap:14px}
+.safe{background:rgba(255,196,0,.1);border:1.5px solid rgba(255,196,0,.45);border-radius:10px;padding:10px 12px;font-size:.9rem;margin:0;color:var(--ink)}
+.tcard{border-top:1.5px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.tcard h3{margin:0;font-family:var(--display);font-size:1.3rem;text-transform:uppercase;letter-spacing:.03em;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.tcard h3 b{color:var(--accent)}
+.tcard h3 small{font-family:var(--body);font-weight:700;text-transform:none;color:var(--muted);font-size:.85rem;letter-spacing:0}
+.tcard p{margin:0}
+.tcard ol{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:4px}
+.trow{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:12px;align-items:end}
+.tres{display:flex;flex-direction:column;align-items:center;font-size:.8rem;font-weight:700;color:var(--muted)}
+.tres b{font-family:var(--display);font-size:2.3rem;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+#printArea{display:none}
+@media (max-width:860px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .preview{position:static;order:-1}
+}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  @page{size:A4 portrait;margin:0}
+  html,body{background:#fff!important}
+  .app{display:none!important}
+  #printArea{display:block}
+  .page{width:210mm;height:297mm;display:flex;align-items:center;justify-content:center;break-after:page;overflow:hidden}
+  .page:last-child{break-after:auto}
+  .card{filter:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="eyebrow">Ontwerp · Test · Print</div>
+    <h1>Make Your Own Football Card</h1>
+    <p id="hdrP">Voeg je wedstrijden toe, kies wie welke kaart heeft verdiend en maak de kaarten.</p>
+  </header>
+
+  <div id="home">
+    <p class="note" id="demoNote" hidden><span>Dit is een voorbeeld met verzonnen namen. Pas het aan of begin met je eigen team.</span><button class="btn small" id="clearDemo" type="button">Begin met mijn eigen team</button></p>
+    <div class="homecta"><p>Wil je gewoon een los kaartje maken?</p><button class="btn" id="goMaker" type="button">Maak een losse kaart</button></div>
+    <div class="homegrid">
+      <section class="panel">
+        <h2>Wedstrijden</h2>
+        <p class="hint">Voeg een wedstrijd toe. Kies daarna per wedstrijd wie welke kaart heeft verdiend en druk op "Maak kaart".</p>
+        <form id="matchForm" class="row formrow" autocomplete="off">
+          <label for="mDate">Datum<input id="mDate" type="date"></label>
+          <label for="mOpp">Tegenstander<input id="mOpp" type="text" maxlength="30"></label>
+          <label for="mUs">Wij scoorden<input id="mUs" type="number" min="0" max="99" value="0"></label>
+          <label for="mThem">Zij scoorden<input id="mThem" type="number" min="0" max="99" value="0"></label>
+          <button class="btn main" type="submit">Wedstrijd toevoegen</button>
+        </form>
+        <p class="hint" id="homeMsg" role="status"></p>
+        <div id="matchList"></div>
+      </section>
+      <aside class="panel">
+        <h2>Mijn team</h2>
+        <form id="playerForm" class="stack" autocomplete="off">
+          <label for="pName">Naam van de speler<input id="pName" type="text" maxlength="18"></label>
+          <label for="pPos">Positie<select id="pPos"></select></label>
+          <button class="btn main" type="submit">Speler toevoegen</button>
+        </form>
+        <ul class="plist" id="playerList"></ul>
+      </aside>
+    </div>
+  </div>
+
+  <div id="maker" hidden>
+  <div class="backbar"><button class="btn small" id="backHome" type="button">← Voorpagina</button></div>
+
+  <div class="layout">
+    <div class="controls">
+      <nav class="stepper" id="stepper" aria-label="Stappen"></nav>
+      <div class="step" data-step="0">
+        <section class="panel">
+          <h2>Soort kaart</h2>
+          <div class="types" id="types" tabindex="0" aria-label="Soorten kaarten, scroll voor meer"></div>
+          <p class="hint" id="typeCount"></p>
+          <div class="row">
+            <label for="label">Tekst bovenaan de kaart<input id="label" type="text" maxlength="22" autocomplete="off"></label>
+            <label for="pat">Patroon op de achtergrond<select id="pat"></select></label>
+          </div>
+          <p class="hint">Kies een soort en pas daarna nog alles aan: de kleuren, het patroon en de tekst. Die staan hieronder ook los in te stellen.</p>
+        </section>
+
+        <section class="panel">
+          <h2>Kleuren aanpassen</h2>
+          <div class="presets" id="presets"></div>
+          <div class="colors">
+            <label for="c1">Kleur 1<input id="c1" type="color"></label>
+            <label for="c2">Kleur 2<input id="c2" type="color"></label>
+            <label for="tx">Letters<input id="tx" type="color"></label>
+            <label for="ac">Streepjes<input id="ac" type="color"></label>
+          </div>
+        </section>
+      </div>
+      <div class="step" data-step="1" hidden>
+        <section class="panel">
+          <h2>Speler</h2>
+          <div class="row">
+            <label for="name">Naam<input id="name" type="text" maxlength="18" autocomplete="off"></label>
+            <label for="pos">Positie<select id="pos"></select></label>
+            
+            <label for="flag">Land<select id="flag"></select></label>
+          </div>
+          
+          <div class="row">
+            <label class="check" for="auto"><input id="auto" type="checkbox" checked> Rating uitrekenen uit de stats</label>
+            <label for="rating">Rating<input id="rating" type="number" min="1" max="99"></label>
+          </div>
+        </section>
+      </div>
+      <div class="step" data-step="2" hidden>
+        <section class="panel">
+          <h2>Stats</h2>
+          <div id="statBox" style="display:flex;flex-direction:column;gap:10px"></div>
+        </section>
+
+        <details class="panel" id="testPanel">
+          <summary>Stats-test: wat zijn jouw echte stats?</summary>
+          <p class="safe"><strong>Veilig doen:</strong> begin met 5 minuten warming-up (rennen, springen, rekken). Stop als iets pijn doet. Doe de test op een veilige plek en vraag een ouder, trainer of vriend om de tijd bij te houden.</p>
+          <p class="hint">Doe de oefeningen en vul je resultaat in. Je stat komt dan meteen op je kaart te staan. Hoe sneller of hoe vaker, hoe hoger je stat. Je hoeft niet alles te doen. Wat je niet invult, blijft staan zoals het was.</p>
+          <div id="tests" style="display:flex;flex-direction:column;gap:16px"></div>
+        </details>
+      </div>
+      <div class="step" data-step="3" hidden>
+        <section class="panel">
+          <h2>Extra's op de kaart</h2>
+          <div class="row">
+            <label for="ic0">Eigenschap 1<select id="ic0"></select></label>
+            <label for="ic1">Eigenschap 2<select id="ic1"></select></label>
+            <label for="ic2">Eigenschap 3<select id="ic2"></select></label>
+          </div>
+          <div class="row">
+            <label class="check" for="badge"><input id="badge" type="checkbox"> Badge rechts tonen</label>
+            <label for="rar">Letter in badge<input id="rar" type="text" maxlength="2" autocomplete="off"></label>
+            <label for="wf">Zwakke voet (1-5)<input id="wf" type="number" min="1" max="5"></label>
+            <label for="sm">Trucjes (1-5)<input id="sm" type="number" min="1" max="5"></label>
+          </div>
+        </section>
+      </div>
+      <div class="step" data-step="4" hidden>
+        <section class="panel">
+          <h2>Foto's en logo's</h2>
+          <div class="row">
+            <div class="file"><label for="photo">Foto of tekening van de speler</label><input id="photo" type="file" accept="image/*"><button class="btn small" id="clearPhoto" type="button">Foto weghalen</button></div>
+            <div class="file"><label for="logo">Clublogo (komt onderaan, bij waar je speelt)</label><input id="logo" type="file" accept="image/*"><button class="btn small" id="clearLogo" type="button">Logo weghalen</button></div>
+            <div class="file"><label for="logo2">Logo van de competitie (mag ook leeg)</label><input id="logo2" type="file" accept="image/*"><button class="btn small" id="clearLogo2" type="button">Logo weghalen</button></div>
+          </div>
+          <label class="check" for="cutout"><input id="cutout" type="checkbox"> Mijn foto heeft geen achtergrond (doorzichtige png)</label>
+          <p class="hint">Tip: een png-foto van alleen de speler, zonder achtergrond, ziet er het echtst uit. Zet dan het vinkje aan. Een gewone foto wordt aan de randen zacht vervaagd.</p>
+        </section>
+      </div>
+      <div class="stepnav"><button class="btn" id="stepBack" type="button">Terug</button><button class="btn main" id="stepNext" type="button">Volgende</button></div>
+    </div>
+
+    <aside class="preview">
+      <div class="stage"><div id="cardMount"></div></div>
+      <div class="buttons">
+        <button class="btn main wide" id="printOne" type="button">Print deze kaart</button>
+        <button class="btn" id="save" type="button">Opslaan</button>
+        <button class="btn" id="fresh" type="button">Nieuwe kaart</button>
+      </div>
+      <div class="toast" id="toast" role="status"></div>
+    </aside>
+  </div>
+
+  <section class="saved panel">
+    <div class="saved-head">
+      <h2>Mijn kaarten</h2>
+      <button class="btn" id="printAll" type="button">Print alle kaarten (1 per pagina)</button>
+    </div>
+    <div class="shelf" id="shelf"></div>
+  </section>
+  </div>
+</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="cardClip" clipPathUnits="objectBoundingBox"><path d="M0.5,0 C0.65,0.04 0.85,0.075 1,0.075 L1,0.19 L0.975,0.215 L1,0.242 L1,0.86 C1,0.9 0.98,0.93 0.93,0.95 L0.56,0.995 Q0.5,1 0.44,0.995 L0.07,0.95 C0.02,0.93 0,0.9 0,0.86 L0,0.242 L0.025,0.215 L0,0.19 L0,0.075 C0.15,0.075 0.35,0.04 0.5,0 Z"/></clipPath><clipPath id="cardInner" clipPathUnits="objectBoundingBox"><path transform="translate(.5 .5) scale(.955 .96) translate(-.5 -.5)" d="M0.5,0 C0.65,0.04 0.85,0.075 1,0.075 L1,0.19 L0.975,0.215 L1,0.242 L1,0.86 C1,0.9 0.98,0.93 0.93,0.95 L0.56,0.995 Q0.5,1 0.44,0.995 L0.07,0.95 C0.02,0.93 0,0.9 0,0.86 L0,0.242 L0.025,0.215 L0,0.19 L0,0.075 C0.15,0.075 0.35,0.04 0.5,0 Z"/></clipPath></defs></svg>
+<div id="printArea"></div>
+
+<script>
+(function(){
+  var STATS=[['PAC','Pace'],['SHO','Shooting'],['PAS','Passing'],['DRI','Dribbling'],['DEF','Defending'],['PHY','Physical']];
+  var FLAGS={
+    '':{n:'Geen vlag'},
+    NL:{n:'Nederland',bg:'linear-gradient(#ae1c28 33.3%,#fff 33.3% 66.6%,#21468b 66.6%)'},
+    BE:{n:'België',bg:'linear-gradient(90deg,#111 33.3%,#fae042 33.3% 66.6%,#ed2939 66.6%)'},
+    DE:{n:'Duitsland',bg:'linear-gradient(#111 33.3%,#dd0000 33.3% 66.6%,#ffce00 66.6%)'},
+    FR:{n:'Frankrijk',bg:'linear-gradient(90deg,#0055a4 33.3%,#fff 33.3% 66.6%,#ef4135 66.6%)'},
+    IT:{n:'Italië',bg:'linear-gradient(90deg,#009246 33.3%,#fff 33.3% 66.6%,#ce2b37 66.6%)'},
+    ES:{n:'Spanje',bg:'linear-gradient(#aa151b 25%,#f1bf00 25% 75%,#aa151b 75%)'},
+    PL:{n:'Polen',bg:'linear-gradient(#fff 50%,#dc143c 50%)'},
+    UA:{n:'Oekraïne',bg:'linear-gradient(#0057b7 50%,#ffd700 50%)'},
+    AT:{n:'Oostenrijk',bg:'linear-gradient(#ed2939 33.3%,#fff 33.3% 66.6%,#ed2939 66.6%)'}
+  };
+  var POSITIONS=[
+    ['Keeper',[['GK','Keeper']]],
+    ['Verdediging',[['CB','Centrale verdediger'],['LB','Linksback'],['RB','Rechtsback'],['LWB','Linker wingback'],['RWB','Rechter wingback']]],
+    ['Middenveld',[['CDM','Verdedigende middenvelder'],['CM','Middenvelder'],['CAM','Aanvallende middenvelder'],['LM','Linksmidden'],['RM','Rechtsmidden']]],
+    ['Aanval',[['LW','Linksbuiten'],['RW','Rechtsbuiten'],['CF','Hangende spits'],['ST','Spits']]]
+  ];
+  var PRESETS=[
+    {n:'Bordeaux',c1:'#c4283a',c2:'#4a0713',tx:'#fff3df',ac:'#ffcf8a'},
+    {n:'Goud',c1:'#f7d874',c2:'#b9862c',tx:'#3b2a06',ac:'#fff1b8'},
+    {n:'Zilver',c1:'#eceff3',c2:'#8d97a6',tx:'#1f2733',ac:'#ffffff'},
+    {n:'Brons',c1:'#e0a373',c2:'#8a4b22',tx:'#2f1707',ac:'#ffd9b8'},
+    {n:'Zwart',c1:'#34343f',c2:'#0b0b10',tx:'#f4f4f4',ac:'#ffd24a'},
+    {n:'Oranje',c1:'#ff9a2e',c2:'#d83a00',tx:'#ffffff',ac:'#ffe2b8'},
+    {n:'Blauw',c1:'#3d8bff',c2:'#0a2a7a',tx:'#ffffff',ac:'#bfe0ff'},
+    {n:'Groen',c1:'#3fcf6e',c2:'#0b6b34',tx:'#ffffff',ac:'#d4ffd9'},
+    {n:'Roze',c1:'#ff7ac2',c2:'#a1155f',tx:'#ffffff',ac:'#ffd3ec'},
+    {n:'Icon',c1:'#fdf7e6',c2:'#d4bb7c',tx:'#5a4310',ac:'#b8902b'},
+    {n:'Neon',c1:'#21e6b8',c2:'#0a2f6b',tx:'#ffffff',ac:'#b8fff0'},
+    {n:'Paars',c1:'#9b6bff',c2:'#2a0f6b',tx:'#ffffff',ac:'#e0d0ff'}
+  ];
+  var TYPES=[
+    {k:'brons',n:'Bronze',c1:'#e0a373',c2:'#8a4b22',tx:'#2f1707',ac:'#ffd9b8',pat:'none',label:'',rar:''},
+    {k:'zilver',n:'Silver',c1:'#eceff3',c2:'#8d97a6',tx:'#1f2733',ac:'#ffffff',pat:'none',label:'',rar:''},
+    {k:'goud',n:'Gold',c1:'#f7d874',c2:'#b9862c',tx:'#3b2a06',ac:'#fff1b8',pat:'rays',label:'',rar:'R'},
+    {k:'tvdm',n:'Team of the Month',c1:'#19b6ff',c2:'#07235e',tx:'#ffffff',ac:'#9fffee',pat:'rays',label:'Team of the Month',rar:'T'},
+    {k:'jaar',n:'Year Award',c1:'#c4283a',c2:'#4a0713',tx:'#fff3df',ac:'#ffcf8a',pat:'swirl',label:'Year Award',rar:'Y'},
+    {k:'held',n:'Hero',c1:'#ffb02e',c2:'#a01d93',tx:'#ffffff',ac:'#f4b9ff',pat:'burst',label:'',rar:'H',icons:['','',''],badge:false,layout:'top'},
+    {k:'legende',n:'Legend',c1:'#fdf7e6',c2:'#d4bb7c',tx:'#5a4310',ac:'#b8902b',pat:'dots',label:'Legend',rar:'L'},
+    {k:'toernooi',n:'Tournament',c1:'#1fe08a',c2:'#04382f',tx:'#ffffff',ac:'#c9ff3d',pat:'wave',label:'Tournament',rar:'T'},
+    {k:'zwart',n:'Black',c1:'#3a3a46',c2:'#07070b',tx:'#f6f6f6',ac:'#ffc93c',pat:'stripes',label:'Special',rar:'S'},
+    {k:'winter',n:'Winter',c1:'#eaf6ff',c2:'#4a86c8',tx:'#0d2748',ac:'#2a6fb8',pat:'sparkle',label:'Winter',rar:'W'},
+    {k:'zomer',n:'Summer',c1:'#ffd23f',c2:'#ff4f81',tx:'#3b0b2a',ac:'#fff6c2',pat:'wave',label:'Summer',rar:'S'},
+    {k:'neon',n:'Neon Night',c1:'#ff2bd6',c2:'#12063d',tx:'#ffffff',ac:'#36f3ff',pat:'stripes',label:'Neon Night',rar:'N'},
+    {k:'tvhj',n:'Team of the Year',c1:'#1b3a8a',c2:'#050d2e',tx:'#ffffff',ac:'#f3c94a',pat:'rays',label:'Team of the Year',rar:'T'},
+    {k:'mvdw',n:'Man of the Match',c1:'#ff7a18',c2:'#7a1d00',tx:'#ffffff',ac:'#ffe08a',pat:'stripes',label:'Man of the Match',rar:'M'},
+    {k:'topscorer',n:'Top Scorer',c1:'#ffe259',c2:'#ff5f2e',tx:'#2b0d00',ac:'#ffffff',pat:'rays',label:'Top Scorer',rar:'S'},
+    {k:'talent',n:'Talent',c1:'#7cf0c9',c2:'#0b5a73',tx:'#ffffff',ac:'#e8fff7',pat:'dots',label:'Talent',rar:'T'},
+    {k:'kampioen',n:'Champion',c1:'#ffd700',c2:'#7a1010',tx:'#2a0a0a',ac:'#fff4b0',pat:'sparkle',label:'Champion',rar:'C'},
+    {k:'keeper',n:'Goalkeeper',c1:'#7ed321',c2:'#0b3d0b',tx:'#ffffff',ac:'#eaff9b',pat:'stripes',label:'Goalkeeper',rar:'G'},
+    {k:'verjaardag',n:'Birthday',c1:'#ff9de6',c2:'#6a2bd9',tx:'#ffffff',ac:'#fff3a8',pat:'sparkle',label:'Birthday',rar:'B'},
+    {k:'teamgenoot',n:'Teammate',c1:'#2fd1c5',c2:'#0b3c5d',tx:'#ffffff',ac:'#d2fff9',pat:'circles',label:'Teammate',rar:'T'},
+    {k:'oranje',n:'Orange',c1:'#ff7f1a',c2:'#b02a00',tx:'#ffffff',ac:'#ffe0b0',pat:'swirl',label:'Orange',rar:'O'},
+    {k:'lava',n:'Lava',c1:'#ff5a1f',c2:'#2b0505',tx:'#ffffff',ac:'#ffd36b',pat:'rays',label:'Lava',rar:'L'},
+    {k:'diamant',n:'Diamond',c1:'#e8fbff',c2:'#6bb6e8',tx:'#0b2a45',ac:'#2b7bbf',pat:'diamonds',label:'Diamond',rar:'D'},
+    {k:'regenboog',n:'Rainbow',c1:'#ff4fa3',c2:'#3a7bff',tx:'#ffffff',ac:'#ffee58',pat:'swirl',label:'Rainbow',rar:'R'},
+    {k:'nacht',n:'Night Match',c1:'#2a3b6b',c2:'#05060f',tx:'#ffffff',ac:'#7df9ff',pat:'circles',label:'Night Match',rar:'N'},
+    {k:'retro',n:'Retro',c1:'#f5e6c8',c2:'#a3622b',tx:'#3a1d08',ac:'#7a3b12',pat:'diamonds',label:'Retro',rar:'R'},
+    {k:'rookie',n:'Rookie',c1:'#3dbb5a',c2:'#0b3d1c',tx:'#ffffff',ac:'#d7ff9a',pat:'dots',label:'Rookie',rar:'R'},
+    {k:'captain',n:'Captain',c1:'#1f4fb0',c2:'#07163a',tx:'#ffffff',ac:'#ffd54a',pat:'stripes',label:'Captain',rar:'C'},
+    {k:'wonderkid',n:'Wonderkid',c1:'#3de0ff',c2:'#7a2bd8',tx:'#ffffff',ac:'#ffe14d',pat:'confetti',label:'Wonderkid',rar:'W'},
+    {k:'fire',n:'Fire',c1:'#ff7a1a',c2:'#6b0a0a',tx:'#ffffff',ac:'#ffd966',pat:'flames',label:'Fire',rar:'F'},
+    {k:'ice',n:'Ice',c1:'#7fd0ff',c2:'#1b4f9c',tx:'#ffffff',ac:'#e6f8ff',pat:'hex',label:'Ice',rar:'I'},
+    {k:'thunder',n:'Thunder',c1:'#ffa400',c2:'#1b1b5a',tx:'#ffffff',ac:'#fff1a8',pat:'bolts',label:'Thunder',rar:'T'},
+    {k:'galaxy',n:'Galaxy',c1:'#5b2bd0',c2:'#05020f',tx:'#ffffff',ac:'#b9a4ff',pat:'sparkle',label:'Galaxy',rar:'G'},
+    {k:'platinum',n:'Platinum',c1:'#8fa6bd',c2:'#1f2c3d',tx:'#ffffff',ac:'#e8f3ff',pat:'hex',label:'Platinum',rar:'P'},
+    {k:'derby',n:'Derby',c1:'#e0242e',c2:'#1a0406',tx:'#ffffff',ac:'#ffffff',pat:'checks',label:'Derby',rar:'D'},
+    {k:'cupwinner',n:'Cup Winner',c1:'#f2c230',c2:'#123a8c',tx:'#ffffff',ac:'#fff4c0',pat:'rays',label:'Cup Winner',rar:'C'},
+    {k:'halloween',n:'Halloween',c1:'#ff7a00',c2:'#1b0b2e',tx:'#ffffff',ac:'#ffd08a',pat:'bolts',label:'Halloween',rar:'H'},
+    {k:'christmas',n:'Christmas',c1:'#d62839',c2:'#0c4a2a',tx:'#ffffff',ac:'#ffe9a8',pat:'sparkle',label:'Christmas',rar:'X'},
+    {k:'carnival',n:'Carnival',c1:'#ff9f1c',c2:'#7b1fa2',tx:'#ffffff',ac:'#fff176',pat:'confetti',label:'Carnival',rar:'C'},
+    {k:'street',n:'Street',c1:'#e6b800',c2:'#0a0a0a',tx:'#ffffff',ac:'#ffe14d',pat:'stripes',label:'Street',rar:'S'},
+    {k:'candy',n:'Candy',c1:'#ff8fd8',c2:'#8e44ec',tx:'#ffffff',ac:'#fff2fb',pat:'dots',label:'Candy',rar:'C'},
+    {k:'ocean',n:'Ocean',c1:'#19c3d6',c2:'#052c5e',tx:'#ffffff',ac:'#b9f5ff',pat:'wave',label:'Ocean',rar:'O'}
+  ];
+  var PATNAMES={swirl:'Golven',rays:'Straling',stripes:'Strepen',dots:'Stippen',sparkle:'Sterretjes',burst:'Stripverhaal',hex:'Zeshoeken',bolts:'Bliksems',flames:'Vlammen',confetti:'Confetti',checks:'Schaakbord',wave:'Golflijnen',circles:'Cirkels',diamonds:'Ruiten',none:'Geen'};
+  var TESTS=[
+    {abbr:'PAC',name:'Pace',title:'Sprint van 30 meter',unit:'seconden',ask:'Je beste tijd',
+     need:'Een stopwatch (de telefoon kan ook), 2 pionnen of schoenen en 30 meter vrije ruimte.',
+     steps:['Zet de twee pionnen 30 meter uit elkaar (ongeveer 35 grote stappen).','Jij staat bij de eerste pion. Iemand anders staat bij de tweede pion met de stopwatch.','Bij "Af!" ren je zo hard als je kunt naar de tweede pion.','De tijd stopt als je de tweede pion voorbij bent.'],
+     tip:'Doe het twee keer met rust ertussen en vul je beste tijd in.',
+     table:[[3.8,97],[4.2,88],[4.6,77],[5.0,66],[5.5,54],[6.0,42],[7.0,26],[9.0,8]]},
+    {abbr:'SHO',name:'Shooting',title:'10 schoten op het doel',unit:'keer in de hoek',ask:'Hoe vaak raak?',
+     need:'Een bal, een doel en 4 pionnen, handdoeken of schoenen.',
+     steps:['Leg de bal op 11 meter van het doel (ongeveer 12 grote stappen).','Leg in elke hoek van het doel een pion of handdoek. Het doel is een stuk van 1 meter bij de paal en de lat.','Schiet 10 keer met je beste been.','Tel hoe vaak de bal in zo\'n hoek komt. Een schot ernaast of te laag telt niet.'],
+     tip:'Heb je geen doel? Zet 2 pionnen 3 meter uit elkaar en tel hoe vaak je er tussendoor schiet, vanaf 8 meter.',
+     table:[[0,15],[2,30],[4,46],[6,62],[8,79],[10,95]]},
+    {abbr:'PAS',name:'Passing',title:'10 passes naar een doeltje',unit:'keer raak',ask:'Hoe vaak raak?',
+     need:'Een bal en 2 pionnen of schoenen.',
+     steps:['Zet de 2 pionnen 1 meter uit elkaar. Dat is het doeltje.','Ga op 10 meter afstand staan (ongeveer 12 grote stappen).','Geef 10 passes met de binnenkant van je voet, langs de grond.','Tel hoe vaak de bal precies tussen de pionnen door rolt.'],
+     tip:'Het gaat om precies mikken, niet om hard schieten. Neem de bal steeds rustig aan.',
+     table:[[0,15],[2,30],[4,46],[6,62],[8,78],[10,94]]},
+    {abbr:'DRI',name:'Dribbling',title:'Slalom heen en terug',unit:'seconden',ask:'Je tijd, met straf erbij',
+     need:'Een bal, 6 pionnen of flessen en een stopwatch.',
+     steps:['Zet de 6 pionnen in een rij, elk 1,5 meter uit elkaar (ongeveer 2 stappen).','Dribbel met de bal om de pionnen heen, van de eerste tot de laatste.','Draai om en dribbel terug naar het begin. De tijd stopt bij de eerste pion.','Raak je een pion aan of ben je de bal kwijt? Dan krijg je 1 seconde straf per keer. Tel die erbij op.'],
+     tip:'Hou de bal dicht bij je voet. Sneller met een bal die je niet kwijtraakt.',
+     table:[[9,96],[11,86],[13,74],[15,62],[18,47],[22,30],[30,10]]},
+    {abbr:'DEF',name:'Defending',title:'Zijwaarts schuifelen',unit:'keer aangetikt',ask:'Hoe vaak aangetikt?',
+     need:'2 pionnen of schoenen en een stopwatch.',
+     steps:['Zet de 2 pionnen 5 meter uit elkaar.','Ga laag staan met gebogen knieën, zoals een verdediger.','Schuifel zijwaarts van de ene pion naar de andere en tik hem aan met je hand. Kruis je voeten niet.','Draai niet om: schuifel gewoon weer terug. Doe dit 30 seconden en tel hoe vaak je een pion aantikt.'],
+     tip:'Blijf laag staan. Wie rechtop gaat staan, is langzamer.',
+     table:[[4,20],[6,36],[8,52],[10,66],[12,78],[14,89],[16,97]]},
+    {abbr:'PHY',name:'Physical',title:'Plank houden',unit:'seconden',ask:'Hoe lang volgehouden?',
+     need:'Een zachte ondergrond (mat of gras) en een stopwatch.',
+     steps:['Ga op je onderarmen en je tenen liggen, met je ellebogen onder je schouders.','Houd je rug recht en span je buik aan. Je lichaam is een rechte lijn.','Houd dit zo lang mogelijk vol. Iemand anders neemt de tijd op.','Stop zodra je rug doorzakt of als het pijn doet. Dat is je tijd.'],
+     tip:'Adem rustig door en kijk naar de grond.',
+     table:[[10,20],[20,34],[30,48],[45,63],[60,76],[90,89],[120,97]]}
+  ];
+  function interp(t,x){var T=t.table;if(x<=T[0][0])return T[0][1];for(var i=1;i<T.length;i++){if(x<=T[i][0]){var a=T[i-1],b=T[i];return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0])}}return T[T.length-1][1]}
+  function testScore(i,v){var x=parseFloat(v);if(isNaN(x)||x<0)return null;return clamp(Math.round(interp(TESTS[i],x)),1,99)}
+  function updateTestRes(i){var sc=testScore(i,$('tv'+i).value);$('tr'+i).textContent=sc===null?'\u2013':sc}
+  var KEY='voetbalkaart-maker-kaarten';
+
+  function blank(){
+    return {id:null,type:'jaar',pat:'swirl',label:'Year Award',name:'Jouw naam',pos:'ST',club:'Mijn club',flag:'NL',auto:true,rating:75,
+      test:['','','','','',''],stats:[82,78,74,85,45,68],c1:'#c4283a',c2:'#4a0713',tx:'#fff3df',ac:'#ffcf8a',photo:'',logo:'',logo2:'',icons:['bolt','target','shield'],badge:true,rarity:'R',wf:3,sm:4};
+  }
+  var state=blank();
+  var saved=[];
+
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function clamp(n,a,b){n=parseInt(n,10);if(isNaN(n))n=a;return Math.max(a,Math.min(b,n))}
+  function avg(st){var t=0;for(var i=0;i<st.length;i++)t+=st[i];return Math.round(t/st.length)}
+
+  var SILHOUETTE='<svg viewBox="0 0 120 140" aria-hidden="true"><ellipse cx="60" cy="36" rx="20" ry="25"/><path d="M47 58h26v13c15 3 37 10 41 28l3 41H3l3-41c4-18 26-25 41-28z"/></svg>';
+
+  var ICONS={
+    bolt:'<path d="M13 2.5 5 13.5h6l-1 8 8-11h-6z"/>',
+    target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/>',
+    shield:'<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/>',
+    star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+    ball:'<circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/>'
+  };
+  var ICONNAMES={'':'Geen',bolt:'Bliksem',target:'Schietogen',shield:'Schild',star:'Ster',ball:'Bal'};
+  var EDGE='M100,0 C130,11.7 170,22 200,22 L200,55 L195,63 L200,71 L200,252 C200,263.7 196,272.5 186,278 L112,291 Q100,293 88,291 L14,278 C4,272.5 0,263.7 0,252 L0,71 L5,63 L0,55 L0,22 C30,22 70,11.7 100,0 Z';
+
+  var PATCACHE={};
+  function patSVG(key){
+    if(key===undefined||key===null||key==='')key='swirl';
+    if(PATCACHE[key]!==undefined)return PATCACHE[key];
+    var o='',i,f=function(n){return n.toFixed(1)};
+    if(key==='swirl'){
+      o='<path d="M-20,262 C30,176 96,214 140,128 S196,44 232,8" stroke-width="40" opacity=".2"/>'+
+        '<path d="M-20,196 C46,166 112,132 152,70 S196,26 224,0" stroke-width="14" opacity=".32"/>'+
+        '<path d="M20,300 C84,236 154,246 214,150" stroke-width="26" opacity=".16"/>'+
+        '<ellipse cx="146" cy="92" rx="94" ry="62" stroke-width="3" opacity=".25" transform="rotate(-30 146 92)"/>';
+    }else if(key==='rays'){
+      for(i=0;i<18;i++){
+        var a1=(i*20-4)*Math.PI/180,a2=(i*20+4)*Math.PI/180,r=340;
+        o+='<path style="fill:var(--ac);stroke:none" opacity=".17" d="M100,100 L'+f(100+r*Math.cos(a1))+','+f(100+r*Math.sin(a1))+' L'+f(100+r*Math.cos(a2))+','+f(100+r*Math.sin(a2))+'Z"/>';
+      }
+    }else if(key==='stripes'){
+      for(i=-3;i<9;i++){o+='<path d="M'+(i*30)+',300 L'+(i*30+170)+',-10" stroke-width="'+(i%3===0?12:5)+'" opacity=".2"/>'}
+    }else if(key==='dots'){
+      for(var y=8,row=0;y<292;y+=13,row++){
+        for(var x=(row%2?6:0);x<206;x+=13){
+          var d=Math.sqrt((x-100)*(x-100)+(y-110)*(y-110)),rr=3.3-d/58;
+          if(rr>0.5)o+='<circle style="fill:var(--ac);stroke:none" opacity=".3" cx="'+x+'" cy="'+y+'" r="'+f(rr)+'"/>';
+        }
+      }
+    }else if(key==='sparkle'){
+      var P=[[30,40,9],[165,32,12],[62,92,6],[178,112,8],[22,150,7],[152,192,6],[48,216,10],[172,238,7],[112,58,5],[88,24,6],[138,142,5],[15,252,6],[124,262,8]];
+      P.forEach(function(q){var x=q[0],y=q[1],z=q[2];
+        o+='<path style="fill:var(--ac);stroke:none" opacity=".5" d="M'+x+','+(y-z)+' Q'+x+','+y+' '+(x+z)+','+y+' Q'+x+','+y+' '+x+','+(y+z)+' Q'+x+','+y+' '+(x-z)+','+y+' Q'+x+','+y+' '+x+','+(y-z)+'Z"/>';});
+    }else if(key==='burst'){
+      for(i=0;i<24;i++){
+        var b1=(i*15-3.2)*Math.PI/180,b2=(i*15+3.2)*Math.PI/180,R=360,cc=(i%2?'#fff4a8':'#ff8a1f');
+        o+='<path style="fill:'+cc+';stroke:none" opacity="'+(i%2?'.42':'.34')+'" d="M100,92 L'+f(100+R*Math.cos(b1))+','+f(92+R*Math.sin(b1))+' L'+f(100+R*Math.cos(b2))+','+f(92+R*Math.sin(b2))+'Z"/>';
+      }
+      o+='<ellipse style="fill:#fff;stroke:none" opacity=".55" cx="34" cy="140" rx="27" ry="17" transform="rotate(-14 34 140)"/>'+
+         '<ellipse style="fill:#fff;stroke:none" opacity=".4" cx="168" cy="150" rx="22" ry="13" transform="rotate(18 168 150)"/>'+
+         '<path style="fill:#fff;stroke:none" opacity=".6" d="M152,34 L128,88 L145,88 L133,128 L172,70 L153,70Z"/>';
+    }else if(key==='hex'){
+      for(var hj=0;hj<14;hj++){for(var hi=0;hi<9;hi++){
+        var hr=17,hw=hr*1.732,hx=hi*hw+(hj%2?hw/2:0)-4,hy=hj*hr*1.5-4,pts=[];
+        for(var hk=0;hk<6;hk++){var ha=(60*hk+30)*Math.PI/180;pts.push(f(hx+hr*Math.cos(ha))+','+f(hy+hr*Math.sin(ha)))}
+        o+='<path d="M'+pts.join(' L')+'Z" stroke-width="1.5" opacity=".28"/>';
+      }}
+    }else if(key==='bolts'){
+      [[40,60,1.2,-12],[160,45,1.5,10],[150,160,1,-8],[30,190,1.4,14],[100,235,1.1,0],[175,250,.9,-14]].forEach(function(q){
+        o+='<path style="fill:var(--ac);stroke:none" opacity=".3" transform="translate('+q[0]+' '+q[1]+') rotate('+q[3]+') scale('+q[2]+')" d="M0,-18 L-9,2 L-1,2 L-5,18 L10,-4 L2,-4Z"/>';
+      });
+    }else if(key==='flames'){
+      [[18,296,2.3,.34],[62,300,3.1,.3],[112,296,2.7,.34],[160,300,3,.3],[196,296,2.2,.34],[40,222,1.1,.18],[150,202,1.3,.18]].forEach(function(q){
+        o+='<path style="fill:var(--ac);stroke:none" opacity="'+q[3]+'" transform="translate('+q[0]+' '+q[1]+') scale('+q[2]+')" d="M0,0 C-14,-22 -6,-34 -8,-52 C4,-40 12,-30 8,-14 C14,-20 16,-30 14,-38 C26,-20 20,-6 0,0Z"/>';
+      });
+    }else if(key==='confetti'){
+      var seed=7,cols=['#ffffff','var(--ac)','#ffd54a','#4dd0e1','#ff6e9c'];
+      var rnd=function(){seed=(seed*9301+49297)%233280;return seed/233280};
+      for(i=0;i<46;i++){var cx=rnd()*200,cy=rnd()*260,cw=4+rnd()*6,ch=2+rnd()*3,ca=rnd()*180;
+        o+='<rect style="fill:'+cols[i%5]+';stroke:none" opacity=".62" x="'+f(cx)+'" y="'+f(cy)+'" width="'+f(cw)+'" height="'+f(ch)+'" transform="rotate('+f(ca)+' '+f(cx)+' '+f(cy)+')"/>';
+      }
+    }else if(key==='checks'){
+      for(var ky=0;ky<12;ky++){for(var kx=0;kx<8;kx++){if((kx+ky)%2===0)o+='<rect style="fill:var(--ac);stroke:none" opacity=".14" x="'+(kx*25)+'" y="'+(ky*25)+'" width="25" height="25"/>'}}
+    }else if(key==='circles'){
+      for(i=1;i<12;i++){o+='<circle cx="190" cy="40" r="'+(i*30)+'" stroke-width="'+(i%3===0?7:2.5)+'" opacity=".22"/>'}
+    }else if(key==='diamonds'){
+      for(var dy=0,dr=0;dy<310;dy+=34,dr++){for(var dx=(dr%2?17:0);dx<220;dx+=34){o+='<path d="M'+dx+','+(dy-14)+' L'+(dx+14)+','+dy+' L'+dx+','+(dy+14)+' L'+(dx-14)+','+dy+'Z" stroke-width="2" opacity=".24"/>'}}
+    }else if(key==='wave'){
+      for(i=0;i<6;i++){var yy=40+i*45;o+='<path d="M-10,'+yy+' Q25,'+(yy-20)+' 60,'+yy+' T130,'+yy+' T200,'+yy+' T270,'+yy+'" stroke-width="'+(i%2?5:10)+'" opacity=".2"/>'}
+    }
+    PATCACHE[key]=o;return o;
+  }
+
+  function cardHTML(c){
+    var rating=c.auto?avg(c.stats):clamp(c.rating,1,99);
+    var nm=(c.name||'').trim();
+    var nsize=nm.length>14?1.15:nm.length>11?1.3:nm.length>8?1.5:1.68;
+    var flag=FLAGS[c.flag]&&FLAGS[c.flag].bg?'<div class="flag" style="background:'+FLAGS[c.flag].bg+'"></div>':'';
+    var l1=c.logo?'<img class="logo" alt="" src="'+c.logo+'">':'<svg class="logo ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>';
+    var l2=c.logo2?'<img class="logo" alt="" src="'+c.logo2+'">':'';
+    var bottom=(flag||l2||l1)?'<div class="bottom">'+flag+l2+l1+'</div>':'';
+    var ic=c.icons||[],icons='';
+    for(var k=0;k<3;k++){if(ic[k]&&ICONS[ic[k]]){icons+='<div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS[ic[k]]+'</svg></div>'}}
+    if(icons)icons='<div class="icons">'+icons+'</div>';
+    var badge=c.badge===true?'<div class="badge">'+(c.rarity?'<b>'+esc(c.rarity)+'</b>':'')+'<span>'+clamp(c.wf||3,1,5)+'·'+clamp(c.sm||3,1,5)+'</span></div>':'';
+    var photo=c.photo?'<img alt="" src="'+c.photo+'">':SILHOUETTE;
+    var stats='';
+    for(var i=0;i<STATS.length;i++){stats+='<div class="s"><span>'+STATS[i][0]+'</span><b>'+clamp(c.stats[i],1,99)+'</b></div>'}
+    return '<div class="card'+(c.layout==='top'?' top':'')+'" style="--c1:'+c.c1+';--c2:'+c.c2+';--tx:'+c.tx+';--ac:'+c.ac+'">'+
+      '<div class="rim"></div><div class="shape"><svg class="swirl'+(c.pat==='burst'?' fade':'')+'" viewBox="0 0 200 293" preserveAspectRatio="none" aria-hidden="true">'+patSVG(c.pat)+'</svg></div>'+
+      '<div class="photo'+(c.cutout===true?' cut':'')+'">'+photo+'</div>'+
+      '<svg class="edge" viewBox="0 0 200 293" preserveAspectRatio="none" aria-hidden="true">'+
+        '<path transform="translate(100 146.5) scale(.995 .996) translate(-100 -146.5)" stroke="rgba(0,0,0,.4)" stroke-width="1.4" d="'+EDGE+'"/>'+
+        '<path transform="translate(100 146.5) scale(.955 .96) translate(-100 -146.5)" stroke="rgba(0,0,0,.45)" stroke-width="1.8" d="'+EDGE+'"/>'+
+        '<path transform="translate(100 146.5) scale(.935 .94) translate(-100 -146.5)" stroke-width=".9" opacity=".75" d="'+EDGE+'"/></svg>'+
+      '<div class="rating"><span>'+rating+'</span></div>'+
+      '<div class="pos"><span>'+esc((c.pos||'').toUpperCase())+'</span></div>'+
+      (c.label?'<div class="label"><span>'+esc(c.label)+'</span></div>':'')+
+      icons+badge+
+      '<div class="name"><span style="font-size:'+nsize+'em">'+esc(nm)+'</span></div>'+
+      '<div class="stats">'+stats+'</div>'+
+      bottom+
+    '</div>';
+  }
+
+  function toast(msg){var t=$('toast');t.textContent=msg;clearTimeout(toast.t);toast.t=setTimeout(function(){t.textContent=''},3500)}
+
+  function renderCard(){
+    $('cardMount').innerHTML='<div class="tilt" style="--s:15px">'+cardHTML(state)+'<div class="glare"></div></div>';
+    $('rating').disabled=state.auto;
+    if(state.auto){$('rating').value=avg(state.stats)}
+  }
+
+  function syncForm(){
+    $('name').value=state.name;
+    (function(){var ps=$('pos'),v=state.pos||'ST',found=false;for(var o=0;o<ps.options.length;o++){if(ps.options[o].value===v)found=true}
+      var old=ps.querySelector('option[data-extra]');if(old)old.remove();
+      if(!found){var ex=document.createElement('option');ex.value=v;ex.textContent=v;ex.setAttribute('data-extra','1');ps.insertBefore(ex,ps.firstChild)}
+      ps.value=v})();$('flag').value=state.flag;
+    $('auto').checked=state.auto;$('rating').value=state.auto?avg(state.stats):state.rating;
+    ['c1','c2','tx','ac'].forEach(function(k){$(k).value=state[k]});
+    for(var j=0;j<3;j++){$('ic'+j).value=(state.icons&&state.icons[j])||''}
+    $('badge').checked=state.badge===true;$('cutout').checked=state.cutout===true;$('rar').value=state.rarity||'';$('wf').value=state.wf||3;$('sm').value=state.sm||3;
+    for(var i=0;i<STATS.length;i++){$('st'+i).value=state.stats[i];$('sv'+i).textContent=state.stats[i]}
+    for(var tt=0;tt<TESTS.length;tt++){$('tv'+tt).value=(state.test&&state.test[tt])||'';updateTestRes(tt)}
+    $('label').value=state.label||'';$('pat').value=state.pat||'swirl';
+    var tb=document.querySelectorAll('.typebtn');for(var t=0;t<tb.length;t++){tb[t].setAttribute('aria-pressed',tb[t].getAttribute('data-k')===state.type?'true':'false')}
+    renderCard();
+  }
+
+  // ----- Formulier opbouwen
+  (function build(){
+    var fl=$('flag');
+    Object.keys(FLAGS).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=FLAGS[k].n;fl.appendChild(o)});
+    for(var q=0;q<3;q++){var se=$('ic'+q);Object.keys(ICONNAMES).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=ICONNAMES[k];se.appendChild(o)})}
+    var box=$('statBox');
+    STATS.forEach(function(s,i){
+      var d=document.createElement('div');d.className='stat';
+      d.innerHTML='<div>'+s[0]+'<small>'+s[1]+'</small></div><input type="range" id="st'+i+'" min="1" max="99" aria-label="'+s[1]+'"><output id="sv'+i+'" for="st'+i+'"></output>';
+      box.appendChild(d);
+    });
+    var pe=$('pat');Object.keys(PATNAMES).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=PATNAMES[k];pe.appendChild(o)});
+    var tw=$('types');$('typeCount').textContent=TYPES.length+' soorten. Scroll in het vak om ze allemaal te zien.';
+    TYPES.forEach(function(t){
+      var b=document.createElement('button');b.type='button';b.className='typebtn';b.setAttribute('data-k',t.k);b.setAttribute('aria-pressed','false');
+      var sample={name:'SPELER',pos:'ST',flag:'',auto:true,rating:75,stats:[82,78,74,85,60,68],c1:t.c1,c2:t.c2,tx:t.tx,ac:t.ac,pat:t.pat,label:t.label,icons:t.icons||['bolt','target','shield'],badge:t.badge!==false,layout:t.layout||'',rarity:t.rar,wf:3,sm:4,photo:'',logo:'',logo2:''};
+      b.innerHTML='<div class="tprev" style="--s:4px">'+cardHTML(sample)+'</div><span>'+esc(t.n)+'</span>';
+      b.addEventListener('click',function(){
+        state.type=t.k;['c1','c2','tx','ac','pat','label'].forEach(function(f){state[f]=t[f]});state.rarity=t.rar;
+        if(t.icons)state.icons=t.icons.slice();
+        if(t.badge!==undefined)state.badge=t.badge;
+        state.layout=t.layout||'';
+        syncForm();
+      });
+      tw.appendChild(b);
+    });
+    var ps=$('pos');
+    POSITIONS.forEach(function(g){
+      var og=document.createElement('optgroup');og.label=g[0];
+      g[1].forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[0]+' \u2013 '+x[1];og.appendChild(o)});
+      ps.appendChild(og);
+    });
+    var tw2=$('tests');
+    TESTS.forEach(function(t,i){
+      var d=document.createElement('div');d.className='tcard';
+      d.innerHTML='<h3><b>'+t.abbr+'</b> '+esc(t.name)+' <small>'+esc(t.title)+'</small></h3>'+
+        '<p><strong>Nodig:</strong> '+esc(t.need)+'</p>'+
+        '<ol>'+t.steps.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol>'+
+        '<div class="trow"><label for="tv'+i+'">'+esc(t.ask)+' ('+esc(t.unit)+')<input id="tv'+i+'" type="number" min="0" step="any" inputmode="decimal"></label><div class="tres">Jouw stat<b id="tr'+i+'">\u2013</b></div></div>'+
+        (t.tip?'<p class="hint">'+esc(t.tip)+'</p>':'');
+      tw2.appendChild(d);
+      d.querySelector('input').addEventListener('input',function(e){if(!state.test)state.test=['','','','','',''];state.test[i]=e.target.value;updateTestRes(i);var sc=testScore(i,e.target.value);if(sc!==null){state.stats[i]=sc;$('st'+i).value=sc;$('sv'+i).textContent=sc;renderCard()}});
+    });
+    var pr=$('presets');
+    PRESETS.forEach(function(p,i){
+      var b=document.createElement('button');b.type='button';b.className='preset';
+      b.innerHTML='<i style="background:linear-gradient(160deg,'+p.c1+','+p.c2+')"></i>'+p.n;
+      b.addEventListener('click',function(){['c1','c2','tx','ac'].forEach(function(k){state[k]=p[k];$(k).value=p[k]});renderCard()});
+      pr.appendChild(b);
+    });
+  })();
+
+  // ----- Invoer koppelen
+  $('name').addEventListener('input',function(e){state.name=e.target.value;renderCard()});
+  $('pos').addEventListener('change',function(e){state.pos=e.target.value;renderCard()});
+    $('flag').addEventListener('change',function(e){state.flag=e.target.value;renderCard()});
+  $('label').addEventListener('input',function(e){state.label=e.target.value;renderCard()});
+  $('pat').addEventListener('change',function(e){state.pat=e.target.value;renderCard()});
+  $('auto').addEventListener('change',function(e){state.auto=e.target.checked;if(!state.auto){state.rating=avg(state.stats);$('rating').value=state.rating}renderCard()});
+  $('rating').addEventListener('input',function(e){state.rating=clamp(e.target.value,1,99);renderCard()});
+  ['c1','c2','tx','ac'].forEach(function(k){$(k).addEventListener('input',function(e){state[k]=e.target.value;renderCard()})});
+  STATS.forEach(function(s,i){
+    $('st'+i).addEventListener('input',function(e){state.stats[i]=clamp(e.target.value,1,99);$('sv'+i).textContent=state.stats[i];renderCard()});
+  });
+
+  function readImage(file,max,type,cb){
+    var fr=new FileReader();
+    fr.onload=function(){
+      var img=new Image();
+      img.onload=function(){
+        var r=Math.min(1,max/Math.max(img.width,img.height));
+        var cv=document.createElement('canvas');cv.width=Math.round(img.width*r);cv.height=Math.round(img.height*r);
+        var cx=cv.getContext('2d');
+        if(type==='image/jpeg'){cx.fillStyle='#fff';cx.fillRect(0,0,cv.width,cv.height)}
+        cx.drawImage(img,0,0,cv.width,cv.height);
+        cb(cv.toDataURL(type,0.88));
+      };
+      img.onerror=function(){toast('Dit plaatje kan niet gelezen worden. Probeer een jpg of png.')};
+      img.src=fr.result;
+    };
+    fr.readAsDataURL(file);
+  }
+  $('photo').addEventListener('change',function(e){var f=e.target.files[0];if(f)readImage(f,700,/png|webp|gif/.test(f.type)?'image/png':'image/jpeg',function(d){state.photo=d;renderCard()})});
+  $('logo').addEventListener('change',function(e){var f=e.target.files[0];if(f)readImage(f,240,'image/png',function(d){state.logo=d;renderCard()})});
+  $('clearPhoto').addEventListener('click',function(){state.photo='';$('photo').value='';renderCard()});
+  $('clearLogo').addEventListener('click',function(){state.logo='';$('logo').value='';renderCard()});
+  $('logo2').addEventListener('change',function(e){var f=e.target.files[0];if(f)readImage(f,240,'image/png',function(d){state.logo2=d;renderCard()})});
+  $('clearLogo2').addEventListener('click',function(){state.logo2='';$('logo2').value='';renderCard()});
+  [0,1,2].forEach(function(j){$('ic'+j).addEventListener('change',function(e){if(!state.icons)state.icons=['','',''];state.icons[j]=e.target.value;renderCard()})});
+  $('cutout').addEventListener('change',function(e){state.cutout=e.target.checked;renderCard()});
+  $('badge').addEventListener('change',function(e){state.badge=e.target.checked;renderCard()});
+  $('rar').addEventListener('input',function(e){state.rarity=e.target.value;renderCard()});
+  $('wf').addEventListener('input',function(e){state.wf=clamp(e.target.value,1,5);renderCard()});
+  $('sm').addEventListener('input',function(e){state.sm=clamp(e.target.value,1,5);renderCard()});
+
+  // ----- Opslaan en laden
+  function load(){try{var r=localStorage.getItem(KEY);saved=r?JSON.parse(r):[]}catch(e){saved=[]}if(!Array.isArray(saved))saved=[]}
+  function persist(){try{localStorage.setItem(KEY,JSON.stringify(saved));return true}catch(e){return false}}
+  function renderShelf(){
+    var sh=$('shelf');
+    if(!saved.length){sh.innerHTML='<div class="empty">Nog geen kaarten. Maak er een en druk op Opslaan.</div>';return}
+    sh.innerHTML='';
+    saved.forEach(function(c){
+      var d=document.createElement('div');d.className='thumb';
+      d.innerHTML='<button class="open" type="button" aria-label="Open kaart '+esc(c.name)+'"><div style="--s:6.5px">'+cardHTML(c)+'</div></button><button class="btn small del" type="button">Verwijderen</button>';
+      d.querySelector('.open').addEventListener('click',function(){ctx=null;state=JSON.parse(JSON.stringify(c));syncForm();goStep(0,true);window.scrollTo({top:0,behavior:'smooth'})});
+      d.querySelector('.del').addEventListener('click',function(){
+        saved=saved.filter(function(x){return x.id!==c.id});persist();renderShelf();
+        if(state.id===c.id)state.id=null;
+        toast('Kaart verwijderd.');
+      });
+      sh.appendChild(d);
+    });
+  }
+  $('save').addEventListener('click',function(){
+    if(!state.id)state.id='k'+Date.now();
+    var copy=JSON.parse(JSON.stringify(state));
+    var idx=-1;saved.forEach(function(x,i){if(x.id===copy.id)idx=i});
+    if(idx>=0)saved[idx]=copy;else saved.push(copy);
+    if(persist()){toast('Kaart opgeslagen.');if(ctx)markAwardDone()}else{toast('Opslaan lukte niet. Misschien zijn de plaatjes te groot.')}
+    renderShelf();
+  });
+  $('fresh').addEventListener('click',function(){ctx=null;state=blank();$('photo').value='';$('logo').value='';$('logo2').value='';syncForm();goStep(0);toast('Lege kaart klaar. Kies eerst een soort kaart.')});
+
+  // ----- Printen: 1 kaart per A4-pagina
+  function doPrint(list){
+    $('printArea').innerHTML=list.map(function(c){return '<div class="page"><div style="--s:.7cm">'+cardHTML(c)+'</div></div>'}).join('');
+    setTimeout(function(){window.print()},80);
+  }
+  $('printOne').addEventListener('click',function(){doPrint([state])});
+  $('printAll').addEventListener('click',function(){
+    if(!saved.length){toast('Sla eerst een kaart op.');return}
+    doPrint(saved);
+  });
+
+  // ----- Stap voor stap: soort kaart, speler, stats, extra's, foto's
+  var STEPNAMES=['Soort kaart','Speler','Stats',"Extra's","Foto's"];
+  var curStep=0,maxStep=0;
+  function goStep(n,noScroll){
+    curStep=Math.max(0,Math.min(STEPNAMES.length-1,n));if(curStep>maxStep)maxStep=curStep;
+    var steps=document.querySelectorAll('.step');
+    for(var i=0;i<steps.length;i++){steps[i].hidden=(i!==curStep)}
+    var sb=document.querySelectorAll('.stepbtn');
+    for(var k=0;k<sb.length;k++){
+      if(k===curStep)sb[k].setAttribute('aria-current','step');else sb[k].removeAttribute('aria-current');
+      sb[k].classList.toggle('done',k<curStep||(k<=maxStep&&k!==curStep));
+    }
+    $('stepBack').hidden=(curStep===0);
+    $('stepNext').textContent=curStep===STEPNAMES.length-1?'Klaar':'Volgende: '+STEPNAMES[curStep+1];
+    if(!noScroll){$('stepper').scrollIntoView({behavior:'smooth',block:'start'})}
+  }
+  (function(){
+    var st=$('stepper');
+    STEPNAMES.forEach(function(nm,i){
+      var b=document.createElement('button');b.type='button';b.className='stepbtn';
+      b.innerHTML='<i>'+(i+1)+'</i><span>'+esc(nm)+'</span>';
+      b.addEventListener('click',function(){goStep(i)});
+      st.appendChild(b);
+    });
+    $('stepBack').addEventListener('click',function(){goStep(curStep-1)});
+    $('stepNext').addEventListener('click',function(){
+      if(curStep<STEPNAMES.length-1){goStep(curStep+1)}
+      else{var msg='Je kaart is klaar! Druk op Opslaan om hem te bewaren.';toast(msg);$('cardMount').scrollIntoView({behavior:'smooth',block:'center'})}
+    });
+    goStep(0,true);
+  })();
+
+  // ----- Voorpagina: wedstrijden, team en verdiende kaarten
+  var TKEY='voetbalkaart-maker-team';
+  var TEAM={players:[],matches:[],demo:false};
+  var ctx=null;
+  var PRIZE=['mvdw','topscorer','tvdm','tvhj','kampioen','jaar','cupwinner','captain','talent','rookie','wonderkid','hero','legende'];
+  function uid(){return 'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+  function typeByKey(k){for(var i=0;i<TYPES.length;i++){if(TYPES[i].k===k)return TYPES[i]}return null}
+  function playerById(id){for(var i=0;i<TEAM.players.length;i++){if(TEAM.players[i].id===id)return TEAM.players[i]}return null}
+  function saveTeam(){try{localStorage.setItem(TKEY,JSON.stringify(TEAM))}catch(e){}}
+  function seedTeam(){
+    var names=[['Sam','ST'],['Daan','CM'],['Noah','CB'],['Luuk','GK'],['Finn','LW'],['Milan','RB']],pl=[];
+    names.forEach(function(n){pl.push({id:uid(),name:n[0],pos:n[1]})});
+    TEAM={demo:true,players:pl,matches:[{id:uid(),date:'2026-10-03',opp:'FC Voorbeeld',us:4,them:2,awards:[{id:uid(),pid:pl[0].id,type:'mvdw',done:false},{id:uid(),pid:pl[4].id,type:'topscorer',done:false}]}]};
+  }
+  function loadTeam(){
+    var r=null;try{r=localStorage.getItem(TKEY)}catch(e){}
+    if(r){try{var t=JSON.parse(r);if(t&&Array.isArray(t.players)&&Array.isArray(t.matches)){TEAM=t;return}}catch(e){}}
+    seedTeam();
+  }
+  function typeOptions(sel){
+    var a='',b='';
+    PRIZE.forEach(function(k){var t=typeByKey(k);if(t)a+='<option value="'+t.k+'"'+(t.k===sel?' selected':'')+'>'+esc(t.n)+'</option>'});
+    TYPES.forEach(function(t){if(PRIZE.indexOf(t.k)<0)b+='<option value="'+t.k+'"'+(t.k===sel?' selected':'')+'>'+esc(t.n)+'</option>'});
+    return '<optgroup label="Prijzen">'+a+'</optgroup><optgroup label="Andere kaarten">'+b+'</optgroup>';
+  }
+  function playerOptions(sel){
+    var o='<option value="">'+(TEAM.players.length?'Kies een speler':'Voeg eerst een speler toe')+'</option>';
+    TEAM.players.forEach(function(p){o+='<option value="'+p.id+'"'+(p.id===sel?' selected':'')+'>'+esc(p.name)+' ('+esc(p.pos)+')</option>'});
+    return o;
+  }
+  function fmtDate(d){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||'');return m?m[3]+'-'+m[2]+'-'+m[1]:(d||'')}
+  function homeMsg(t){$('homeMsg').textContent=t||''}
+  function renderHome(){
+    $('demoNote').hidden=!TEAM.demo;
+    var pl=$('playerList');
+    pl.innerHTML=TEAM.players.length?TEAM.players.map(function(p){
+      return '<li><span><b>'+esc(p.name)+'</b><small>'+esc(p.pos)+'</small></span><button class="btn small" type="button" data-act="delplayer" data-id="'+p.id+'" aria-label="Speler '+esc(p.name)+' verwijderen">Weg</button></li>';
+    }).join(''):'<li class="empty">Nog geen spelers. Voeg je eerste speler toe.</li>';
+    var ml=$('matchList');
+    if(!TEAM.matches.length){ml.innerHTML='<div class="empty">Nog geen wedstrijden. Voeg hierboven je eerste wedstrijd toe.</div>';return}
+    ml.innerHTML=TEAM.matches.map(function(m){
+      var rows=m.awards.length?m.awards.map(function(a){
+        return '<div class="award" data-mid="'+m.id+'" data-aid="'+a.id+'">'+
+          '<select data-f="pid" aria-label="Speler">'+playerOptions(a.pid)+'</select>'+
+          '<select data-f="type" aria-label="Soort kaart">'+typeOptions(a.type)+'</select>'+
+          '<div class="abtns">'+(a.done?'<span class="ok">✓ Gemaakt</span>':'')+
+          '<button class="btn main small" type="button" data-act="make">'+(a.done?'Opnieuw':'Maak kaart')+'</button>'+
+          '<button class="btn small" type="button" data-act="delaward" aria-label="Kaart weghalen">✕</button></div></div>';
+      }).join(''):'<p class="hint">Nog geen verdiende kaarten bij deze wedstrijd.</p>';
+      return '<article class="match" data-mid="'+m.id+'"><div class="match-head"><div class="match-title"><span class="score">'+clamp(m.us,0,99)+' – '+clamp(m.them,0,99)+'</span><b>tegen '+esc(m.opp||'?')+'</b><small>'+esc(fmtDate(m.date))+'</small></div>'+
+        '<button class="btn small" type="button" data-act="delmatch" data-mid="'+m.id+'">Wedstrijd verwijderen</button></div>'+
+        '<div class="awards">'+rows+'</div>'+
+        '<div><button class="btn small" type="button" data-act="addaward" data-mid="'+m.id+'">+ Kaart toevoegen</button></div></article>';
+    }).join('');
+  }
+  function showView(v){
+    $('home').hidden=(v!=='home');$('maker').hidden=(v!=='maker');
+    $('hdrP').textContent=v==='home'?'Voeg je wedstrijden toe, kies wie welke kaart heeft verdiend en maak de kaarten.':'Maak je eigen spelerskaart, kies je eigen kleuren en print hem groot uit op A4.';
+    try{window.scrollTo(0,0)}catch(e){}
+  }
+  function applyTypeToState(t){
+    state.type=t.k;['c1','c2','tx','ac','pat','label'].forEach(function(f){state[f]=t[f]});state.rarity=t.rar;
+    if(t.icons)state.icons=t.icons.slice();if(t.badge!==undefined)state.badge=t.badge;state.layout=t.layout||'';
+  }
+  function findAward(mid,aid){
+    for(var i=0;i<TEAM.matches.length;i++){var m=TEAM.matches[i];if(m.id===mid){for(var j=0;j<m.awards.length;j++){if(m.awards[j].id===aid)return {m:m,a:m.awards[j]}}}}
+    return null;
+  }
+  function openMakerFor(mid,aid){
+    var f=findAward(mid,aid);if(!f)return;
+    var pl=playerById(f.a.pid),t=typeByKey(f.a.type);
+    if(!pl){homeMsg('Kies eerst een speler bij deze kaart.');return}
+    if(!t){homeMsg('Kies eerst een soort kaart.');return}
+    state=blank();applyTypeToState(t);state.name=pl.name;if(pl.pos)state.pos=pl.pos;
+    $('photo').value='';$('logo').value='';$('logo2').value='';
+    ctx={mid:mid,aid:aid};syncForm();showView('maker');goStep(2,true);
+    toast('De soort kaart en de speler staan al klaar. Vul nu de stats in.');
+  }
+  function markAwardDone(){var f=findAward(ctx.mid,ctx.aid);if(f){f.a.done=true;saveTeam();renderHome()}}
+  (function(){
+    var ps=$('pPos');
+    POSITIONS.forEach(function(g){var og=document.createElement('optgroup');og.label=g[0];g[1].forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[0]+' – '+x[1];og.appendChild(o)});ps.appendChild(og)});
+    ps.value='ST';
+    var d=new Date(),mm=('0'+(d.getMonth()+1)).slice(-2),dd=('0'+d.getDate()).slice(-2);
+    $('mDate').value=d.getFullYear()+'-'+mm+'-'+dd;
+    $('playerForm').addEventListener('submit',function(e){
+      e.preventDefault();var n=$('pName').value.trim();
+      if(!n){homeMsg('Typ eerst de naam van de speler.');return}
+      TEAM.players.push({id:uid(),name:n,pos:$('pPos').value});$('pName').value='';homeMsg(n+' staat in je team.');saveTeam();renderHome();
+    });
+    $('matchForm').addEventListener('submit',function(e){
+      e.preventDefault();
+      TEAM.matches.unshift({id:uid(),date:$('mDate').value,opp:$('mOpp').value.trim()||'Tegenstander',us:clamp($('mUs').value,0,99),them:clamp($('mThem').value,0,99),awards:[]});
+      $('mOpp').value='';$('mUs').value=0;$('mThem').value=0;homeMsg('Wedstrijd toegevoegd. Kies nu wie een kaart heeft verdiend.');saveTeam();renderHome();
+    });
+    $('playerList').addEventListener('click',function(e){
+      var b=e.target.closest('[data-act="delplayer"]');if(!b)return;var id=b.getAttribute('data-id');
+      TEAM.players=TEAM.players.filter(function(p){return p.id!==id});
+      TEAM.matches.forEach(function(m){m.awards.forEach(function(a){if(a.pid===id)a.pid=''})});
+      saveTeam();renderHome();
+    });
+    $('matchList').addEventListener('click',function(e){
+      var b=e.target.closest('[data-act]');if(!b)return;var act=b.getAttribute('data-act');
+      var row=b.closest('.award'),mid=b.getAttribute('data-mid')||(row&&row.getAttribute('data-mid'));
+      if(act==='delmatch'){TEAM.matches=TEAM.matches.filter(function(m){return m.id!==mid});homeMsg('');saveTeam();renderHome()}
+      else if(act==='addaward'){TEAM.matches.forEach(function(m){if(m.id===mid)m.awards.push({id:uid(),pid:'',type:'mvdw',done:false})});saveTeam();renderHome()}
+      else if(act==='delaward'){var aid=row.getAttribute('data-aid');TEAM.matches.forEach(function(m){if(m.id===mid)m.awards=m.awards.filter(function(a){return a.id!==aid})});saveTeam();renderHome()}
+      else if(act==='make'){homeMsg('');openMakerFor(mid,row.getAttribute('data-aid'))}
+    });
+    $('matchList').addEventListener('change',function(e){
+      var sel=e.target.closest('select[data-f]');if(!sel)return;var row=sel.closest('.award');
+      var f=findAward(row.getAttribute('data-mid'),row.getAttribute('data-aid'));if(!f)return;
+      f.a[sel.getAttribute('data-f')]=sel.value;f.a.done=false;saveTeam();renderHome();
+    });
+    $('clearDemo').addEventListener('click',function(){TEAM={players:[],matches:[],demo:false};saveTeam();homeMsg('Je begint met een leeg team. Voeg je eerste speler toe.');renderHome()});
+    $('goMaker').addEventListener('click',function(){ctx=null;state=blank();$('photo').value='';$('logo').value='';$('logo2').value='';syncForm();goStep(0,true);showView('maker')});
+    $('backHome').addEventListener('click',function(){showView('home')});
+    loadTeam();renderHome();showView('home');
+  })();
+
+  // ----- Kaart beweegt mee met je muis of vinger
+  (function(){
+    var stage=document.querySelector('.stage');
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    stage.addEventListener('pointermove',function(e){
+      if(reduce)return;var t=$('cardMount').firstChild;if(!t)return;
+      var r=t.getBoundingClientRect();
+      var x=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),y=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height));
+      t.style.setProperty('--mx',(x*100)+'%');t.style.setProperty('--my',(y*100)+'%');
+      t.style.transform='rotateY('+((x-.5)*18)+'deg) rotateX('+((.5-y)*18)+'deg)';
+    });
+    stage.addEventListener('pointerleave',function(){var t=$('cardMount').firstChild;if(t)t.style.transform=''});
+  })();
+
+  load();syncForm();renderShelf();
+})();
+</script>
+</body>
+</html>

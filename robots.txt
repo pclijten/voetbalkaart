@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://voetbalkaart.cluppieasv33.nl/sitemap.xml
