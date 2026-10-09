@@ -1,0 +1,62 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signed() { return request.auth != null; }
+    function isKidAccount() { return request.auth.token.email.matches('.*@kind[.]voetbalkaart[.]invalid'); }
+    function groupDoc(gid) { return get(/databases/$(database)/documents/groups/$(gid)); }
+    function isOwner(gid) { return signed() && groupDoc(gid).data.ownerUid == request.auth.uid; }
+    function isMember(gid) { return signed() && exists(/databases/$(database)/documents/groups/$(gid)/members/$(request.auth.uid)); }
+
+    match /groups/{gid} {
+      // Alleen een ouder (geen kind-account) maakt een groep; bestaande groepen kunnen niet worden overschreven.
+      allow create: if signed() && !isKidAccount()
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['name','ownerUid','createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() >= 2 && request.resource.data.name.size() <= 30;
+      allow get: if isOwner(gid) || isMember(gid);
+      allow list: if signed() && resource.data.ownerUid == request.auth.uid;
+      allow update: if false;
+      allow delete: if isOwner(gid);
+
+      match /members/{uid} {
+        // Groepsgenoten zien bijnaam, rating, winst en online-status (geen chat, geen echte namen).
+        allow read: if isOwner(gid) || isMember(gid);
+        // Alleen de ouder maakt een kindprofiel, met toestemmingsdatum.
+        allow create: if isOwner(gid)
+          && request.resource.data.consentBy == request.auth.uid
+          && request.resource.data.nick is string
+          && request.resource.data.nick.size() >= 2 && request.resource.data.nick.size() <= 12;
+        // Het kind mag alleen de spelvelden wijzigen, niet de bijnaam of de toestemming.
+        allow update: if request.auth.uid == uid && isMember(gid)
+          && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['pts','boosts','lineup','opened','day','today','rareGot','w','l','best','lastSeen','expireAt']);
+        allow delete: if isOwner(gid) || request.auth.uid == uid;
+
+        match /cards/{cid} {
+          // Kaarten (zonder foto's) zijn alleen zichtbaar voor het kind zelf en de ouder.
+          allow read, write: if (request.auth.uid == uid && isMember(gid)) || isOwner(gid);
+        }
+      }
+
+      match /duels/{did} {
+        function inDuel(d) { return d.a.uid == request.auth.uid || d.b.uid == request.auth.uid; }
+        allow read: if isMember(gid) && inDuel(resource.data);
+        allow create: if isMember(gid)
+          && request.resource.data.a.uid == request.auth.uid
+          && request.resource.data.b.uid != request.auth.uid
+          && exists(/databases/$(database)/documents/groups/$(gid)/members/$(request.resource.data.b.uid))
+          && request.resource.data.status == 'invited';
+        // Deelnemers mogen alleen de voortgang van het duel wijzigen, niet wie er meedoet.
+        allow update: if isMember(gid) && inDuel(resource.data)
+          && request.resource.data.a.uid == resource.data.a.uid
+          && request.resource.data.b.uid == resource.data.b.uid
+          && request.resource.data.a.card == resource.data.a.card
+          && request.resource.data.diff(resource.data).affectedKeys()
+             .hasOnly(['status','started','b','used','by','pa','pb','winner','awarded']);
+        allow delete: if isMember(gid) && inDuel(resource.data);
+      }
+    }
+  }
+}
