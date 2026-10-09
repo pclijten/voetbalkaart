@@ -8,7 +8,6 @@ window.FIREBASE_CONFIG = {
   projectId: "voetbal-trainingen",
   storageBucket: "voetbal-trainingen.firebasestorage.app",
   messagingSenderId: "722122403821",
-  appId: "1:722122403821:web:64a46b61a2f5548441c1e4",
-  measurementId: "G-N394R6K3TN"
-};
+  appId: "1:722122403821:web:64a46b61a2f5548441c1e4"
+};};
 */
