@@ -326,6 +326,16 @@ details.panel[open]{gap:14px}
 .flashfx{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:50}
 .flashfx.go{animation:flashgo .6s ease-out}
 @keyframes flashgo{0%{opacity:.9}100%{opacity:0}}
+
+.walkout{display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px;border-radius:16px;background:radial-gradient(circle at 50% 40%,#25306a,#070a1c);min-height:300px;justify-content:center;color:#fff}
+.walkout.rare{background:radial-gradient(circle at 50% 40%,#6b4d00,#120c00)}
+.wo-stage{min-height:210px;display:flex;align-items:center;justify-content:center}
+.wo-step{display:flex;flex-direction:column;align-items:center;gap:14px;animation:woin .5s cubic-bezier(.2,1.4,.3,1) both}
+.wo-flag{width:150px;height:100px;border-radius:8px;background-size:cover;box-shadow:0 0 30px rgba(255,255,255,.4)}
+.wo-big{font-size:5.5em;font-weight:900;line-height:1;text-shadow:0 0 24px rgba(255,220,100,.8)}
+.wo-pos{color:#ffd24a;font-size:5em}.wo-rat{color:#ffd24a;font-size:6.5em}
+.wo-txt{font-size:1.6em;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+@keyframes woin{from{opacity:0;transform:scale(2.2)}to{opacity:1;transform:scale(1)}}
 .reveal{display:flex;flex-direction:column;align-items:center;gap:12px;animation:revealin .9s cubic-bezier(.2,1.2,.3,1) both}
 @keyframes revealin{0%{transform:rotateY(180deg) scale(.4);opacity:0}60%{transform:rotateY(-12deg) scale(1.08);opacity:1}100%{transform:rotateY(0) scale(1)}}
 .reveal .rcard{filter:drop-shadow(0 0 22px rgba(255,220,100,.6))}
@@ -372,6 +382,30 @@ details.panel[open]{gap:14px}
   .card,.card.plain,.card.plain.flat,.card.plain.neon,.card.rainbow{filter:none}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+.matchedit{display:flex;flex-wrap:wrap;gap:8px;align-items:end}
+.matchedit label{display:flex;flex-direction:column;gap:3px;font-size:.8rem;font-weight:700}
+.matchedit input[type=number]{width:70px}
+.matchedit input[type=text]{width:150px}
+.matchedit input{padding:6px 8px}
+
+.skillbar{margin:6px 0 12px}.skillsum{padding:10px 14px;border:1px solid var(--accent);border-radius:12px;display:inline-block}
+.skillgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.skillcard{display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.04)}
+.skillcard.done{border-color:var(--accent);background:rgba(61,220,132,.08)}
+.skillcard p{margin:0;color:var(--muted);font-size:.9rem;flex:1}
+.skh{display:flex;justify-content:space-between;gap:8px;align-items:center}.skh b{font-family:var(--display);font-size:1.15rem}
+.sklv{color:#f0c85a;letter-spacing:.1em}
+.skbtns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.skbtns a.btn{text-decoration:none;display:inline-flex}
+.pgoal{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:4px;max-width:420px;aspect-ratio:3/1.6;margin:10px auto;padding:10px;border:5px solid #fff;border-bottom:0;border-radius:8px 8px 0 0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.12) 0 2px,transparent 2px 14px),repeating-linear-gradient(90deg,rgba(255,255,255,.12) 0 2px,transparent 2px 14px),rgba(10,60,30,.6)}
+.pz{border:2px dashed rgba(255,255,255,.35);border-radius:8px;background:transparent;color:#fff;font-size:1.8rem;cursor:pointer;min-height:48px}
+.pz:hover:not(:disabled){background:rgba(255,255,255,.18)}.pz:disabled{cursor:default}.pz.ball{background:rgba(255,210,74,.35)}.pz.glove{background:rgba(61,220,132,.35)}
+.pscore{display:flex;flex-direction:column;gap:6px;margin:8px 0}.pscore>div{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pscore b{min-width:110px}.pscore span{font-family:var(--display);font-size:1.4rem;margin-left:auto}
+.pscore i{font-style:normal;display:inline-flex;width:30px;height:30px;border-radius:50%;align-items:center;justify-content:center;font-size:.9rem}.pscore i.g{background:rgba(61,220,132,.3)}.pscore i.m{background:rgba(255,107,107,.3)}
+.penturn{text-align:center;font-weight:800;margin:6px 0}.penmsg{text-align:center;min-height:1.5em;font-weight:800;color:#ffd24a}
+.qprog{color:var(--muted);font-weight:700}.qq{font-size:1.25rem;margin:8px 0 12px}.qopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.qopt{text-align:left;justify-content:flex-start;text-transform:none;letter-spacing:0;font-family:inherit;font-weight:700;padding:12px}
+.qopt.win{border-color:#3ddc84;background:rgba(61,220,132,.2)}.qopt.lose{border-color:#ff6b6b;background:rgba(255,107,107,.2)}
 /* ===== Online ===== */
 .privacy{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.03)}
 .privacy summary{cursor:pointer;font-weight:800}
@@ -395,6 +429,34 @@ details.panel[open]{gap:14px}
 .rank li.me{border-color:var(--accent)}
 .rank li>span:first-child{width:28px;text-align:center}
 
+
+/* ===== Seizoensoverzicht ===== */
+.seasonbar{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:8px 0 14px}
+.seasonbar label{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:.9rem}
+.poster{--pf:16px;font-size:var(--pf);width:100%;max-width:34em;margin:0 auto;padding:1.6em 1.4em 1.4em;border-radius:1.1em;color:#fff;background:radial-gradient(120% 70% at 50% 0%,#1d4fa8 0%,#0b1f4d 55%,#050b1e 100%);border:.2em solid #f0c85a;box-shadow:0 .6em 1.6em rgba(0,0,0,.4);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.poster .pk{font-family:var(--display);letter-spacing:.3em;font-size:.8em;color:#f0c85a;text-align:center}
+.poster h3{font-family:var(--display);text-transform:uppercase;font-size:2.4em;line-height:1;margin:.15em 0 .6em;text-align:center;letter-spacing:.02em}
+.poster .pst{display:grid;grid-template-columns:repeat(3,1fr);gap:.5em}
+.poster .pst div{background:rgba(255,255,255,.1);border-radius:.6em;padding:.5em .3em;text-align:center}
+.poster .pst b{display:block;font-family:var(--display);font-size:1.9em;line-height:1}
+.poster .pst span{font-size:.62em;letter-spacing:.14em;text-transform:uppercase;color:#cfe0ff}
+.poster .pst .gold b{color:#f0c85a}
+.poster .pform{display:flex;justify-content:center;align-items:center;gap:.4em;margin:1em 0 .2em}
+.poster .pform i{font-style:normal;width:1.9em;height:1.9em;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:.8em;color:#06101f}
+.poster .pform .W{background:#3ddc84}.poster .pform .D{background:#f0c85a}.poster .pform .L{background:#ff6b6b}
+.poster .plab{text-align:center;font-size:.62em;letter-spacing:.14em;text-transform:uppercase;color:#cfe0ff;margin-bottom:.8em}
+.poster .pcols{display:grid;grid-template-columns:1fr 1fr;gap:.8em;margin-top:.6em}
+.poster h4{font-family:var(--display);font-size:.9em;letter-spacing:.14em;text-transform:uppercase;color:#f0c85a;margin:0 0 .3em}
+.poster ol{list-style:none;margin:0;padding:0;font-size:.95em}
+.poster li{display:flex;justify-content:space-between;gap:.5em;padding:.18em 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.poster .pbest{margin-top:.9em;text-align:center;font-size:.85em;color:#cfe0ff}
+.poster .pempty{text-align:center;padding:1.5em 0;color:#cfe0ff}
+.scorers{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}
+.scorers .chip{display:inline-flex;gap:6px;align-items:center;padding:3px 8px;border:1px solid var(--line);border-radius:999px;font-size:.85rem}
+.scorers .chip button{background:none;border:0;color:inherit;cursor:pointer;font-weight:800}
+.scorers select,.scorers input{width:auto!important;padding:6px 8px!important}
+.scorers input{width:64px!important}
+@media print{.poster{--pf:4.1mm;width:170mm;max-width:none;box-shadow:none}}
 </style>
 <script src="firebase-config.js" onerror="void 0"></script>
 </head>
@@ -414,6 +476,7 @@ details.panel[open]{gap:14px}
         <h2>Wedstrijden</h2>
         <p class="hint">Voeg een wedstrijd toe. Kies daarna per wedstrijd wie welke kaart heeft verdiend en druk op "Maak kaart".</p>
         <form id="matchForm" class="row formrow" autocomplete="off">
+          <label for="mComp">Competitie<select id="mComp"></select></label>
           <label for="mDate">Datum<input id="mDate" type="date"></label>
           <label for="mOpp">Tegenstander<input id="mOpp" type="text" maxlength="30"></label>
           <label for="mUs">Wij scoorden<input id="mUs" type="number" min="0" max="99" value="0"></label>
@@ -433,6 +496,11 @@ details.panel[open]{gap:14px}
         <ul class="plist" id="playerList"></ul>
       </aside>
     </div>
+    <section class="panel" id="season">
+      <h2>Seizoensoverzicht</h2>
+      <p class="hint">Een competitie loopt tot jij zegt dat hij afgelopen is. Je ziet hier de stand en de eindstand van elke competitie, gemaakt van de wedstrijden hierboven. Vul bij een wedstrijd ook de doelpuntenmakers in voor de topscorers.</p>
+      <div id="seasonBox"></div>
+    </section>
   </div>
 
   <div id="play" hidden>
@@ -441,11 +509,14 @@ details.panel[open]{gap:14px}
         <h2 style="margin:0">Spelletjes</h2>
         <div class="pts">Mijn punten <b id="ptsNow">0</b></div>
       </div>
-      <p class="hint">Je verdient 10 punten voor elke oefening die je invult bij Stats. Een pakje kost 30 punten en je mag maximaal 10 pakjes per dag openen.</p>
+      <p class="hint">Je verdient 10 punten voor elke oefening die je invult bij Stats. Een pakje kost 20 punten en je mag maximaal 10 pakjes per dag openen.</p>
       <div class="ptabs">
         <button class="btn small ptab" type="button" data-tab="packs" aria-pressed="true">🎴 Pakjes</button>
         <button class="btn small ptab" type="button" data-tab="lineup" aria-pressed="false">⚽ Teamopstelling</button>
         <button class="btn small ptab" type="button" data-tab="duel" aria-pressed="false">⚔️ Duel</button>
+        <button class="btn small ptab" type="button" data-tab="skills" aria-pressed="false">🎬 Skills leren</button>
+        <button class="btn small ptab" type="button" data-tab="pen" aria-pressed="false">🥅 Penalty's</button>
+        <button class="btn small ptab" type="button" data-tab="quiz" aria-pressed="false">❓ Quiz</button>
         <button class="btn small" type="button" id="playBack">← Voorpagina</button>
       </div>
     </section>
@@ -460,6 +531,21 @@ details.panel[open]{gap:14px}
       <div class="pitch" id="pitch"></div>
       <p class="hint" id="pickHint">Tik op een plek op het veld en kies dan een van je opgeslagen kaarten.</p>
       <div class="pickrow" id="pickRow"></div>
+    </section>
+    <section class="panel" id="tab-pen" hidden>
+      <h2>Penalty's</h2>
+      <div class="row" style="align-items:center;gap:12px"><label for="penCard" style="display:flex;gap:8px;align-items:center">Jouw kaart <select id="penCard" style="width:auto"></select></label><button class="btn main" type="button" id="penStart">Start penalty's</button></div>
+      <div id="penBox"></div>
+    </section>
+    <section class="panel" id="tab-quiz" hidden>
+      <h2>Voetbalquiz</h2>
+      <div id="quizBox"></div>
+    </section>
+    <section class="panel" id="tab-skills" hidden>
+      <h2>Skills leren</h2>
+      <p class="hint">Kijk een filmpje, oefen het trucje en vink aan als je het kunt. Je krijgt punten voor elke skill die je leert. Het filmpje opent op YouTube in een nieuw tabblad, vraag eerst even aan je ouder.</p>
+      <div class="skillbar" id="skillBar"></div>
+      <div class="skillgrid" id="skillGrid"></div>
     </section>
     <section class="panel" id="tab-duel" hidden>
       <h2>Duel</h2>
@@ -1270,6 +1356,33 @@ details.panel[open]{gap:14px}
 
   var EDGEP='M16,0 L184,0 C194,0 200,6 200,16 L200,276 C200,286 194,293 184,293 L108,293 Q100,296 92,293 L16,293 C6,293 0,286 0,276 L0,16 C0,6 6,0 16,0Z';
   var EDGES='M18,0 L82,0 L100,6 L118,0 L182,0 L200,18 L200,275 L180,293 L20,293 L0,275 L0,18Z';
+  // Getekende speler-avatar voor kaarten zonder foto (c.av = [huid,haarkleur,kapsel,ogen])
+  var AVSKIN=['#f6d2b0','#e8b88d','#c98f64','#9a643f','#6b4429'],AVHAIR=['#1d1a18','#4a3220','#8a5a2b','#d6a83e','#b8461f','#cfcfcf'];
+  function newAv(){var r=function(n){return Math.floor(Math.random()*n)};return [r(AVSKIN.length),r(AVHAIR.length),r(5),r(3)]}
+  function avatarURI(c){
+    var a=c.av||[1,0,0,0],sk=AVSKIN[a[0]%5]||AVSKIN[1],hr=AVHAIR[a[1]%6]||AVHAIR[0],st=a[2]%5,ey=['#2b1d12','#2d4a6b','#3f5a2a'][a[3]%3];
+    var shirt=/^#[0-9a-f]{6}$/i.test(c.ac)?c.ac:'#ffffff',dark=/^#[0-9a-f]{6}$/i.test(c.c2)?c.c2:'#111111';
+    var h='';
+    if(st===3)h+='<path d="M48 96C40 150 52 176 62 178L70 104Z" fill="'+hr+'"/><path d="M152 96C160 150 148 176 138 178L130 104Z" fill="'+hr+'"/>';
+    h+='<path d="M16 240C16 192 54 172 100 172C146 172 184 192 184 240Z" fill="'+shirt+'"/>';
+    h+='<path d="M16 240C16 214 28 200 44 190L52 240Z M184 240C184 214 172 200 156 190L148 240Z" fill="'+dark+'" opacity=".22"/>';
+    h+='<path d="M84 128h32v44q-16 14-32 0z" fill="'+sk+'"/><path d="M84 150q16 12 32 0v8q-16 12-32 0z" fill="#000" opacity=".14"/>';
+    h+='<path d="M82 172L100 200L118 172L128 176L100 212L72 176Z" fill="'+dark+'"/>';
+    h+='<circle cx="55" cy="104" r="9" fill="'+sk+'"/><circle cx="145" cy="104" r="9" fill="'+sk+'"/>';
+    h+='<ellipse cx="100" cy="100" rx="45" ry="53" fill="'+sk+'"/>';
+    if(st===0)h+='<path d="M52 94C46 50 78 36 100 36C124 36 154 52 148 94C140 72 122 64 100 64C78 64 60 72 52 94Z" fill="'+hr+'"/>';
+    if(st===1)h+='<path d="M56 88C54 56 80 46 100 46C122 46 146 56 144 88C134 70 118 62 100 62C82 62 66 70 56 88Z" fill="'+hr+'"/>';
+    if(st===2){[[62,72],[78,54],[100,46],[122,54],[138,72],[54,94],[146,94]].forEach(function(q){h+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="19" fill="'+hr+'"/>'});h+='<ellipse cx="100" cy="66" rx="42" ry="20" fill="'+hr+'"/>'}
+    if(st===3)h+='<path d="M52 98C44 52 78 36 100 36C124 36 156 52 148 98C142 72 124 62 100 62C76 62 58 72 52 98Z" fill="'+hr+'"/>';
+    if(st===4)h+='<path d="M58 88C58 62 82 54 100 54C118 54 142 62 142 88C134 72 118 66 100 66C82 66 66 72 58 88Z" fill="'+hr+'" opacity=".8"/><path d="M88 66C88 22 112 22 112 66Z" fill="'+hr+'"/>';
+    h+='<ellipse cx="82" cy="102" rx="8" ry="5.5" fill="#fff"/><ellipse cx="118" cy="102" rx="8" ry="5.5" fill="#fff"/><circle cx="83" cy="102" r="3.6" fill="'+ey+'"/><circle cx="119" cy="102" r="3.6" fill="'+ey+'"/><circle cx="84.2" cy="100.8" r="1.1" fill="#fff"/><circle cx="120.2" cy="100.8" r="1.1" fill="#fff"/>';
+    h+='<path d="M72 90Q82 84 92 89M108 89Q118 84 128 90" stroke="'+hr+'" stroke-width="4" fill="none" stroke-linecap="round"/>';
+    h+='<path d="M100 106q-5 12 -1 17q4 2 8 -1" stroke="#000" stroke-opacity=".25" stroke-width="3" fill="none" stroke-linecap="round"/>';
+    h+='<path d="M84 130Q100 144 116 130" stroke="#7a2e2e" stroke-width="3.4" fill="none" stroke-linecap="round"/>';
+    h+='<ellipse cx="72" cy="122" rx="7" ry="4" fill="#e0707a" opacity=".22"/><ellipse cx="128" cy="122" rx="7" ry="4" fill="#e0707a" opacity=".22"/>';
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">'+h+'</svg>';
+    return 'data:image/svg+xml;utf8,'+encodeURIComponent(svg);
+  }
   function cardHTML(c){
     var rating=c.auto?avg(c.stats):clamp(c.rating,1,99);
     var nm=(c.name||'').trim();
@@ -1283,12 +1396,13 @@ details.panel[open]{gap:14px}
     if(icons)icons='<div class="icons">'+icons+'</div>';
     var badge=c.badge===true?'<div class="badge">'+(c.rarity?'<b>'+esc(c.rarity)+'</b>':'')+'<span>'+clamp(c.wf||3,1,5)+'·'+clamp(c.sm||3,1,5)+'</span></div>':'';
     var photo=c.photo?'<img alt="" src="'+c.photo+'">':(c.pat==='ribbons'||c.pat==='oceanflow'||c.pat==='goldplates'||c.pat==='pinkburst'||c.pat==='carnburst'||c.pat==='xmas'||c.pat==='spooky'||c.pat==='maroon'||c.pat==='blackswirl'||c.pat==='crystal'||c.pat==='storm'||c.pat==='icecube'||c.pat==='party'||c.pat==='firerock'||c.pat==='nightflow'||c.pat==='neonburst'||c.pat==='shards'||c.pat==='snow'||c.pat==='blackbrush'||c.pat==='swoosh'||c.pat==='flags'||c.pat==='redbrush'||c.pat==='paint'||c.pat==='tots'||c.pat==='ballon'?'':SILHOUETTE);
+    if(!c.photo&&c.av)photo='<img alt="" src="'+avatarURI(c)+'">';
     var tag='';
     var stats='';
     for(var i=0;i<STATS.length;i++){stats+='<div class="s"><span>'+(c.type==='keeper'?['DIV','HAN','KIC','REF','SPE','POS'][i]:STATS[i][0])+'</span><b>'+clamp(c.stats[i],1,99)+'</b></div>'}
     return '<div class="card'+(c.layout==='top'?' top':c.layout==='side'?' side':/^plain/.test(c.layout||'')?' '+c.layout:(c.layout==='cup'?' side cup':c.layout==='rainbow'?' side cup rainbow':c.layout==='retro'?' side cup retro':''))+'" style="--c1:'+c.c1+';--c2:'+c.c2+';--tx:'+c.tx+';--ac:'+c.ac+'">'+
       '<div class="rim"></div><div class="shape"><svg class="swirl'+(c.pat==='burst'||c.pat==='arabesque'?' fade':'')+'" viewBox="0 0 200 293" preserveAspectRatio="none" aria-hidden="true">'+patSVG(c.pat)+'</svg></div>'+
-      '<div class="photo'+(c.cutout===true?' cut':'')+'">'+photo+'</div>'+
+      '<div class="photo'+(c.cutout===true||(!c.photo&&c.av)?' cut':'')+'">'+photo+'</div>'+
       '<svg class="edge" viewBox="0 0 200 293" preserveAspectRatio="none" aria-hidden="true">'+
         '<path transform="translate(100 146.5) scale(.995 .996) translate(-100 -146.5)" stroke="rgba(0,0,0,.4)" stroke-width="1.4" d="'+(c.layout==='side'?EDGES:/^plain/.test(c.layout||'')?EDGEP:EDGE)+'"/>'+
         '<path transform="translate(100 146.5) scale(.955 .96) translate(-100 -146.5)" stroke="rgba(0,0,0,.45)" stroke-width="1.8" d="'+(c.layout==='side'?EDGES:/^plain/.test(c.layout||'')?EDGEP:EDGE)+'"/>'+
@@ -1507,12 +1621,24 @@ details.panel[open]{gap:14px}
   function seedTeam(){
     var names=[['Sam','ST'],['Daan','CM'],['Noah','CB'],['Luuk','GK'],['Finn','LW'],['Milan','RB']],pl=[];
     names.forEach(function(n){pl.push({id:uid(),name:n[0],pos:n[1]})});
-    TEAM={demo:true,players:pl,matches:[{id:uid(),date:'2026-10-03',opp:'FC Voorbeeld',us:4,them:2,awards:[{id:uid(),pid:pl[0].id,type:'mvdw',done:false},{id:uid(),pid:pl[4].id,type:'topscorer',done:false}]}]};
+    TEAM={demo:true,players:pl,comps:[{id:'c-demo',name:'Najaarscompetitie',closed:false}],matches:[
+      {id:uid(),cid:'c-demo',date:'2026-09-19',opp:'SV Test',us:1,them:1,scorers:[{pid:pl[1].id,n:1}],awards:[]},
+      {id:uid(),cid:'c-demo',date:'2026-09-26',opp:'VV Proef',us:0,them:2,awards:[]},
+      {id:uid(),cid:'c-demo',date:'2026-10-03',opp:'FC Voorbeeld',us:4,them:2,scorers:[{pid:pl[0].id,n:3},{pid:pl[4].id,n:1}],awards:[{id:uid(),pid:pl[0].id,type:'mvdw',done:false},{id:uid(),pid:pl[4].id,type:'topscorer',done:false}]}]};
+  }
+  function migrateTeam(){
+    if(!Array.isArray(TEAM.comps))TEAM.comps=[];
+    var orphan=TEAM.matches.filter(function(m){return !m.cid||!compById(m.cid)});
+    if(orphan.length||!TEAM.comps.length){
+      var c=TEAM.comps[0]||(TEAM.comps[TEAM.comps.length]={id:uid(),name:'Competitie 1',closed:false});
+      if(!c.id)c.id=uid();
+      orphan.forEach(function(m){m.cid=c.id});
+    }
   }
   function loadTeam(){
     var r=null;try{r=localStorage.getItem(TKEY)}catch(e){}
-    if(r){try{var t=JSON.parse(r);if(t&&Array.isArray(t.players)&&Array.isArray(t.matches)){TEAM=t;return}}catch(e){}}
-    seedTeam();
+    if(r){try{var t=JSON.parse(r);if(t&&Array.isArray(t.players)&&Array.isArray(t.matches)){TEAM=t;migrateTeam();return}}catch(e){}}
+    seedTeam();migrateTeam();
   }
   function typeOptions(sel){
     var a='',b='';
@@ -1527,8 +1653,77 @@ details.panel[open]{gap:14px}
   }
   function fmtDate(d){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||'');return m?m[3]+'-'+m[2]+'-'+m[1]:(d||'')}
   function homeMsg(t){$('homeMsg').textContent=t||''}
+  function scorerHTML(m){
+    var sc=m.scorers||[],tot=sc.reduce(function(a,x){return a+(x.n|0)},0);
+    var chips=sc.map(function(x,i){var p=playerById(x.pid);return '<span class="chip">⚽ '+esc(p?p.name:'?')+' '+(x.n|0)+'<button type="button" data-act="delscorer" data-mid="'+m.id+'" data-i="'+i+'" aria-label="Verwijderen">×</button></span>'}).join('');
+    return '<div class="scorers" data-mid="'+m.id+'"><span class="hint">Doelpuntenmakers:</span>'+(chips||'<span class="hint">nog geen</span>')+
+      (TEAM.players.length?'<select data-sc="pid" aria-label="Speler">'+playerOptions('')+'</select><input data-sc="n" type="number" min="1" max="20" value="1" aria-label="Aantal doelpunten"><button class="btn small" type="button" data-act="addscorer" data-mid="'+m.id+'">+ Doelpunt</button>':'')+
+      (tot>m.us?'<span class="hint" style="color:#ffd24a">Let op: meer doelpunten dan de uitslag ('+m.us+')</span>':'')+'</div>';
+  }
+  function compById(id){for(var i=0;i<TEAM.comps.length;i++){if(TEAM.comps[i].id===id)return TEAM.comps[i]}return null}
+  function openComps(){return TEAM.comps.filter(function(c){return !c.closed})}
+  function compOptions(sel,onlyOpen){
+    var l=onlyOpen?openComps():TEAM.comps;
+    return l.map(function(c){return '<option value="'+c.id+'"'+(c.id===sel?' selected':'')+'>'+esc(c.name)+(c.closed?' (afgelopen)':'')+'</option>'}).join('');
+  }
+  var compSel=null;
+  function seasonStats(cid){
+    var list=TEAM.matches.filter(function(m){return cid==='all'||m.cid===cid}).slice().sort(function(a,b){return String(a.date||'').localeCompare(String(b.date||''))});
+    var st={gp:list.length,w:0,d:0,l:0,gf:0,ga:0,form:[],cs:0,best:null,goals:{},mom:{}};
+    list.forEach(function(m){
+      var us=clamp(m.us,0,99),th=clamp(m.them,0,99);st.gf+=us;st.ga+=th;
+      var r=us>th?'W':(us<th?'L':'D');st[r.toLowerCase()]++;st.form.push(r);if(th===0)st.cs++;
+      if(us>th&&(!st.best||us-th>st.best.us-st.best.them||(us-th===st.best.us-st.best.them&&us>st.best.us)))st.best={us:us,them:th,opp:m.opp};
+      (m.scorers||[]).forEach(function(x){st.goals[x.pid]=(st.goals[x.pid]|0)+(x.n|0)});
+      m.awards.forEach(function(a){if(a.type==='mvdw'&&a.pid)st.mom[a.pid]=(st.mom[a.pid]|0)+1});
+    });
+    st.pts=st.w*3+st.d;st.form=st.form.slice(-5);return st;
+  }
+  function topList(map,n){
+    return Object.keys(map).map(function(id){var p=playerById(id);return p?{name:p.name,n:map[id]}:null}).filter(Boolean).sort(function(a,b){return b.n-a.n}).slice(0,n);
+  }
+  function posterHTML(cid){
+    var st=seasonStats(cid),name=(TEAM.name||'Mijn team').trim()||'Mijn team',c=compById(cid);
+    var title=cid==='all'?'Alle competities':(c?c.name:'Competitie');
+    var sub=cid==='all'?'TOTAAL':(c&&c.closed?'EINDSTAND'+(c.closedAt?' · '+fmtDate(c.closedAt):''):'TUSSENSTAND');
+    var head='<div class="pk">'+esc(sub)+'</div><h3>'+esc(name)+'</h3><div class="pk" style="margin:-.4em 0 .8em;color:#fff;letter-spacing:.12em">'+esc(title)+'</div>';
+    if(!st.gp)return '<div class="poster">'+head+'<p class="pempty">Nog geen wedstrijden in deze competitie. Voeg hierboven je eerste wedstrijd toe.</p></div>';
+    var gd=st.gf-st.ga,tops=topList(st.goals,3),moms=topList(st.mom,3);
+    var box=function(v,l,c){return '<div'+(c?' class="'+c+'"':'')+'><b>'+v+'</b><span>'+l+'</span></div>'};
+    var h='<div class="poster">'+head+'<div class="pst">'+box(st.gp,'gespeeld')+box(st.w,'gewonnen')+box(st.d,'gelijk')+box(st.l,'verloren')+box(st.pts,'punten','gold')+box((gd>0?'+':'')+gd,'doelsaldo')+'</div>';
+    h+='<div class="pform">'+st.form.map(function(r){return '<i class="'+r+'">'+({W:'W',D:'G',L:'V'})[r]+'</i>'}).join('')+'</div><div class="plab">laatste '+st.form.length+' wedstrijden</div>';
+    h+='<div class="pst" style="grid-template-columns:repeat(3,1fr)">'+box(st.gf,'doelpunten voor')+box(st.ga,'tegen')+box(st.cs,'de nul')+'</div>';
+    h+='<div class="pcols"><div><h4>Topscorers</h4>'+(tops.length?'<ol>'+tops.map(function(t){return '<li><span>'+esc(t.name)+'</span><b>'+t.n+'</b></li>'}).join('')+'</ol>':'<span class="plab" style="text-align:left">Vul doelpuntenmakers in</span>')+'</div>';
+    h+='<div><h4>Man of the Match</h4>'+(moms.length?'<ol>'+moms.map(function(t){return '<li><span>'+esc(t.name)+'</span><b>'+t.n+'×</b></li>'}).join('')+'</ol>':'<span class="plab" style="text-align:left">Nog geen prijzen</span>')+'</div></div>';
+    if(st.best)h+='<div class="pbest">Beste uitslag: '+st.best.us+' – '+st.best.them+(st.best.opp?' tegen '+esc(st.best.opp):'')+'</div>';
+    return h+'</div>';
+  }
+  function renderSeason(){
+    var box=$('seasonBox');if(!box)return;
+    if(compSel!=='all'&&!compById(compSel))compSel=(openComps()[0]||TEAM.comps[TEAM.comps.length-1]||{}).id||'all';
+    var c=compById(compSel),isAll=compSel==='all';
+    box.innerHTML='<div class="seasonbar"><label>Competitie<select id="compPick">'+compOptions(compSel)+(TEAM.comps.length>1?'<option value="all"'+(isAll?' selected':'')+'>Alle competities samen</option>':'')+'</select></label>'+
+      (c?'<label>Naam van de competitie<input id="compName" type="text" maxlength="30" value="'+esc(c.name)+'"></label>':'')+
+      '<label>Naam van je team<input id="teamName" type="text" maxlength="24" value="'+esc(TEAM.name||'')+'" placeholder="Bijv. JO12-1"></label></div>'+
+      '<div class="seasonbar">'+(c?(c.closed?'<button class="btn" type="button" id="compOpen">Competitie heropenen</button>':'<button class="btn main" type="button" id="compClose">✓ Deze competitie is afgelopen</button>'):'')+
+      '<button class="btn" type="button" id="compNew">+ Nieuwe competitie starten</button>'+
+      (c&&!TEAM.matches.some(function(m){return m.cid===c.id})&&TEAM.comps.length>1?'<button class="btn small" type="button" id="compDel">Lege competitie verwijderen</button>':'')+
+      '<button class="btn main" type="button" id="printSeason">Print overzicht (A4)</button></div>'+
+      (c&&c.closed?'<p class="hint">Deze competitie is afgelopen. Nieuwe wedstrijden komen in een open competitie. Start een nieuwe competitie om verder te gaan.</p>':'')+
+      '<div id="posterWrap">'+posterHTML(compSel)+'</div>';
+    var on=function(id,fn){var e=$(id);if(e)e.addEventListener('click',fn)};
+    $('teamName').addEventListener('input',function(){TEAM.name=this.value;saveTeam();$('posterWrap').innerHTML=posterHTML(compSel)});
+    var cn=$('compName');if(cn)cn.addEventListener('input',function(){c.name=this.value.trim()||'Competitie';saveTeam();$('posterWrap').innerHTML=posterHTML(compSel)});
+    cn&&cn.addEventListener('change',function(){renderHome()});
+    $('compPick').addEventListener('change',function(){compSel=this.value;renderSeason()});
+    on('compClose',function(){var d=new Date(),mm=('0'+(d.getMonth()+1)).slice(-2),dd=('0'+d.getDate()).slice(-2);c.closed=true;c.closedAt=d.getFullYear()+'-'+mm+'-'+dd;saveTeam();homeMsg('"'+c.name+'" is afgelopen. De eindstand staat hieronder. Start een nieuwe competitie voor de volgende wedstrijden.');renderHome()});
+    on('compOpen',function(){c.closed=false;c.closedAt='';saveTeam();renderHome()});
+    on('compNew',function(){var n=TEAM.comps.length+1,nc={id:uid(),name:'Competitie '+n,closed:false};TEAM.comps.push(nc);compSel=nc.id;saveTeam();homeMsg('Nieuwe competitie gestart. Nieuwe wedstrijden komen hier automatisch in.');renderHome()});
+    on('compDel',function(){TEAM.comps=TEAM.comps.filter(function(x){return x.id!==c.id});compSel=null;saveTeam();renderHome()});
+    on('printSeason',function(){$('printArea').innerHTML='<div class="page">'+posterHTML(compSel)+'</div>';setTimeout(function(){window.print()},80)});
+  }
   function renderHome(){
-    $('demoNote').hidden=!TEAM.demo;
+    $('demoNote').hidden=!TEAM.demo;renderSeason();var mc=$('mComp');if(mc){mc.innerHTML=compOptions(compSel&&compSel!=='all'&&!(compById(compSel)||{}).closed?compSel:(openComps()[0]||{}).id,true)||'<option value="">(geen open competitie)</option>'}
     var pl=$('playerList');
     pl.innerHTML=TEAM.players.length?TEAM.players.map(function(p){
       return '<li><span><b>'+esc(p.name)+'</b><small>'+esc(p.pos)+'</small></span><button class="btn small" type="button" data-act="delplayer" data-id="'+p.id+'" aria-label="Speler '+esc(p.name)+' verwijderen">Weg</button></li>';
@@ -1544,8 +1739,9 @@ details.panel[open]{gap:14px}
           '<button class="btn main small" type="button" data-act="make">'+(a.done?'Opnieuw':'Maak kaart')+'</button>'+
           '<button class="btn small" type="button" data-act="delaward" aria-label="Kaart weghalen">✕</button></div></div>';
       }).join(''):'<p class="hint">Nog geen verdiende kaarten bij deze wedstrijd.</p>';
-      return '<article class="match" data-mid="'+m.id+'"><div class="match-head"><div class="match-title"><span class="score">'+clamp(m.us,0,99)+' – '+clamp(m.them,0,99)+'</span><b>tegen '+esc(m.opp||'?')+'</b><small>'+esc(fmtDate(m.date))+'</small></div>'+
+      return '<article class="match" data-mid="'+m.id+'"><div class="match-head"><div class="match-title matchedit" data-mid="'+m.id+'"><label>Competitie<select data-mf="cid">'+compOptions(m.cid)+'</select></label><label>Datum<input type="date" data-mf="date" value="'+esc(m.date||'')+'"></label><label>Tegenstander<input type="text" data-mf="opp" maxlength="30" value="'+esc(m.opp||'')+'"></label><label>Wij<input type="number" data-mf="us" min="0" max="99" value="'+clamp(m.us,0,99)+'"></label><label>Zij<input type="number" data-mf="them" min="0" max="99" value="'+clamp(m.them,0,99)+'"></label></div>'+
         '<button class="btn small" type="button" data-act="delmatch" data-mid="'+m.id+'">Wedstrijd verwijderen</button></div>'+
+        scorerHTML(m)+
         '<div class="awards">'+rows+'</div>'+
         '<div><button class="btn small" type="button" data-act="addaward" data-mid="'+m.id+'">+ Kaart toevoegen</button></div></article>';
     }).join('');
@@ -1587,29 +1783,39 @@ details.panel[open]{gap:14px}
     });
     $('matchForm').addEventListener('submit',function(e){
       e.preventDefault();
-      TEAM.matches.unshift({id:uid(),date:$('mDate').value,opp:$('mOpp').value.trim()||'Tegenstander',us:clamp($('mUs').value,0,99),them:clamp($('mThem').value,0,99),awards:[]});
+      if(!$('mComp').value){homeMsg('Start eerst een nieuwe competitie (bij het Seizoensoverzicht onderaan).');return}
+      TEAM.matches.unshift({id:uid(),cid:$('mComp').value,date:$('mDate').value,opp:$('mOpp').value.trim()||'Tegenstander',us:clamp($('mUs').value,0,99),them:clamp($('mThem').value,0,99),awards:[]});
       $('mOpp').value='';$('mUs').value=0;$('mThem').value=0;homeMsg('Wedstrijd toegevoegd. Kies nu wie een kaart heeft verdiend.');saveTeam();renderHome();
     });
     $('playerList').addEventListener('click',function(e){
       var b=e.target.closest('[data-act="delplayer"]');if(!b)return;var id=b.getAttribute('data-id');
       TEAM.players=TEAM.players.filter(function(p){return p.id!==id});
-      TEAM.matches.forEach(function(m){m.awards.forEach(function(a){if(a.pid===id)a.pid=''})});
+      TEAM.matches.forEach(function(m){m.awards.forEach(function(a){if(a.pid===id)a.pid=''});if(m.scorers)m.scorers=m.scorers.filter(function(x){return x.pid!==id})});
       saveTeam();renderHome();
     });
     $('matchList').addEventListener('click',function(e){
       var b=e.target.closest('[data-act]');if(!b)return;var act=b.getAttribute('data-act');
       var row=b.closest('.award'),mid=b.getAttribute('data-mid')||(row&&row.getAttribute('data-mid'));
+      if(act==='addscorer'){
+        var bx=b.closest('.scorers'),pid=bx.querySelector('[data-sc=pid]').value,n=clamp(bx.querySelector('[data-sc=n]').value,1,20);
+        if(!pid){homeMsg('Kies eerst wie het doelpunt maakte.');return}
+        TEAM.matches.forEach(function(m){if(m.id===mid){m.scorers=m.scorers||[];var f=m.scorers.filter(function(x){return x.pid===pid})[0];if(f)f.n=Math.min(20,(f.n|0)+n);else m.scorers.push({pid:pid,n:n})}});saveTeam();renderHome();return}
+      if(act==='delscorer'){var i=+b.getAttribute('data-i');TEAM.matches.forEach(function(m){if(m.id===mid&&m.scorers)m.scorers.splice(i,1)});saveTeam();renderHome();return}
       if(act==='delmatch'){TEAM.matches=TEAM.matches.filter(function(m){return m.id!==mid});homeMsg('');saveTeam();renderHome()}
       else if(act==='addaward'){TEAM.matches.forEach(function(m){if(m.id===mid)m.awards.push({id:uid(),pid:'',type:'mvdw',done:false})});saveTeam();renderHome()}
       else if(act==='delaward'){var aid=row.getAttribute('data-aid');TEAM.matches.forEach(function(m){if(m.id===mid)m.awards=m.awards.filter(function(a){return a.id!==aid})});saveTeam();renderHome()}
       else if(act==='make'){homeMsg('');openMakerFor(mid,row.getAttribute('data-aid'))}
     });
     $('matchList').addEventListener('change',function(e){
+      var inp=e.target.closest('[data-mf]');
+      if(inp){var mid=inp.closest('.matchedit').getAttribute('data-mid'),k=inp.getAttribute('data-mf');
+        TEAM.matches.forEach(function(m){if(m.id===mid){if(k==='date'&&!/^\d{4}-\d{2}-\d{2}$/.test(inp.value))return;if(k==='date'&&+inp.value.slice(0,4)<2000)return;m[k]=(k==='us'||k==='them')?clamp(inp.value,0,99):inp.value}});
+        saveTeam();if(k==='cid')renderHome();else renderSeason();return}
       var sel=e.target.closest('select[data-f]');if(!sel)return;var row=sel.closest('.award');
       var f=findAward(row.getAttribute('data-mid'),row.getAttribute('data-aid'));if(!f)return;
       f.a[sel.getAttribute('data-f')]=sel.value;f.a.done=false;saveTeam();renderHome();
     });
-    $('clearDemo').addEventListener('click',function(){TEAM={players:[],matches:[],demo:false};saveTeam();homeMsg('Je begint met een leeg team. Voeg je eerste speler toe.');renderHome()});
+    $('clearDemo').addEventListener('click',function(){TEAM={players:[],matches:[],comps:[],demo:false};migrateTeam();saveTeam();homeMsg('Je begint met een leeg team. Voeg je eerste speler toe.');renderHome()});
     $('goMaker').addEventListener('click',function(){ctx=null;state=blank();$('photo').value='';$('logo').value='';$('logo2').value='';syncForm();goStep(0,true);showView('maker')});
     $('backHome').addEventListener('click',function(){showView('home')});
     loadTeam();renderHome();showView('home');
@@ -1766,7 +1972,7 @@ details.panel[open]{gap:14px}
 
   // ----- Spelletjes: pakjes, teamopstelling, duel
   (function(){
-    var SKEY='voetbalkaart-maker-spel',PACK=30,EARN=10,WIN=20,DRAW=5;
+    var SKEY='voetbalkaart-maker-spel',PACK=20,EARN=10,WIN=20,DRAW=5;
     var G={pts:0,boosts:[],lineup:{f:'4-3-3',s:[]},opened:0,day:'',today:0,rareGot:{}};
     function loadG(){
       var g={pts:0,boosts:[],lineup:{f:'4-3-3',s:[]},opened:0,day:'',today:0,rareGot:{},w:0,l:0};
@@ -1784,29 +1990,29 @@ details.panel[open]{gap:14px}
     function rnd(n){return Math.floor(Math.random()*n)}
     function pickType(){return TYPES[rnd(TYPES.length)]}
     var PL=[
-      ['Kevin De Bruyne','CM','BE',88],['Virgil Van Dijk','CB','NL',87],['Frenkie De Jong','CM','NL',85],['Memphis Depay','ST','NL',80],['Cody Gakpo','LW','NL',83],
-      ['Denzel Dumfries','RB','NL',81],['Xavi Simons','CAM','NL',83],['Jurriën Timber','CB','NL',82],['Matthijs De Ligt','CB','NL',83],['Nathan Aké','CB','NL',82],
-      ['Tijjani Reijnders','CM','NL',83],['Ryan Gravenberch','CM','NL',83],['Brian Brobbey','ST','NL',80],['Teun Koopmeiners','CM','NL',83],['Jeremie Frimpong','RB','NL',82],
-      ['Mohamed Salah','RW','EG',89],['Harry Kane','ST','EN',89],['Jude Bellingham','CAM','EN',88],['Bukayo Saka','RW','EN',87],['Phil Foden','CAM','EN',87],
-      ['Declan Rice','CM','EN',86],['Vinicius Junior','LW','BR',88],['Rodri Hernandez','CM','ES',88],['Pedri Gonzalez','CM','ES',86],['Robert Lewandowski','ST','PL',86],
-      ['Joshua Kimmich','CM','DE',86],['Jamal Musiala','CAM','DE',87],['Florian Wirtz','CAM','DE',87],['Antoine Griezmann','ST','FR',85],['Nicolo Barella','CM','IT',85],
-      ['Alessandro Bastoni','CB','IT',85],['Federico Chiesa','LW','IT',82]
+      ['Kevin De Bruyne','CM','BE',88,'SSC Napoli'],['Virgil Van Dijk','CB','NL',87,'Liverpool'],['Frenkie De Jong','CM','NL',85,'FC Barcelona'],['Memphis Depay','ST','NL',80,'Corinthians'],['Cody Gakpo','LW','NL',83,'Liverpool'],
+      ['Denzel Dumfries','RB','NL',81,'Inter'],['Xavi Simons','CAM','NL',83,'Tottenham Hotspur'],['Jurriën Timber','CB','NL',82,'Arsenal'],['Matthijs De Ligt','CB','NL',83,'Manchester United'],['Nathan Aké','CB','NL',82,'Manchester City'],
+      ['Tijjani Reijnders','CM','NL',83,'Manchester City'],['Ryan Gravenberch','CM','NL',83,'Liverpool'],['Brian Brobbey','ST','NL',80,'Ajax'],['Teun Koopmeiners','CM','NL',83,'Juventus'],['Jeremie Frimpong','RB','NL',82,'Liverpool'],
+      ['Mohamed Salah','RW','EG',89,'Liverpool'],['Harry Kane','ST','EN',89,'Bayern München'],['Jude Bellingham','CAM','EN',88,'Real Madrid'],['Bukayo Saka','RW','EN',87,'Arsenal'],['Phil Foden','CAM','EN',87,'Manchester City'],
+      ['Declan Rice','CM','EN',86,'Arsenal'],['Vinicius Junior','LW','BR',88,'Real Madrid'],['Rodri Hernandez','CM','ES',88,'Manchester City'],['Pedri Gonzalez','CM','ES',86,'FC Barcelona'],['Robert Lewandowski','ST','PL',86,'FC Barcelona'],
+      ['Joshua Kimmich','CM','DE',86,'Bayern München'],['Jamal Musiala','CAM','DE',87,'Bayern München'],['Florian Wirtz','CAM','DE',87,'Liverpool'],['Antoine Griezmann','ST','FR',85,'Atlético Madrid'],['Nicolo Barella','CM','IT',85,'Inter'],
+      ['Alessandro Bastoni','CB','IT',85,'Inter'],['Federico Chiesa','LW','IT',82,'Liverpool']
     ];
     var PLR=[
-      ['Johan Cruijff','CAM','NL',96],['Diego Maradona','CAM','AR',96],['Zinedine Zidane','CAM','FR',95],['Lionel Messi','RW','AR',95],['Ronaldo Nazario','ST','BR',95],
-      ['Cristiano Ronaldo','ST','PT',93],['Kylian Mbappe','ST','FR',93],['Erling Haaland','ST','NO',93],['Lamine Yamal','RW','ES',91],['Marco Van Basten','ST','NL',94],
-      ['Ronaldinho Gaucho','CAM','BR',93],['Thierry Henry','ST','FR',93],['Dennis Bergkamp','ST','NL',92],['Ruud Gullit','CAM','NL',92],['Arjen Robben','RW','NL',92],
-      ['Wesley Sneijder','CAM','NL',91],['Clarence Seedorf','CM','NL',91],['Patrick Kluivert','ST','NL',90],['Edgar Davids','CM','NL',90],['Robin Van Persie','ST','NL',92],
-      ['Johan Neeskens','CM','NL',90],['Ronald Koeman','CB','NL',91],['Frank Rijkaard','CM','NL',91],['Ruud Van Nistelrooy','ST','NL',92],['Zlatan Ibrahimovic','ST','SE',92],
-      ['Andres Iniesta','CM','ES',93],['Xavi Hernandez','CM','ES',92],['Sergio Ramos','CB','ES',91],['Paolo Maldini','CB','IT',93],['Andrea Pirlo','CM','IT',92],
-      ['Francesco Totti','CAM','IT',91],['Roberto Baggio','CAM','IT',92],['Franz Beckenbauer','CB','DE',94],['Gerd Muller','ST','DE',93],['Lothar Matthaus','CM','DE',92],
-      ['Michael Ballack','CM','DE',90],['Michel Platini','CAM','FR',92],['Karim Benzema','ST','FR',91],['David Beckham','RW','EN',90],['Wayne Rooney','ST','EN',91],
-      ['Steven Gerrard','CM','EN',91],['Bobby Charlton','CAM','EN',92],['Luis Figo','RW','PT',91],['Eusebio Ferreira','ST','PT',92],['Kaka Leite','CAM','BR',91],
-      ['Neymar Junior','LW','BR',91],['Luis Suarez','ST','UY',91],['Gabriel Batistuta','ST','AR',91],['Mario Kempes','ST','AR',90],['Roberto Carlos','LB','BR',91],
-      ['Luka Modric','CM','HR',91],['Sergio Busquets','CM','ES',90],['Gerard Pique','CB','ES',90],['Carles Puyol','CB','ES',90],['Fernando Torres','ST','ES',90],
-      ['David Villa','ST','ES',90],['Didier Drogba','ST','',91],['Eden Hazard','LW','BE',91],['Romelu Lukaku','ST','BE',90],['Vincent Kompany','CB','BE',90],
-      ['Thomas Muller','ST','DE',91],['Philipp Lahm','RB','DE',91],['Toni Kroos','CM','DE',92],['Cesc Fabregas','CM','ES',90],['Paul Scholes','CM','EN',90],
-      ['Alan Shearer','ST','EN',90],['Alessandro Del Piero','ST','IT',91],['Fabio Cannavaro','CB','IT',91],['Rob Rensenbrink','LW','NL',90],['Ruud Krol','CB','NL',90]
+      ['Johan Cruijff','CAM','NL',96,'Ajax'],['Diego Maradona','CAM','AR',96,'Napoli'],['Zinedine Zidane','CAM','FR',95,'Real Madrid'],['Lionel Messi','RW','AR',95,'Inter Miami'],['Ronaldo Nazario','ST','BR',95,'Real Madrid'],
+      ['Cristiano Ronaldo','ST','PT',93,'Al-Nassr'],['Kylian Mbappe','ST','FR',93,'Real Madrid'],['Erling Haaland','ST','NO',93,'Manchester City'],['Lamine Yamal','RW','ES',91,'FC Barcelona'],['Marco Van Basten','ST','NL',94,'AC Milan'],
+      ['Ronaldinho Gaucho','CAM','BR',93,'FC Barcelona'],['Thierry Henry','ST','FR',93,'Arsenal'],['Dennis Bergkamp','ST','NL',92,'Arsenal'],['Ruud Gullit','CAM','NL',92,'AC Milan'],['Arjen Robben','RW','NL',92,'Bayern München'],
+      ['Wesley Sneijder','CAM','NL',91,'Inter'],['Clarence Seedorf','CM','NL',91,'AC Milan'],['Patrick Kluivert','ST','NL',90,'Ajax'],['Edgar Davids','CM','NL',90,'Juventus'],['Robin Van Persie','ST','NL',92,'Arsenal'],
+      ['Johan Neeskens','CM','NL',90,'FC Barcelona'],['Ronald Koeman','CB','NL',91,'FC Barcelona'],['Frank Rijkaard','CM','NL',91,'AC Milan'],['Ruud Van Nistelrooy','ST','NL',92,'Manchester United'],['Zlatan Ibrahimovic','ST','SE',92,'AC Milan'],
+      ['Andres Iniesta','CM','ES',93,'FC Barcelona'],['Xavi Hernandez','CM','ES',92,'FC Barcelona'],['Sergio Ramos','CB','ES',91,'Real Madrid'],['Paolo Maldini','CB','IT',93,'AC Milan'],['Andrea Pirlo','CM','IT',92,'Juventus'],
+      ['Francesco Totti','CAM','IT',91,'AS Roma'],['Roberto Baggio','CAM','IT',92,'Juventus'],['Franz Beckenbauer','CB','DE',94,'Bayern München'],['Gerd Muller','ST','DE',93,'Bayern München'],['Lothar Matthaus','CM','DE',92,'Bayern München'],
+      ['Michael Ballack','CM','DE',90,'Bayer Leverkusen'],['Michel Platini','CAM','FR',92,'Juventus'],['Karim Benzema','ST','FR',91,'Real Madrid'],['David Beckham','RW','EN',90,'Manchester United'],['Wayne Rooney','ST','EN',91,'Manchester United'],
+      ['Steven Gerrard','CM','EN',91,'Liverpool'],['Bobby Charlton','CAM','EN',92,'Manchester United'],['Luis Figo','RW','PT',91,'Real Madrid'],['Eusebio Ferreira','ST','PT',92,'Benfica'],['Kaka Leite','CAM','BR',91,'AC Milan'],
+      ['Neymar Junior','LW','BR',91,'Santos'],['Luis Suarez','ST','UY',91,'Inter Miami'],['Gabriel Batistuta','ST','AR',91,'Fiorentina'],['Mario Kempes','ST','AR',90,'Valencia'],['Roberto Carlos','LB','BR',91,'Real Madrid'],
+      ['Luka Modric','CM','HR',91,'AC Milan'],['Sergio Busquets','CM','ES',90,'Inter Miami'],['Gerard Pique','CB','ES',90,'FC Barcelona'],['Carles Puyol','CB','ES',90,'FC Barcelona'],['Fernando Torres','ST','ES',90,'Atlético Madrid'],
+      ['David Villa','ST','ES',90,'FC Barcelona'],['Didier Drogba','ST','',91,'Chelsea'],['Eden Hazard','LW','BE',91,'Chelsea'],['Romelu Lukaku','ST','BE',90,'SSC Napoli'],['Vincent Kompany','CB','BE',90,'Manchester City'],
+      ['Thomas Muller','ST','DE',91,'Vancouver Whitecaps'],['Philipp Lahm','RB','DE',91,'Bayern München'],['Toni Kroos','CM','DE',92,'Real Madrid'],['Cesc Fabregas','CM','ES',90,'Arsenal'],['Paul Scholes','CM','EN',90,'Manchester United'],
+      ['Alan Shearer','ST','EN',90,'Newcastle United'],['Alessandro Del Piero','ST','IT',91,'Juventus'],['Fabio Cannavaro','CB','IT',91,'Juventus'],['Rob Rensenbrink','LW','NL',90,'Anderlecht'],['Ruud Krol','CB','NL',90,'Ajax']
     ];
     var LIMITED=['Johan Cruijff','Diego Maradona','Zinedine Zidane','Lionel Messi','Ronaldo Nazario'],MAXLIM=2;
     var RARE=['legende','jaar','held','tvhj','diamant','fire'];
@@ -1836,9 +2042,9 @@ details.panel[open]{gap:14px}
     });
     // tabs
     function tab(n){
-      ['packs','lineup','duel'].forEach(function(t){$('tab-'+t).hidden=(t!==n)});
+      ['packs','lineup','duel','skills','pen','quiz'].forEach(function(t){$('tab-'+t).hidden=(t!==n)});
       [].forEach.call(document.querySelectorAll('.ptab'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-tab')===n?'true':'false')});
-      if(n==='packs')renderPacks();if(n==='lineup')renderLineup();if(n==='duel')renderDuelSetup();
+      if(n==='packs')renderPacks();if(n==='lineup')renderLineup();if(n==='duel')renderDuelSetup();if(n==='skills')renderSkills();if(n==='pen')renderPenSetup();if(n==='quiz')renderQuizSetup();
     }
     [].forEach.call(document.querySelectorAll('.ptab'),function(b){b.addEventListener('click',function(){tab(b.getAttribute('data-tab'))})});
     function open(n){showView('play');tab(n||'packs');ptsShow()}
@@ -1871,19 +2077,40 @@ details.panel[open]{gap:14px}
       setTimeout(function(){
         var base=JSON.parse(JSON.stringify(saved.length?saved[saved.length-1]:state));
         base.id='k'+Date.now()+rnd(99);applyType(base,t);
-        var fake=swapName(pl[0]);base.name=fake;base.pos=t.pos||pl[1];base.flag=pl[2];base.stats=makeStats(pl[1],pl[3]);base.auto=false;base.rating=pl[3];
-        base.test=['','','','','',''];base.earned=null;base.photo='';base.cutout=false;
+        var fake=swapName(pl[0]);base.name=fake;base.pos=t.pos||pl[1];base.flag=pl[2];base.club=pl[4]||'';base.stats=makeStats(pl[1],pl[3]);base.auto=false;base.rating=pl[3];
+        base.test=['','','','','',''];base.earned=null;base.photo='';base.cutout=false;base.av=newAv();
         var a=$('packArea');
-        a.innerHTML='<div class="reveal'+(rare?' rare':'')+'">'+(lim?'<div class="rarebanner">💎 SUPERZELDZAAM! 💎</div><div class="hint" style="color:#ffd24a;font-weight:800">Deze kaart bestaat maar '+MAXLIM+' keer. Nog '+(MAXLIM-G.rareGot[pl[0]])+' over.</div>':(rare?'<div class="rarebanner">✨ ZELDZAAM! ✨</div>':''))+'<div class="rcard" style="--s:11px">'+cardHTML(base)+'</div><div class="duelres">'+esc(base.name)+'</div><div class="hint">Echte naam: '+esc(pl[0])+' · '+esc(t.n)+'</div>'+
+        function show(){a.innerHTML='<div class="reveal'+(rare?' rare':'')+'">'+(lim?'<div class="rarebanner">💎 SUPERZELDZAAM! 💎</div><div class="hint" style="color:#ffd24a;font-weight:800">Deze kaart bestaat maar '+MAXLIM+' keer. Nog '+(MAXLIM-G.rareGot[pl[0]])+' over.</div>':(rare?'<div class="rarebanner">✨ ZELDZAAM! ✨</div>':''))+'<div class="rcard" style="--s:11px">'+cardHTML(base)+'</div><div class="duelres">'+esc(base.name)+'</div><div class="hint">⚽ Speelt bij <b>'+esc(pl[4]||'')+'</b></div><div class="hint">Echte naam: '+esc(pl[0])+' · '+esc(t.n)+'</div>'+
           (b?'<div class="hint" style="color:var(--accent);font-weight:800">Extra: +'+b.n+' '+STATS[b.stat][0]+' boost. Gebruik hem hieronder.</div>':'')+
           '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button class="btn main" id="keepPack" type="button">Bewaar in mijn kaarten</button><button class="btn" id="againPack" type="button">Nog een pakje</button></div></div>';
         $('keepPack').addEventListener('click',function(){
           saved.push(base);if(persist()){renderShelf();toast('De kaart staat in je kaarten.');this.disabled=true}else toast('Opslaan lukte niet.');
         });
         $('againPack').addEventListener('click',function(){busy=false;renderPacks()});
-        renderBoosts();
+        renderBoosts();}
+        walkout(a,pl,base,t,rare||lim,show);
       },1500);
       setTimeout(function(){busy=false},1600);
+    }
+
+    var AC=null;
+    function beep(f,d,ty,v){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.type=ty||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||.12,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+    function walkout(a,pl,base,t,rare,done){
+      var fl=FLAGS[pl[2]],steps=[
+        {h:fl&&fl.bg?'<div class="wo-flag" style="background:'+fl.bg+'"></div>':'<div class="wo-big">🌍</div>',t:fl&&fl.n?fl.n:'Wereldster',f:330},
+        {h:'<div class="wo-big">🛡️</div>',t:pl[4]||'',f:392},
+        {h:'<div class="wo-big wo-pos">'+esc((base.pos||'').toUpperCase())+'</div>',t:'Positie',f:466},
+        {h:'<div class="wo-big wo-rat">'+pl[3]+'</div>',t:'Rating',f:587}],i=0,fin=false,tm;
+      a.innerHTML='<div class="walkout'+(rare?' rare':'')+'"><div class="wo-stage" id="woStage"></div><button class="btn small" id="woSkip" type="button">Overslaan ›</button></div>';
+      function end(){if(fin)return;fin=true;clearTimeout(tm);beep(784,.5,'triangle',.15);beep(1175,.7,'triangle',.1);done()}
+      $('woSkip').addEventListener('click',end);
+      function next(){
+        if(fin)return;
+        if(i>=steps.length){tm=setTimeout(end,500);return}
+        var st=steps[i++];$('woStage').innerHTML='<div class="wo-step">'+st.h+'<div class="wo-txt">'+esc(st.t)+'</div></div>';
+        beep(st.f,.35,'square',.07);tm=setTimeout(next,1000);
+      }
+      beep(120,.5,'sawtooth',.1);tm=setTimeout(next,350);
     }
     function renderBoosts(){
       var el=$('boostList');
@@ -1946,7 +2173,7 @@ details.panel[open]{gap:14px}
     function oppCard(mine){
       var t=pickType(),r=rat(mine);
       return {id:'opp',type:t.k,pat:t.pat,label:t.label,name:ONAMES[rnd(ONAMES.length)].toUpperCase(),pos:['ST','CM','CAM','RW','CB'][rnd(5)],club:'Rivaal FC',flag:'',auto:true,rating:r,
-        stats:fairStats(mine.stats),test:['','','','','',''],c1:t.c1,c2:t.c2,tx:t.tx,ac:t.ac,photo:'',logo:'',logo2:'',icons:t.icons||['bolt','target','shield'],badge:t.badge!==false,rarity:t.rar,wf:3,sm:4,layout:t.layout||''};
+        av:newAv(),stats:fairStats(mine.stats),test:['','','','','',''],c1:t.c1,c2:t.c2,tx:t.tx,ac:t.ac,photo:'',logo:'',logo2:'',icons:t.icons||['bolt','target','shield'],badge:t.badge!==false,rarity:t.rar,wf:3,sm:4,layout:t.layout||''};
     }
     function encodeCard(c){
       var o={n:c.name,p:c.pos,f:c.flag,s:c.stats,r:rat(c),t:c.type,c1:c.c1,c2:c.c2,tx:c.tx,ac:c.ac,pa:c.pat,l:c.label,i:c.icons,b:c.badge,ra:c.rarity,ly:c.layout||''};
@@ -1958,7 +2185,7 @@ details.panel[open]{gap:14px}
         if(!o||!Array.isArray(o.s)||o.s.length!==6)return null;
         var hex=function(v,d){return /^#[0-9a-f]{3,8}$/i.test(v||'')?v:d};
         return {id:'friend',type:String(o.t||''),pat:String(o.pa||'none'),label:String(o.l||'').slice(0,12),name:String(o.n||'VRIEND').slice(0,20),pos:String(o.p||'ST').slice(0,4),club:'',flag:FLAGS[o.f]?o.f:'',
-          auto:false,rating:clamp(o.r,1,99),stats:o.s.map(function(v){return clamp(v,1,99)}),test:['','','','','',''],c1:hex(o.c1,'#444444'),c2:hex(o.c2,'#111111'),tx:hex(o.tx,'#ffffff'),ac:hex(o.ac,'#cccccc'),
+          av:newAv(),auto:false,rating:clamp(o.r,1,99),stats:o.s.map(function(v){return clamp(v,1,99)}),test:['','','','','',''],c1:hex(o.c1,'#444444'),c2:hex(o.c2,'#111111'),tx:hex(o.tx,'#ffffff'),ac:hex(o.ac,'#cccccc'),
           photo:'',logo:'',logo2:'',icons:Array.isArray(o.i)?o.i.slice(0,3).map(function(x){return String(x).slice(0,8)}):['','',''],badge:o.b===true,rarity:String(o.ra||'').slice(0,2),wf:3,sm:4,layout:LAYOUTS.indexOf(o.ly)>=0?o.ly:''};
       }catch(e){return null}
     }
@@ -2027,6 +2254,247 @@ details.panel[open]{gap:14px}
         play(best,'opp');
       },1300)}
       var ag=$('duelAgain');if(ag)ag.addEventListener('click',function(){$('duelStart').click()});
+    }
+    // ----- Skills leren (voetbaltrucjes met filmpje)
+    var SKILLS=[
+      ['jong','Jongleren',1,'Hou de bal 10 keer in de lucht met je voeten.','jongleren voetbal leren uitleg'],
+      ['zool','Zoolrol',1,'Rol de bal met de zool van je voet naar links en rechts.','zoolrol voetbal trucje uitleg'],
+      ['pull','Terugtrekken',1,'Trek de bal met de zool achter je standbeen en draai weg.','pull back voetbal trucje uitleg'],
+      ['step','Stepover',2,'Zwaai je voet om de bal heen en ga de andere kant op.','stepover voetbal trucje uitleg'],
+      ['cruy','Cruijff-draai',2,'Doe alsof je gaat passen, haal de bal achter je standbeen en draai weg.','cruijff draai voetbal uitleg'],
+      ['croq','La Croqueta',2,'Schuif de bal met de binnenkant van je voeten van de ene naar de andere voet.','la croqueta voetbal uitleg'],
+      ['chop','Ronaldo chop',2,'Hak de bal met de binnenkant van je voet snel achter je andere been.','ronaldo chop voetbal trucje uitleg'],
+      ['sciss','Schaar',2,'Zwaai om de bal heen en neem hem mee de andere kant op.','scissors voetbal trucje uitleg'],
+      ['elas','Elastico',3,'Duw de bal naar buiten en trek hem meteen met de buitenkant van je voet naar binnen.','elastico voetbal trucje uitleg'],
+      ['mara','Maradona-draai',3,'Draai om de bal heen met je voet op de bal en neem hem mee.','maradona draai voetbal uitleg'],
+      ['rain','Rainbow flick',3,'Klem de bal tussen je voeten en tik hem over je hoofd heen.','rainbow flick voetbal uitleg'],
+      ['somb','Sombrero',3,'Lob de bal over je tegenstander heen en ren er omheen.','sombrero flick voetbal uitleg'],
+      ['inst','Binnenkant dribbel',1,'Tik de bal heen en weer tussen je voeten met de binnenkant, steeds sneller.','ball mastery oefening voetbal uitleg'],
+      ['tik','Voetjes op de bal',1,'Tik met je zolen om en om op de bal zonder dat hij wegrolt.','sole taps voetbal oefening uitleg'],
+      ['knie','Hoofd en knie jongleren',1,'Jongleer met je voet, knie en hoofd, 5 keer achter elkaar.','jongleren knie hoofd voetbal uitleg'],
+      ['v','V-trek',1,'Trek de bal met je zool achteruit in een V en neem hem met de andere voet mee.','v pull voetbal trucje uitleg'],
+      ['fake','Schijnbeweging',1,'Doe alsof je schiet of passt en ga dan de andere kant op.','schijnbeweging voetbal uitleg'],
+      ['tunn','Poortje',2,'Speel de bal door de benen van je tegenstander heen.','nutmeg poortje voetbal uitleg'],
+      ['hook','Haakje',2,'Haal de bal met de buitenkant van je voet scherp naar binnen.','inside hook voetbal trucje uitleg'],
+      ['flip','Flip flap',2,'Haal de bal met de buitenkant naar binnen en tik hem direct weer naar buiten.','flip flap voetbal trucje uitleg'],
+      ['cut','Afsnijden',2,'Doe alsof je flankt en trek de bal met de binnenkant terug.','cut move voetbal uitleg'],
+      ['boom','Boomerang',3,'Rol de bal met je zool over je hoofd naar voren en neem hem mee.','rainbow boomerang voetbal uitleg'],
+      ['rab','Rabona',3,'Schiet of pas met je schietbeen om je standbeen heen.','rabona voetbal uitleg'],
+      ['ram','Zidane-draai',3,'Rol de bal met je zool terug, draai om hem heen en ga door in een vloeiende beweging.','marseille roulette voetbal uitleg'],
+      ['hak','Hakje',3,'Speel de bal met je hak naar achteren, zonder om te kijken.','hakje voetbal trucje uitleg'],
+      ['sjorr','Dubbele stepover',3,'Twee keer om de bal heen en dan weg met de buitenkant.','dubbele stepover voetbal uitleg'],
+      ['atw','Around the world',4,'Draai je voet in een cirkel om de bal heen terwijl hij in de lucht is.','around the world voetbal trucje uitleg'],
+      ['hoc','Hocus pocus',4,'Draai de bal met je voet om je standbeen en laat hem er aan de andere kant weer uit komen.','hocus pocus voetbal trucje uitleg'],
+      ['akka','Akka 3000',4,'Rol de bal van je voet op je andere voet over je standbeen heen in een draai.','akka 3000 voetbal trucje uitleg'],
+      ['lamb','Lambretta',4,'Haal de bal met de buitenkant van je voet om je standbeen heen en weer terug.','lambretta voetbal trucje uitleg'],
+      ['delas','Dubbele elastico',4,'Twee keer snel achter elkaar de elastico, bijna zonder de bal te verliezen.','dubbele elastico voetbal uitleg'],
+      ['hrain','Hak-regenboog',4,'Klem de bal tussen je hakken en til hem over je hoofd heen.','heel rainbow flick voetbal uitleg'],
+      ['rabd','Rabona-dribbel',4,'Haal je been achter je standbeen en dribbel er mee langs je tegenstander.','rabona dribbel voetbal uitleg'],
+      ['j50','Jongleren 50 keer',4,'Hou de bal 50 keer achter elkaar in de lucht, met voeten, knieën en hoofd.','jongleren 50 keer voetbal leren'],
+      ['neck','Bal in je nek',4,'Jongleer de bal omhoog en vang hem rustig op in je nek.','neck stall voetbal trucje uitleg'],
+      ['ronr','360 draai',4,'Draai een hele cirkel met de bal aan je voet en ga door in dezelfde richting.','360 draai voetbal trucje uitleg']
+    ],SKP={1:10,2:15,3:25,4:40};
+    function skGot(){if(!G.lineup)G.lineup={f:'4-3-3',s:[]};if(!G.lineup.sk)G.lineup.sk={};return G.lineup.sk}
+    function renderSkills(){
+      var got=skGot(),n=SKILLS.filter(function(x){return got[x[0]]}).length,pts=0;
+      SKILLS.forEach(function(x){if(got[x[0]])pts+=SKP[x[2]]});
+      var rank=n>=SKILLS.length?'🏆 Skills-koning':(n>=Math.ceil(SKILLS.length*.6)?'⭐ Trucjes-held':(n>=Math.ceil(SKILLS.length*.25)?'🔥 Skills-talent':(n>=1?'⚽ Beginner':'Nog geen skill')));
+      $('skillBar').innerHTML='<div class="skillsum"><b>'+n+' / '+SKILLS.length+'</b> skills geleerd · '+rank+'</div>';
+      $('skillGrid').innerHTML=SKILLS.map(function(x){
+        var ok=!!got[x[0]],url='https://www.youtube.com/results?search_query='+encodeURIComponent(x[4]);
+        return '<article class="skillcard'+(ok?' done':'')+'"><div class="skh"><b>'+esc(x[1])+'</b><span class="sklv" aria-label="Niveau '+x[2]+'">'+'★'.repeat(x[2])+'☆'.repeat(4-x[2])+'</span></div><p>'+esc(x[3])+'</p>'+
+          '<div class="skbtns"><a class="btn small" href="'+url+'" target="_blank" rel="noopener noreferrer">🎬 Bekijk filmpje</a><label class="check"><input type="checkbox" data-sk="'+x[0]+'"'+(ok?' checked':'')+'> Ik kan dit! (+'+SKP[x[2]]+')</label></div></article>';
+      }).join('');
+      [].forEach.call($('skillGrid').querySelectorAll('[data-sk]'),function(cb){cb.addEventListener('change',function(){
+        var id=cb.getAttribute('data-sk'),sk=SKILLS.filter(function(x){return x[0]===id})[0],g=skGot();
+        if(cb.checked&&!g[id]){g[id]=1;G.pts+=SKP[sk[2]];gsave();toast('Top! +'+SKP[sk[2]]+' punten voor '+sk[1]+'.')}
+        else if(!cb.checked&&g[id]){delete g[id];G.pts=Math.max(0,G.pts-SKP[sk[2]]);gsave()}
+        renderSkills();
+      })});
+    }
+    // ----- Penalty's
+    function capUse(key,max){
+      if(!G.lineup)G.lineup={f:'4-3-3',s:[]};
+      var c=G.lineup[key]||(G.lineup[key]={d:'',n:0});if(c.d!==dayKey()){c.d=dayKey();c.n=0}
+      return {ok:c.n<max,use:function(){c.n++},left:Math.max(0,max-c.n)};
+    }
+    var PEN=null,ZN=['links boven','midden boven','rechts boven','links onder','midden onder','rechts onder'];
+    function penCard(){var c=cardById($('penCard').value);return c||null}
+    function renderPenSetup(){
+      var list=cardOptions($('penCard'));
+      $('penBox').innerHTML=list.length?'<p class="hint">Je neemt 5 penalty\'s en je keept er 5. Je schiet met je kaart: een hoge SHO (schieten) geeft minder missers, een hoge DEF (verdedigen) helpt bij het keepen. Winnen geeft 15 punten (de eerste 5 potjes per dag).</p>':'<p class="hint">Sla eerst een kaart op, dan kun je penalty\'s nemen.</p>';
+      PEN=null;$('penStart').hidden=!list.length;
+    }
+    function penGoalHTML(sel,keep,res,disabled){
+      var h='<div class="pgoal">';
+      for(var i=0;i<6;i++){
+        var cls='pz';if(sel===i)cls+=' ball';if(keep===i)cls+=' glove';
+        h+='<button type="button" class="'+cls+'" data-z="'+i+'"'+(disabled?' disabled':'')+' aria-label="'+ZN[i]+'">'+(sel===i?'⚽':'')+(keep===i?'🧤':'')+'</button>';
+      }
+      return h+'</div>';
+    }
+    function penDots(a){return a.map(function(x){return '<i class="'+(x?'g':'m')+'">'+(x?'⚽':'✕')+'</i>'}).join('')}
+    function penDraw(msg,sel,keep,lock){
+      var p=PEN,me=p.me,rnd=Math.min(p.ps.length,p.po.length)+1;
+      var turn=p.phase==='shoot'?'Jij schiet! Kies een hoek.':'Jij keept! Kies waar je duikt.';
+      var h='<div class="pscore"><div><b>Jij</b> '+penDots(p.ps)+'<span>'+p.ps.filter(Boolean).length+'</span></div><div><b>Tegenstander</b> '+penDots(p.po)+'<span>'+p.po.filter(Boolean).length+'</span></div></div>';
+      h+='<p class="penturn">'+(p.sudden?'Beslissingsronde! ':'Ronde '+Math.min(5,rnd)+' van 5. ')+(lock?'':turn)+'</p>'+penGoalHTML(sel,keep,null,lock);
+      h+='<p class="penmsg">'+(msg||'')+'</p>';
+      $('penBox').innerHTML=h;
+      [].forEach.call($('penBox').querySelectorAll('[data-z]'),function(b){b.addEventListener('click',function(){penPick(+b.getAttribute('data-z'))})});
+    }
+    function penStartGame(){
+      var me=penCard();if(!me){toast('Kies eerst een kaart.');return}
+      PEN={me:me,ps:[],po:[],phase:'shoot',sudden:false,busy:false,id:Date.now()};penDraw('Veel succes!');
+    }
+    function penFinish(){
+      var p=PEN,a=p.ps.filter(Boolean).length,b=p.po.filter(Boolean).length,win=a>b,cap=capUse('pen',5),add=0;
+      if(cap.ok){add=win?15:3;cap.use();G.pts+=add;gsave()}
+      var h='<div class="duelres" style="margin:12px 0">'+(win?'Je wint met '+a+' – '+b+'! 🏆':'Verloren met '+a+' – '+b+'. Probeer het nog eens!')+'</div><p class="hint" style="text-align:center">'+(add?'+'+add+' punten. ':'Je hebt vandaag al 5 potjes met punten gespeeld. ')+'</p><div style="text-align:center"><button class="btn main" type="button" id="penAgain">Nog een potje</button></div>';
+      $('penBox').innerHTML=penBoard()+h;$('penAgain').addEventListener('click',penStartGame);PEN=null;
+    }
+    function penBoard(){return '<div class="pscore"><div><b>Jij</b> '+penDots(PEN.ps)+'<span>'+PEN.ps.filter(Boolean).length+'</span></div><div><b>Tegenstander</b> '+penDots(PEN.po)+'<span>'+PEN.po.filter(Boolean).length+'</span></div></div>'}
+    function penNext(){
+      var p=PEN;if(!p)return;
+      var a=p.ps.filter(Boolean).length,b=p.po.filter(Boolean).length,na=p.ps.length,nb=p.po.length;
+      if(p.phase==='shoot'){p.phase='keep';penDraw('');return}
+      // na een ronde (jij schoot, tegenstander schoot)
+      var rounds=na;
+      if(rounds>=5){
+        if(a!==b){return penFinish()}
+        p.sudden=true;
+      }else{
+        var left=5-rounds;
+        if(a>b+left||b>a+left)return penFinish();
+      }
+      p.phase='shoot';penDraw('');
+    }
+    function penPick(z){
+      var p=PEN;if(!p||p.busy)return;p.busy=true;
+      var st=p.me.stats,sho=st[1],def=st[4],msg='',res=false,k;
+      if(p.phase==='shoot'){
+        k=rnd(6);var miss=(100-sho)/500+(z<3?0.07:0);
+        if(Math.random()<miss){msg='Naast of over! 😬';res=false}
+        else if(k===z){res=Math.random()>0.75;msg=res?'De keeper raakt hem, maar de bal gaat er toch in! ⚽':'Gered door de keeper! 🧤'}
+        else if(k%3===z%3){res=Math.random()>0.2;msg=res?'GOAL! ⚽':'De keeper pakt hem net! 🧤'}
+        else{res=true;msg='GOAL! ⚽'}
+        p.ps.push(res);penDraw(msg,z,k,true);
+      }else{
+        var w=[1.3,1,1.3,1.3,1,1.3],tot=w.reduce(function(a,x){return a+x},0),r=Math.random()*tot,s=0;
+        for(var i=0;i<6;i++){r-=w[i];if(r<=0){s=i;break}}
+        if(Math.random()<0.1){msg='De tegenstander schiet naast! 😅';res=false}
+        else if(z===s){var sv=0.55+def/400;res=Math.random()>sv;msg=res?'Hij gaat er toch in...':'GERED! 🧤🔥'}
+        else if(z%3===s%3){res=Math.random()>0.12;msg=res?'Goal voor de tegenstander.':'Net gered! 🧤'}
+        else{res=true;msg='Goal voor de tegenstander.'}
+        p.po.push(res);penDraw(msg,s,z,true);
+      }
+      setTimeout(function(){if(PEN===p){p.busy=false;penNext()}},1500);
+    }
+    $('penStart').addEventListener('click',penStartGame);
+    // ----- Voetbalquiz
+    var QZ=[
+      ['Hoeveel spelers heeft een team in het veld, inclusief de keeper?',['9','10','11','12'],2,'Een team speelt met 11 spelers, de keeper is er één van.'],
+      ['Hoe ver staat de penaltystip van de doellijn?',['9 meter','11 meter','16 meter','20 meter'],1,'De penalty wordt genomen vanaf 11 meter.'],
+      ['Wat krijg je als je twee gele kaarten in dezelfde wedstrijd krijgt?',['Een waarschuwing','Een rode kaart','Een penalty','Niets'],1,'Twee gele kaarten zijn samen een rode kaart: je moet het veld af.'],
+      ['Hoe lang duurt een wedstrijd van volwassenen (zonder blessuretijd)?',['60 minuten','80 minuten','90 minuten','120 minuten'],2,'Twee helften van 45 minuten.'],
+      ['Bij een inworp houd je de bal...',['met één hand','met twee handen boven je hoofd','onder je arm','met je voet'],1,'Je gooit met twee handen, beide voeten op de grond.'],
+      ['Mag je direct scoren uit een inworp?',['Ja','Nee','Alleen bij een penalty','Alleen in de laatste minuut'],1,'Een doelpunt direct uit een inworp telt niet.'],
+      ['Welk land won het WK van 2022?',['Frankrijk','Brazilië','Argentinië','Nederland'],2,'Argentinië won het WK in Qatar na een penaltyserie tegen Frankrijk.'],
+      ['Hoe vaak is Brazilië wereldkampioen geworden?',['2 keer','3 keer','5 keer','7 keer'],2,'Brazilië is 5 keer wereldkampioen: 1958, 1962, 1970, 1994 en 2002.'],
+      ['Wat betekent GK op een kaart?',['Goalkeeper (keeper)','Goede kaart','Grote kans','Gelijk spel'],0,'GK staat voor goalkeeper.'],
+      ['Wat betekent ST op een kaart?',['Stopper','Spits (striker)','Steunspeler','Sprinter'],1,'ST is de spits: de speler die vooral scoort.'],
+      ['Wat betekent CB op een kaart?',['Centrale verdediger','Corner bal','Coach B','Centrale buitenspeler'],0,'CB staat voor centre-back: de centrale verdediger.'],
+      ['Wat betekent PAC op een kaart?',['Kracht','Snelheid','Passen','Schieten'],1,'PAC komt van pace: hoe snel je bent.'],
+      ['Waarmee geef je de nauwkeurigste korte pass?',['Met de punt van je schoen','Met de binnenkant van je voet','Met de hak','Met de zool'],1,'De binnenkant van je voet is het grootste, vlakke stuk: dat geeft de meeste controle.'],
+      ['Waarmee schiet je hard en ver?',['Met de wreef (veters)','Met de zool','Met de hak','Met de binnenkant'],0,'Met de wreef kun je het hardst schieten.'],
+      ['Wat doe je het best bij het opwarmen?',['Direct sprinten','Rustig bewegen en je spieren los maken','Niets doen','Heel veel eten'],1,'Opwarmen maakt je spieren los en verkleint de kans op blessures.'],
+      ['Wat drink je het best tijdens een training?',['Water','Energiedrank','Cola','Koffie'],0,'Water is het beste om je lichaam van vocht te voorzien.'],
+      ['Wat is een een-twee?',['Je geeft een pass en krijgt hem terug terwijl je doorloopt','Twee doelpunten','Twee spelers verwisselen','Een pass naar de keeper'],0,'Je speelt de bal naar een teamgenoot en loopt door om hem terug te krijgen.'],
+      ['Wat is een poortje (nutmeg)?',['De bal tussen de benen van een tegenstander spelen','Een schot op de lat','Een lange pass','Een doelpunt met je hoofd'],0,'Bij een poortje speel je de bal tussen de benen door.'],
+      ['Naar wie is de Cruijff-draai vernoemd?',['Marco van Basten','Johan Cruijff','Dennis Bergkamp','Ruud Gullit'],1,'Johan Cruijff deed deze draai op het WK van 1974.'],
+      ['Welk stadion is van Ajax?',['De Kuip','Philips Stadion','Johan Cruijff ArenA','Abe Lenstra Stadion'],2,'Ajax speelt in de Johan Cruijff ArenA in Amsterdam.'],
+      ['In welk stadion speelt Feyenoord?',['De Kuip','De Grolsch Veste','Het Philips Stadion','Het Gelredome'],0,'Feyenoord speelt in De Kuip in Rotterdam.'],
+      ['Bij buitenspel kijkt de scheidsrechter vooral naar...',['Waar de aanvaller staat op het moment van de pass','Hoe hard de bal gaat','Wie de bal als laatste raakte','De kleur van het shirt'],0,'Het gaat om de plek van de aanvaller op het moment dat de pass gegeven wordt.'],
+      ['Wat gebeurt er na een doelpunt?',['Het andere team neemt de aftrap in het midden','De keeper neemt een vrije trap','Het team dat scoorde trapt af','De wedstrijd stopt'],0,'Na een doelpunt trapt de tegenstander af vanaf de middenstip.'],
+      ['Een keeper mag een terugspeelbal van een teamgenoot met de voet...',['Niet met zijn handen pakken','Altijd pakken','Alleen pakken in de eigen helft','Alleen pakken bij een hoekschop'],0,'Een bewust met de voet teruggespeelde bal mag de keeper niet oppakken.'],
+      ['Wat is het beste om te doen bij een hoge bal die je moet controleren?',['Hard terug trappen','Je lichaam zacht laten meegeven','Ervoor weglopen','Je ogen sluiten'],1,'Door zacht mee te geven neemt de bal minder snelheid mee en blijft hij bij je.'],
+      ['Wat is een hoekschop?',['Een trap vanuit de hoek van het veld na een bal over de achterlijn door de verdediger','Een penalty','Een inworp','Een scheidsrechtersbal'],0,'Raakt de verdediger de bal als laatste voor de achterlijn, dan volgt een hoekschop.'],
+      ['Welke kleur heeft het Nederlands elftal meestal als thuisshirt?',['Rood','Oranje','Blauw','Groen'],1,'Nederland speelt in oranje.'],
+      ['Wat is een hattrick?',['Drie doelpunten van dezelfde speler in één wedstrijd','Drie gele kaarten','Drie wissels','Drie penalty\'s'],0,'Een hattrick is drie goals van één speler in één wedstrijd.'],
+      ['Wat betekent DRI op een kaart?',['Drinken','Dribbelen','Drukken','Drieen'],1,'DRI staat voor dribbelen.'],
+      ['Hoeveel meter is een doel breed?',['5,32 meter','7,32 meter','9 meter','11 meter'],1,'Een voetbaldoel is 7,32 meter breed en 2,44 meter hoog.'],
+      ['Wat doe je als een tegenstander geblesseerd op de grond ligt en de scheids het spel stil legt?',['Je geeft de bal na het hervatten eerlijk terug','Je schiet op doel','Je lacht hem uit','Je loopt weg'],0,'Eerlijk spel: bij een scheidsrechtersbal na een blessure geef je de bal aan de tegenpartij terug.'],
+      ['Wat is de beste manier om beter te worden in een trucje?',['Het één keer proberen','Vaak oefenen, eerst langzaam','Alleen kijken naar filmpjes','Wachten tot het vanzelf lukt'],1,'Vaak en eerst langzaam oefenen, daarna steeds sneller.'],
+      ['Waar staat een keeper bij een penalty?',['Op de doellijn tussen de palen','Voor de penaltystip','Buiten het doel','Op de middenstip'],0,'De keeper moet op de doellijn staan tot de bal is getrapt.'],
+      ['Hoeveel punten krijg je voor een gewonnen competitiewedstrijd?',['1 punt','2 punten','3 punten','5 punten'],2,'Winst is 3 punten, gelijkspel 1 punt, verlies 0 punten.'],
+      ['Wat betekent LW op een kaart?',['Linksbuiten (left winger)','Langste wedstrijd','Laatste wissel','Linksback'],0,'LW is de linksbuiten.'],
+      ['Welk land organiseerde het allereerste WK voetbal in 1930?',['Brazilië','Uruguay','Italië','Engeland'],1,'Uruguay was gastland van het eerste WK en werd ook de eerste wereldkampioen.',2],
+      ['Welke Nederlander scoorde de beroemde volley in de EK-finale van 1988?',['Ruud Gullit','Marco van Basten','Frank Rijkaard','Ronald Koeman'],1,'Marco van Basten scoorde die wereldgoal tegen de Sovjet-Unie (2-0).',2],
+      ['Welke club heeft de Champions League het vaakst gewonnen?',['AC Milan','Real Madrid','FC Barcelona','Bayern München'],1,'Real Madrid won de Champions League (eerder Europa Cup 1) het vaakst: 15 keer.',2],
+      ['Welk land werd Europees kampioen in 2024?',['Engeland','Duitsland','Spanje','Frankrijk'],2,'Spanje won het EK van 2024 met 2-1 van Engeland.',2],
+      ['Hoeveel keer heeft Lionel Messi de Ballon d\'Or gewonnen (tot en met 2023)?',['5 keer','6 keer','7 keer','8 keer'],3,'Messi won de Ballon d\'Or 8 keer, voor het laatst in 2023.',2],
+      ['Hoe ver reikt het strafschopgebied vanaf de doellijn?',['11 meter','16,5 meter','20 meter','5,5 meter'],1,'Het strafschopgebied is 16,5 meter diep.',2],
+      ['Hoe ver moeten tegenstanders bij een vrije trap van de bal blijven staan?',['5 meter','7 meter','9,15 meter','11 meter'],2,'De muur moet minimaal 9,15 meter (10 yards) afstand houden.',2],
+      ['Wie maakte het beruchte "Hand van God"-doelpunt op het WK 1986?',['Pelé','Diego Maradona','Johan Cruijff','Zico'],1,'Maradona scoorde het met zijn hand tegen Engeland.',2],
+      ['Wie scoorde het enige doelpunt in de WK-finale van 2010?',['Xavi','David Villa','Andrés Iniesta','Arjen Robben'],2,'Iniesta scoorde in de verlenging voor Spanje tegen Nederland.',2],
+      ['Wie is de topscorer aller tijden op WK-eindrondes?',['Ronaldo (Brazilië)','Pelé','Miroslav Klose','Gerd Müller'],2,'Miroslav Klose maakte 16 doelpunten op vier WK\'s.',2],
+      ['Wie was de bondscoach van Nederland op het WK van 1974?',['Rinus Michels','Louis van Gaal','Guus Hiddink','Leo Beenhakker'],0,'Rinus Michels leidde het "totaalvoetbal" van Oranje.',2],
+      ['Tegen welk land scoorde Dennis Bergkamp zijn beroemde winnende goal op het WK 1998?',['Brazilië','Argentinië','Frankrijk','Duitsland'],1,'Zijn goal in de kwartfinale tegen Argentinië is wereldberoemd.',2],
+      ['Welke Nederlander won in 1987 de Ballon d\'Or?',['Ruud Gullit','Marco van Basten','Johan Cruijff','Frank Rijkaard'],0,'Ruud Gullit won de Ballon d\'Or in 1987.',2],
+      ['Hoe vaak won Ajax de Champions League (Europa Cup 1)?',['2 keer','3 keer','4 keer','5 keer'],2,'Ajax won in 1971, 1972, 1973 en 1995.',2],
+      ['Wat betekent xG in voetbalstatistieken?',['Extra gele kaart','Expected goals (verwachte doelpunten)','Extra goal','Eerste goal'],1,'xG laat zien hoe groot de kans was dat een schot een doelpunt werd.',2],
+      ['Wat is "tiki-taka"?',['Heel lange ballen','Veel korte passes en balbezit','Alleen verdedigen','Alleen schieten van afstand'],1,'Tiki-taka is een stijl van korte passes, bekend van Spanje en FC Barcelona.',2],
+      ['Wat is "catenaccio"?',['Een zeer verdedigende Italiaanse speelstijl','Een Spaanse aanvalsstijl','Een Nederlandse trainingsvorm','Een soort schot'],0,'Catenaccio is het Italiaanse "grendel"-systeem met sterke verdediging.',2],
+      ['Wat is een "false nine"?',['Een spits die terugzakt naar het middenveld','Een keeper die meespeelt','Een speler met rugnummer 9 op de bank','Een foutieve wissel'],0,'De false nine is een spits die niet vooraan blijft, maar terugzakt om de bal te halen.',2],
+      ['Wat is een "wingback"?',['Een keeper','Een verdediger die ver opschuift langs de zijlijn','Een spits','Een scheidsrechter'],1,'Een wingback verdedigt én valt aan over de hele flank.',2],
+      ['Wat is "high press"?',['Heel hoog schieten','Hoog op het veld druk zetten op de tegenstander','Een hoge pass','Een hoge snelheid'],1,'Bij high press probeer je de bal al hoog op het veld af te pakken.',2],
+      ['Welke speler scoorde de vliegende kopbal tegen Spanje op het WK 2014?',['Arjen Robben','Wesley Sneijder','Robin van Persie','Klaas-Jan Huntelaar'],2,'Robin van Persie scoorde die kopbal bij de 5-1 zege.',2],
+      ['Hoeveel keer is Duitsland wereldkampioen geworden bij de mannen?',['3 keer','4 keer','5 keer','6 keer'],1,'Duitsland won in 1954, 1974, 1990 en 2014.',2],
+      ['Welk land won het WK van 2018?',['Kroatië','België','Frankrijk','Engeland'],2,'Frankrijk won het WK in Rusland met 4-2 van Kroatië.',2],
+      ['In welk jaar werd Nederland Europees kampioen bij de vrouwen?',['2009','2013','2017','2021'],2,'Oranje Leeuwinnen wonnen het EK 2017 in eigen land.',2],
+      ['Welke spits maakte 13 doelpunten op één WK (1958)?',['Pelé','Just Fontaine','Eusébio','Gerd Müller'],1,'Just Fontaine uit Frankrijk scoorde 13 keer, nog steeds een record.',2],
+      ['Wat was een "golden goal"?',['Een doelpunt in de verlenging dat de wedstrijd direct beslist','Een doelpunt met links','Een penalty in de laatste minuut','Een doelpunt van de keeper'],0,'Het eerste doelpunt in de verlenging besliste de wedstrijd. Dit is afgeschaft.',2],
+      ['Wat doet de "nummer 10" meestal?',['Keepen','Verdedigen in het centrum','Spelmaken achter de spitsen','Inworpen nemen'],2,'De nummer 10 is vaak de creatieve spelmaker.',2],
+      ['Welk land won het eerste EK in 1960?',['Spanje','Sovjet-Unie','Joegoslavië','Duitsland'],1,'De Sovjet-Unie won het eerste EK in Frankrijk.',2],
+      ['Wat is de bijnaam van de beker van de Champions League?',['De Gouden Gids','Big Ears (de grote oren)','De Zilveren Schaal','De Wereldbol'],1,'Door de grote hengsels heet hij "Big Ears".',2],
+      ['Hoeveel spitsen heb je in de opstelling 4-4-2?',['1','2','3','4'],1,'In 4-4-2 staan 4 verdedigers, 4 middenvelders en 2 spitsen.',2],
+      ['Welke Nederlandse club won de meeste landstitels?',['PSV','Feyenoord','Ajax','AZ'],2,'Ajax staat bovenaan met de meeste landskampioenschappen.',2],
+      ['Hoe breed is een voetbaldoel?',['6,32 m','7,32 m','8,32 m','9,32 m'],1,'Het doel is 7,32 meter breed en 2,44 meter hoog.',2]
+    ],QN=10;
+    var QS=null;
+    function renderQuizSetup(){
+      QS=null;
+      $('quizBox').innerHTML='<p class="hint">Beantwoord '+QN+' vragen over voetbal. Makkelijk: 3 punten per goed antwoord (+10 bonus bij alles goed). Moeilijk: 5 punten per goed antwoord (+20 bonus). Je krijgt punten voor de eerste 3 rondes per dag.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn main" type="button" data-lv="1">Makkelijk</button><button class="btn main" type="button" data-lv="2">🔥 Moeilijk</button><button class="btn" type="button" data-lv="0">Alles door elkaar</button></div>';
+      [].forEach.call($('quizBox').querySelectorAll('[data-lv]'),function(b){b.addEventListener('click',function(){quizStartGame(+b.getAttribute('data-lv'))})});
+    }
+    var QLV=0;
+    function quizStartGame(lv){
+      if(typeof lv==='number')QLV=lv;
+      var idx=QZ.map(function(_,i){return i}).filter(function(i){return !QLV||(QZ[i][4]||1)===QLV}).sort(function(){return Math.random()-.5}).slice(0,QN);
+      QS={q:idx.map(function(i){
+        var it=QZ[i],o=it[1].map(function(t,j){return {t:t,c:j===it[2]}}).sort(function(){return Math.random()-.5});
+        return {q:it[0],o:o,e:it[3]};
+      }),i:0,ok:0,ans:null,lv:QLV};quizDraw();
+    }
+    function quizDraw(){
+      var s=QS,q=s.q[s.i],h='<div class="qprog">Vraag '+(s.i+1)+' van '+QN+' · '+s.ok+' goed</div><h3 class="qq">'+esc(q.q)+'</h3><div class="qopts">';
+      q.o.forEach(function(o,j){
+        var cls='btn qopt';if(s.ans!==null){if(o.c)cls+=' win';else if(j===s.ans)cls+=' lose'}
+        h+='<button type="button" class="'+cls+'" data-o="'+j+'"'+(s.ans!==null?' disabled':'')+'>'+esc(o.t)+'</button>';
+      });
+      h+='</div>';
+      if(s.ans!==null)h+='<p class="hint" style="margin:10px 0">'+(q.o[s.ans].c?'<b style="color:var(--accent)">Goed!</b> ':'<b style="color:#ff8a8a">Helaas.</b> ')+esc(q.e)+'</p><button class="btn main" type="button" id="qNext">'+(s.i+1>=QN?'Bekijk je score':'Volgende vraag')+'</button>';
+      $('quizBox').innerHTML=h;
+      [].forEach.call($('quizBox').querySelectorAll('[data-o]'),function(b){b.addEventListener('click',function(){
+        if(QS.ans!==null)return;QS.ans=+b.getAttribute('data-o');if(q.o[QS.ans].c)QS.ok++;quizDraw();
+      })});
+      var n=$('qNext');if(n)n.addEventListener('click',function(){QS.ans=null;QS.i++;if(QS.i>=QN)quizFinish();else quizDraw()});
+    }
+    function quizFinish(){
+      var ok=QS.ok,cap=capUse('qz',3),add=0;
+      if(cap.ok){add=ok*(QS.lv===2?5:3)+(ok===QN?(QS.lv===2?20:10):0);cap.use();G.pts+=add;gsave()}
+      $('quizBox').innerHTML='<div class="duelres" style="margin:12px 0">'+ok+' van '+QN+' goed'+(ok===QN?' 🏆':'')+'</div><p class="hint" style="text-align:center">'+(cap.ok?'+'+add+' punten! ':'Je hebt vandaag al 3 rondes met punten gespeeld. ')+(ok>=6?'Wat een voetbalkenner!':'Blijf oefenen, je wordt steeds beter.')+'</p><div style="text-align:center"><button class="btn main" type="button" id="quizAgain">Nog een ronde</button></div>';
+      $('quizAgain').addEventListener('click',renderQuizSetup);QS=null;
     }
     // ===== Online spelen met Firebase (groep + kindprofiel) =====
     var BASEK='voetbalkaart-maker-kaarten',BASES='voetbalkaart-maker-spel',MAIL='@kind.voetbalkaart.invalid';
