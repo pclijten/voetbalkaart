@@ -336,6 +336,14 @@ details.panel[open]{gap:14px}
 .wo-pos{color:#ffd24a;font-size:5em}.wo-rat{color:#ffd24a;font-size:6.5em}
 .wo-txt{font-size:1.6em;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-align:center}
 @keyframes woin{from{opacity:0;transform:scale(2.2)}to{opacity:1;transform:scale(1)}}
+.fifa canvas{width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;touch-action:none;background:#2e9b46}
+.ftac{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.fsub{position:absolute;left:8px;right:8px;top:8px;bottom:8px;overflow:auto;background:rgba(8,12,30,.96);border-radius:12px;padding:12px;color:#fff;z-index:3}
+.fsub[hidden]{display:none}.fsubcols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}.fsubcols .btn{display:block;width:100%;margin:4px 0}
+.fctl{display:flex;justify-content:space-between;align-items:center;max-width:720px;margin:12px auto 0;gap:12px}
+#fpad{width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.25);position:relative;touch-action:none;flex:none}
+#fknob{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:var(--accent);opacity:.85;pointer-events:none}
+.fbtns{display:flex;gap:10px}.fbtns .btn{min-width:96px;min-height:64px;font-size:1.05em;touch-action:none}.fbtns small{display:block;opacity:.7;font-size:.65em}
 .reveal{display:flex;flex-direction:column;align-items:center;gap:12px;animation:revealin .9s cubic-bezier(.2,1.2,.3,1) both}
 @keyframes revealin{0%{transform:rotateY(180deg) scale(.4);opacity:0}60%{transform:rotateY(-12deg) scale(1.08);opacity:1}100%{transform:rotateY(0) scale(1)}}
 .reveal .rcard{filter:drop-shadow(0 0 22px rgba(255,220,100,.6))}
@@ -517,6 +525,7 @@ details.panel[open]{gap:14px}
         <button class="btn small ptab" type="button" data-tab="skills" aria-pressed="false">🎬 Skills leren</button>
         <button class="btn small ptab" type="button" data-tab="pen" aria-pressed="false">🥅 Penalty's</button>
         <button class="btn small ptab" type="button" data-tab="quiz" aria-pressed="false">❓ Quiz</button>
+        <button class="btn small ptab" type="button" data-tab="cup" aria-pressed="false">🏆 Beker</button>
         <button class="btn small" type="button" id="playBack">← Voorpagina</button>
       </div>
     </section>
@@ -536,6 +545,11 @@ details.panel[open]{gap:14px}
       <h2>Penalty's</h2>
       <div class="row" style="align-items:center;gap:12px"><label for="penCard" style="display:flex;gap:8px;align-items:center">Jouw kaart <select id="penCard" style="width:auto"></select></label><button class="btn main" type="button" id="penStart">Start penalty's</button></div>
       <div id="penBox"></div>
+    </section>
+    <section class="panel" id="tab-cup" hidden>
+      <h2>Bekertoernooi</h2>
+      <div class="row" style="align-items:center;gap:12px;flex-wrap:wrap"><label for="cupNat" style="display:flex;gap:8px;align-items:center">Land <select id="cupNat" style="width:auto"></select></label><label for="cupDiff" style="display:flex;gap:8px;align-items:center">Niveau <select id="cupDiff" style="width:auto"><option value="mak">😀 Makkelijk</option><option value="nor" selected>⚽ Normaal (1,5× punten)</option><option value="moe">🔥 Moeilijk (2× punten)</option></select></label><label for="cupMode" style="display:flex;gap:8px;align-items:center">Wedstrijd <select id="cupMode" style="width:auto"><option value="fifa">⚽ Zelf spelen op het veld</option><option value="tekst">📝 Tekstversie</option></select></label><label for="cupTac" style="display:flex;gap:8px;align-items:center">Tactiek <select id="cupTac" style="width:auto"><option value="geb">Gebalanceerd</option><option value="aan">Aanvallend (meer goals, meer risico)</option><option value="ver">Verdedigend (veilig spelen)</option></select></label><button class="btn main" type="button" id="cupStart">Start toernooi</button></div>
+      <div id="cupBox"></div>
     </section>
     <section class="panel" id="tab-quiz" hidden>
       <h2>Voetbalquiz</h2>
@@ -1525,11 +1539,12 @@ details.panel[open]{gap:14px}
     fr.readAsDataURL(file);
   }
   $('photo').addEventListener('change',function(e){var f=e.target.files[0];if(f)readImage(f,700,/png|webp|gif/.test(f.type)?'image/png':'image/jpeg',function(d){window.__setPhoto(d)})});
-  $('logo').addEventListener('change',function(e){var f=e.target.files[0];if(f)readImage(f,240,'image/png',function(d){state.logo=d;renderCard()})});
+  function keepLogo(){try{localStorage.setItem('voetbalkaart-maker-logo',JSON.stringify({logo:state.logo||'',logo2:state.logo2||''}))}catch(e){}}
+  $('logo').addEventListener('change',function(e){var f=e.target.files[0];if(f)readImage(f,240,'image/png',function(d){state.logo=d;keepLogo();renderCard()})});
   $('clearPhoto').addEventListener('click',function(){window.__photoOrig='';state.photo='';state.cutout=false;$('cutout').checked=false;$('photo').value='';renderCard()});
-  $('clearLogo').addEventListener('click',function(){state.logo='';$('logo').value='';renderCard()});
-  $('logo2').addEventListener('change',function(e){var f=e.target.files[0];if(f)readImage(f,240,'image/png',function(d){state.logo2=d;renderCard()})});
-  $('clearLogo2').addEventListener('click',function(){state.logo2='';$('logo2').value='';renderCard()});
+  $('clearLogo').addEventListener('click',function(){state.logo='';keepLogo();$('logo').value='';renderCard()});
+  $('logo2').addEventListener('change',function(e){var f=e.target.files[0];if(f)readImage(f,240,'image/png',function(d){state.logo2=d;keepLogo();renderCard()})});
+  $('clearLogo2').addEventListener('click',function(){state.logo2='';keepLogo();$('logo2').value='';renderCard()});
   [0,1,2].forEach(function(j){$('ic'+j).addEventListener('change',function(e){if(!state.icons)state.icons=['','',''];state.icons[j]=e.target.value;renderCard()})});
   $('cutout').addEventListener('change',function(e){state.cutout=e.target.checked;renderCard()});
   $('badge').addEventListener('change',function(e){state.badge=e.target.checked;renderCard()});
@@ -2015,8 +2030,9 @@ details.panel[open]{gap:14px}
       ['Alan Shearer','ST','EN',90,'Newcastle United'],['Alessandro Del Piero','ST','IT',91,'Juventus'],['Fabio Cannavaro','CB','IT',91,'Juventus'],['Rob Rensenbrink','LW','NL',90,'Anderlecht'],['Ruud Krol','CB','NL',90,'Ajax']
     ];
     var LIMITED=['Johan Cruijff','Diego Maradona','Zinedine Zidane','Lionel Messi','Ronaldo Nazario'],MAXLIM=2;
+    var KEEPERS=[['Manuel Neuer','GK','DE',92,'Bayern München'],['Thibaut Courtois','GK','BE',91,'Real Madrid'],['Alisson Becker','GK','BR',90,'Liverpool'],['Gianluigi Buffon','GK','IT',92,'Juventus'],['Iker Casillas','GK','ES',91,'Real Madrid'],['Edwin Van der Sar','GK','NL',90,'Manchester United'],['Oliver Kahn','GK','DE',91,'Bayern München'],['Lev Yashin','GK','',93,'Dinamo Moskou']];
     var RARE=['legende','jaar','held','tvhj','diamant','fire'];
-    var PROF={LB:[2,-22,-6,-4,-2,-2],ST:[0,3,-6,-1,-35,1],LW:[4,-1,-2,4,-35,-8],RW:[4,-1,-2,4,-35,-8],CAM:[-4,0,4,3,-30,-10],CM:[-6,-4,3,0,-12,0],CB:[-6,-30,-12,-14,4,4],RB:[2,-22,-6,-4,-2,-2]};
+    var PROF={GK:[0,-1,-8,1,-18,-6],LB:[2,-22,-6,-4,-2,-2],ST:[0,3,-6,-1,-35,1],LW:[4,-1,-2,4,-35,-8],RW:[4,-1,-2,4,-35,-8],CAM:[-4,0,4,3,-30,-10],CM:[-6,-4,3,0,-12,0],CB:[-6,-30,-12,-14,4,4],RB:[2,-22,-6,-4,-2,-2]};
     function cap(x){return x.charAt(0).toUpperCase()+x.slice(1)}
     function swapName(full){
       var w=full.split(' ');if(w.length<2)return full;
@@ -2042,9 +2058,9 @@ details.panel[open]{gap:14px}
     });
     // tabs
     function tab(n){
-      ['packs','lineup','duel','skills','pen','quiz'].forEach(function(t){$('tab-'+t).hidden=(t!==n)});
+      ['packs','lineup','duel','skills','pen','quiz','cup'].forEach(function(t){$('tab-'+t).hidden=(t!==n)});
       [].forEach.call(document.querySelectorAll('.ptab'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-tab')===n?'true':'false')});
-      if(n==='packs')renderPacks();if(n==='lineup')renderLineup();if(n==='duel')renderDuelSetup();if(n==='skills')renderSkills();if(n==='pen')renderPenSetup();if(n==='quiz')renderQuizSetup();
+      if(n==='packs')renderPacks();if(n==='lineup')renderLineup();if(n==='duel')renderDuelSetup();if(n==='skills')renderSkills();if(n==='pen')renderPenSetup();if(n==='quiz')renderQuizSetup();if(n==='cup')renderCupSetup();
     }
     [].forEach.call(document.querySelectorAll('.ptab'),function(b){b.addEventListener('click',function(){tab(b.getAttribute('data-tab'))})});
     function open(n){showView('play');tab(n||'packs');ptsShow()}
@@ -2067,9 +2083,14 @@ details.panel[open]{gap:14px}
       if(packsLeft()<=0){toast('Je hebt vandaag al 10 pakjes geopend. Kom morgen terug!');return}
       if(G.pts<PACK){toast('Je hebt nog niet genoeg punten.');return}
       busy=true;G.pts-=PACK;G.opened++;G.today++;
-      var rare=Math.random()<0.25,pool=PLR.filter(function(x){return LIMITED.indexOf(x[0])<0||(G.rareGot[x[0]]|0)<MAXLIM}),pl=rare?pool[rnd(pool.length)]:PL[rnd(PL.length)],t,b=null,lim=false;
+      var gift=false,lpool=LIMITED.filter(function(x){return (G.rareGot[x]|0)<MAXLIM});
+      var gift2=false;
+      try{if(!localStorage.getItem('vk-cadeau-1')&&lpool.length){gift=true;localStorage.setItem('vk-cadeau-1','1')}else if(!localStorage.getItem('vk-cadeau-2')){gift2=true;localStorage.setItem('vk-cadeau-2','1')}}catch(e){}
+      var rare=gift||Math.random()<0.25,pool=PLR.filter(function(x){return LIMITED.indexOf(x[0])<0||(G.rareGot[x[0]]|0)<MAXLIM}),pl=rare?pool[rnd(pool.length)]:PL[rnd(PL.length)],t,b=null,lim=false;
+      if(gift){pl=PLR.filter(function(x){return lpool.indexOf(x[0])>=0})[rnd(lpool.length)]}
+      if(gift2){rare=true;pl=KEEPERS[rnd(KEEPERS.length)]}
       if(rare&&LIMITED.indexOf(pl[0])>=0){lim=true;G.rareGot[pl[0]]=(G.rareGot[pl[0]]|0)+1}
-      if(lim)t=typeByKey('legende');else if(rare)t=typeByKey(RARE[rnd(RARE.length)]);else{do{t=pickType()}while(RARE.indexOf(t.k)>=0)}
+      if(gift2)t=typeByKey('keeper');else if(lim)t=typeByKey('legende');else if(rare)t=typeByKey(RARE[rnd(RARE.length)]);else{do{t=pickType()}while(RARE.indexOf(t.k)>=0)}
       if(Math.random()<0.6){b={stat:rnd(6),n:1+rnd(3)};G.boosts.push(b)}
       gsave();
       var pe=$('packEl');pe.classList.add('shake');
@@ -2079,8 +2100,12 @@ details.panel[open]{gap:14px}
         base.id='k'+Date.now()+rnd(99);applyType(base,t);
         var fake=swapName(pl[0]);base.name=fake;base.pos=t.pos||pl[1];base.flag=pl[2];base.club=pl[4]||'';base.stats=makeStats(pl[1],pl[3]);base.auto=false;base.rating=pl[3];
         base.test=['','','','','',''];base.earned=null;base.photo='';base.cutout=false;base.av=newAv();
+        (function(){var d={};try{d=JSON.parse(localStorage.getItem('voetbalkaart-maker-logo')||'{}')||{}}catch(e){}
+          if(!d.logo&&!d.logo2){for(var q=saved.length-1;q>=0;q--){if(saved[q].logo||saved[q].logo2){d={logo:saved[q].logo,logo2:saved[q].logo2};break}}}
+          if(!d.logo&&!d.logo2&&(state.logo||state.logo2))d={logo:state.logo,logo2:state.logo2};
+          base.logo=d.logo||'';base.logo2=d.logo2||''})();
         var a=$('packArea');
-        function show(){a.innerHTML='<div class="reveal'+(rare?' rare':'')+'">'+(lim?'<div class="rarebanner">💎 SUPERZELDZAAM! 💎</div><div class="hint" style="color:#ffd24a;font-weight:800">Deze kaart bestaat maar '+MAXLIM+' keer. Nog '+(MAXLIM-G.rareGot[pl[0]])+' over.</div>':(rare?'<div class="rarebanner">✨ ZELDZAAM! ✨</div>':''))+'<div class="rcard" style="--s:11px">'+cardHTML(base)+'</div><div class="duelres">'+esc(base.name)+'</div><div class="hint">⚽ Speelt bij <b>'+esc(pl[4]||'')+'</b></div><div class="hint">Echte naam: '+esc(pl[0])+' · '+esc(t.n)+'</div>'+
+        function show(){a.innerHTML='<div class="reveal'+(rare?' rare':'')+'">'+(gift2?'<div class="rarebanner">💎 SUPERZELDZAAM KEEPER! 💎</div>':lim?'<div class="rarebanner">💎 SUPERZELDZAAM! 💎</div><div class="hint" style="color:#ffd24a;font-weight:800">Deze kaart bestaat maar '+MAXLIM+' keer. Nog '+(MAXLIM-G.rareGot[pl[0]])+' over.</div>':(rare?'<div class="rarebanner">✨ ZELDZAAM! ✨</div>':''))+'<div class="rcard" style="--s:11px">'+cardHTML(base)+'</div><div class="duelres">'+esc(base.name)+'</div><div class="hint" style="display:flex;align-items:center;gap:8px;justify-content:center">'+crest(pl[4]||'',34)+'<span>Speelt bij <b>'+esc(pl[4]||'')+'</b></span></div><div class="hint">Echte naam: '+esc(pl[0])+' · '+esc(t.n)+'</div>'+
           (b?'<div class="hint" style="color:var(--accent);font-weight:800">Extra: +'+b.n+' '+STATS[b.stat][0]+' boost. Gebruik hem hieronder.</div>':'')+
           '<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button class="btn main" id="keepPack" type="button">Bewaar in mijn kaarten</button><button class="btn" id="againPack" type="button">Nog een pakje</button></div></div>';
         $('keepPack').addEventListener('click',function(){
@@ -2093,12 +2118,20 @@ details.panel[open]{gap:14px}
       setTimeout(function(){busy=false},1600);
     }
 
+
+    var CCOL={'SSC Napoli':['#12a0d7','#fff'],'Napoli':['#12a0d7','#fff'],'Liverpool':['#c8102e','#fff'],'FC Barcelona':['#a50044','#004d98'],'Corinthians':['#111','#fff'],'Inter':['#0a3a8a','#111'],'Tottenham Hotspur':['#fff','#132257'],'Arsenal':['#ef0107','#fff'],'Manchester United':['#da291c','#111'],'Manchester City':['#6cabdd','#fff'],'Ajax':['#fff','#d2122e'],'Juventus':['#111','#fff'],'Bayern München':['#dc052d','#fff'],'Real Madrid':['#fff','#febe10'],'Atlético Madrid':['#cb3524','#fff'],'AC Milan':['#fb090b','#111'],'Inter Miami':['#f7b5cd','#111'],'Al-Nassr':['#ffd100','#0b3d91'],'AS Roma':['#8e1f2f','#f0bc42'],'Bayer Leverkusen':['#e32221','#111'],'Benfica':['#e30613','#fff'],'Santos':['#fff','#111'],'Fiorentina':['#5b2d8e','#fff'],'Valencia':['#fff','#111'],'Chelsea':['#034694','#fff'],'Vancouver Whitecaps':['#fff','#00245e'],'Newcastle United':['#fff','#111'],'Anderlecht':['#4b2a86','#fff'],'Dinamo Moskou':['#1d4fa3','#fff']};
+    function crest(club,sz){
+      var c=CCOL[club]||['#4a5a9a','#fff'],ini=(club||'FC').replace(/^(FC|AC|AS|SSC)\s/,'').split(/\s+/).map(function(w){return w.charAt(0)}).join('').slice(0,2).toUpperCase();
+      var dark=function(h){var v=parseInt(h.slice(1).length===3?h.slice(1).replace(/./g,'$&$&'):h.slice(1),16);return ((v>>16)*.3+((v>>8)&255)*.59+(v&255)*.11)<110};
+      var tc=dark(c[0])?'#fff':'#111';
+      return '<svg class="crest" width="'+sz+'" height="'+(sz*1.15)+'" viewBox="0 0 100 115" aria-hidden="true"><defs><clipPath id="cr'+sz+'"><path d="M8 8h84v50c0 28-22 42-42 50C30 100 8 86 8 58z"/></clipPath></defs><g clip-path="url(#cr'+sz+')"><rect width="100" height="115" fill="'+c[0]+'"/><rect x="0" y="0" width="30" height="115" fill="'+c[1]+'" opacity=".9"/><rect x="70" y="0" width="30" height="115" fill="'+c[1]+'" opacity=".9"/><rect y="0" width="100" height="26" fill="rgba(0,0,0,.18)"/></g><path d="M8 8h84v50c0 28-22 42-42 50C30 100 8 86 8 58z" fill="none" stroke="#ffd24a" stroke-width="5"/><circle cx="50" cy="56" r="25" fill="'+c[0]+'" stroke="'+c[1]+'" stroke-width="4"/><text x="50" y="66" text-anchor="middle" font-size="28" font-weight="900" font-family="Arial,sans-serif" fill="'+tc+'">'+esc(ini)+'</text></svg>';
+    }
     var AC=null;
     function beep(f,d,ty,v){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.type=ty||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||.12,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
     function walkout(a,pl,base,t,rare,done){
       var fl=FLAGS[pl[2]],steps=[
         {h:fl&&fl.bg?'<div class="wo-flag" style="background:'+fl.bg+'"></div>':'<div class="wo-big">🌍</div>',t:fl&&fl.n?fl.n:'Wereldster',f:330},
-        {h:'<div class="wo-big">🛡️</div>',t:pl[4]||'',f:392},
+        {h:crest(pl[4]||'',150),t:pl[4]||'',f:392},
         {h:'<div class="wo-big wo-pos">'+esc((base.pos||'').toUpperCase())+'</div>',t:'Positie',f:466},
         {h:'<div class="wo-big wo-rat">'+pl[3]+'</div>',t:'Rating',f:587}],i=0,fin=false,tm;
       a.innerHTML='<div class="walkout'+(rare?' rare':'')+'"><div class="wo-stage" id="woStage"></div><button class="btn small" id="woSkip" type="button">Overslaan ›</button></div>';
@@ -2318,6 +2351,448 @@ details.panel[open]{gap:14px}
       var c=G.lineup[key]||(G.lineup[key]={d:'',n:0});if(c.d!==dayKey()){c.d=dayKey();c.n=0}
       return {ok:c.n<max,use:function(){c.n++},left:Math.max(0,max-c.n)};
     }
+
+    // bekertoernooi met teamwedstrijden
+    var DIFFO={mak:-6,nor:0,moe:6},DIFFS={mak:.82,nor:.93,moe:1.02},DIFFM={mak:1,nor:1.5,moe:2};
+    var CUP=null,CUPR=['Groep 1','Groep 2','Groep 3','Achtste finale','Kwartfinale','Halve finale','Finale'],CUPD=[-6,-4,-2,0,2,4,6],CUPRUN=0;
+    function cupTeam(){
+      var f=G.lineup.f||'4-3-3',sl=FORM[f],out=[],miss=0;
+      for(var i=0;i<sl.length;i++){var c=cardById((G.lineup.s||[])[i]);if(!c)miss++;out.push({c:c,pos:sl[i][2]})}
+      return {pl:out,miss:miss,n:sl.length};
+    }
+    function lines(team){
+      var A=[],M=[],D=[],K=[];
+      team.forEach(function(x){var c=x.c,st=c.stats,p=x.pos;
+        if(p==='GK')K.push(rat(c));
+        else if(/ST|LW|RW/.test(p))A.push((st[1]*2+st[0]+st[3])/4);
+        else if(/CM|CAM|LM|RM/.test(p))M.push((st[2]*2+st[3]+st[1])/4);
+        else D.push((st[4]*2+st[5]+st[0]*.5)/3.5)});
+      var av=function(a){return a.length?sum(a)/a.length:60};
+      return {att:av(A),mid:av(M),def:av(D),gk:av(K)};
+    }
+    function cabinet(){
+      var st=G.lineup.cupSt||{w:0,d:0,l:0,gf:0,ga:0},tr=G.lineup.trophies||[],n=st.w+st.d+st.l;
+      var dn={mak:'makkelijk',nor:'normaal',moe:'moeilijk'};
+      return '<div class="panel" style="margin:12px 0;padding:12px"><b>🏆 Trofeeënkast</b>'+(tr.length?'<div style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0">'+tr.slice().reverse().map(function(t){return '<div style="text-align:center;padding:6px 10px;border-radius:10px;background:rgba(255,210,74,.15)"><div style="font-size:1.6em">🏆</div><div class="hint" style="margin:0"><b>'+esc(FLAGS[t.k]?FLAGS[t.k].n:'')+'</b><br>'+esc(dn[t.df]||'')+'</div></div>'}).join('')+'</div>':'<p class="hint" style="margin:6px 0">Nog geen WK gewonnen. Win de finale voor je eerste beker!</p>')+
+        '<p class="hint" style="margin:4px 0">Wedstrijden: '+n+' gespeeld · '+st.w+' gewonnen · '+st.d+' gelijk · '+st.l+' verloren · doelpunten '+st.gf+'–'+st.ga+'</p></div>';
+    }
+    function renderCupSetup(){
+      var t=cupTeam(),w=(G.lineup&&G.lineup.cups)|0,ok=!t.miss;
+      CUPRUN++;
+      $('cupBox').innerHTML='<p class="hint">Speel met je <b>eigen team</b> een echt wedstrijdje, net als in FIFA! Kies een land en speel een WK: eerst een groep met 3 wedstrijden (de beste 2 van de 4 landen gaan door), daarna achtste finale, kwartfinale, halve finale en finale. Win de finale en je wint de beker! Je speelt zelf mee: bij elke kans kies je wat je doet (schieten, doorspelen of dribbelen) en als de tegenstander aanvalt kies je hoe je verdedigt (tackelen, keeper laten uitkomen of positie houden). Je team speelt met de opstelling die je bij <b>Teamopstelling</b> hebt gemaakt: sterke aanvallers, middenvelders, verdedigers en een goede keeper maken je kansen groter. Elke ronde is de tegenstander sterker. Bekers gewonnen: <b>'+w+' 🏆</b>. Je mag zo vaak spelen als je wilt.</p>'+
+        cabinet()+
+        (ok?'<p class="hint" style="color:var(--accent);font-weight:800">✅ Je team is compleet ('+t.n+' van '+t.n+' spelers).</p>':'<p class="hint" style="color:#ffb347;font-weight:800">Je team is nog niet compleet: je hebt '+(t.n-t.miss)+' van de '+t.n+' spelers. Zet eerst een kaart op elke plek.</p><button class="btn main" type="button" id="cupToLineup">Naar Teamopstelling</button>');
+      var tl=$('cupToLineup');if(tl)tl.addEventListener('click',function(){tab('lineup')});
+      var ns=$('cupNat');if(!ns.options.length){Object.keys(FLAGS).forEach(function(k){if(FLAGS[k].n&&FLAGS[k].bg){var o=document.createElement('option');o.value=k;o.textContent=FLAGS[k].n;ns.appendChild(o)}});ns.value='NL'}
+      $('cupStart').hidden=!ok;$('cupTac').parentNode.hidden=!ok;ns.parentNode.hidden=!ok;$('cupMode').parentNode.hidden=!ok;$('cupDiff').parentNode.hidden=!ok;CUP=null;
+    }
+    function cupOpp(team,r,nat,df){
+      var me=lines(team.map(function(x){return x}).map(function(x){return {c:x.c,pos:x.pos}})),d=CUPD[r]+(DIFFO[df||'nor']||0),j=function(){return rnd(5)-2};
+      return {nat:nat,name:(FLAGS[nat]&&FLAGS[nat].n)||'Rivaal',att:me.att+d+j(),mid:me.mid+d+j(),def:me.def+d+j(),gk:me.gk+d+j(),pl:ONAMES.slice().sort(function(){return Math.random()-.5}).slice(0,4).map(function(x){return x.split(' ')[1]})};
+    }
+    function cupStrength(l){return Math.round((l.att+l.mid+l.def+l.gk)/4)}
+    function drawCup(){
+      var c=CUP,tm=cupTeam(),h='<div class="hint" style="margin:10px 0;font-weight:800">'+CUPR.map(function(n,i){return (i<c.r?'✅ ':(i===c.r&&!c.over?'▶ ':''))+n}).join(' · ')+'</div>';
+      if(c.r<=3||c.gt){var gt=c.gt.slice().sort(function(a,b){return b.p-a.p||(b.me?1:0)-(a.me?1:0)});
+        h+='<div class="hint" style="margin:6px 0;display:flex;gap:10px;flex-wrap:wrap;justify-content:center">'+gt.map(function(t,i){return '<span style="padding:3px 10px;border-radius:8px;background:'+(t.me?'rgba(47,224,112,.2)':'rgba(255,255,255,.06)')+';opacity:'+(c.r>3&&i>1?.5:1)+'">'+(i+1)+'. '+esc(FLAGS[t.k].n)+' <b>'+t.p+'</b></span>'}).join('')+'</div>'}
+      h+='<div class="duelarena" style="grid-template-columns:1fr auto 1fr;text-align:center"><div><b>'+esc(FLAGS[c.nat].n)+'</b><div class="nm">kracht '+cupStrength(c.my)+'</div></div><div class="vs">VS</div><div><b>'+esc(c.opp.name)+'</b><div class="nm">kracht '+cupStrength(c.opp)+'</div></div></div>';
+      h+='<div class="duelres" id="cupScore" style="margin:12px 0">'+c.gm+' – '+c.go+'</div><div class="hint" id="cupMin" style="text-align:center">'+(c.min?c.min+"'":'Aftrap')+'</div>';
+      h+='<div id="cupFeed" style="display:flex;flex-direction:column;gap:6px;margin:10px 0;max-height:260px;overflow:auto">'+c.feed.slice().reverse().map(function(f){return '<div class="hint" style="margin:0;padding:6px 10px;border-radius:8px;background:'+(f.g==='me'?'rgba(47,224,112,.18)':f.g==='opp'?'rgba(255,90,90,.18)':'rgba(255,255,255,.05)')+'">'+f.t+'</div>'}).join('')+'</div>';
+      if(c.res){h+='<div class="duelres" style="margin-top:8px">'+c.res.msg+'</div><div style="text-align:center;margin-top:8px"><button class="btn main" type="button" id="cupNext">'+c.res.next+'</button></div>'}
+      else if(c.playing){
+        if(c.pk&&!c.pk.over){var k=c.pk,sh=k.turn==='shoot';
+          h+='<div class="hint" style="text-align:center;font-weight:800;margin:6px 0">🥅 Penalty\'s: '+k.a+'–'+k.b+' · '+(sh?'Jij schiet. Waarheen?':'De tegenstander schiet. Waarheen duik je?')+'</div><div class="statbtns">'+['⬅️ Links','⬆️ Midden','➡️ Rechts'].map(function(x,i){return '<button class="btn main" type="button" data-pen="'+i+'"><span>'+x+'</span><small>'+(sh?'schiet':'duik')+'</small></button>'}).join('')+'</div>'}
+        else if(c.choice){var A=c.choice.me,bt=A?[['shoot','🎯 Schieten','sterk als je aanvallers goed zijn'],['pass','🅿️ Slim doorspelen','veilig, met een grote kans erna'],['dribble','💨 Dribbelen','risico, maar je laat de verdediging staan']]:[['tackle','🛡️ Tackelen','sterk als je verdedigers goed zijn'],['keeper','🧤 Keeper laten uitkomen','sterk met een goede keeper'],['pos','📍 Positie houden','rustig wachten op zijn schot']];
+          h+='<div class="statbtns" style="margin-top:6px">'+bt.map(function(x){return '<button class="btn main" type="button" data-act="'+x[0]+'"><span>'+x[1]+'</span><small>'+x[2]+'</small></button>'}).join('')+'</div>'}
+        h+='<div style="text-align:center;margin-top:8px"><button class="btn small" type="button" id="cupSkip">Overslaan ›</button></div>'}
+      $('cupBox').innerHTML=h;
+      var nx=$('cupNext');if(nx)nx.addEventListener('click',function(){
+        if(c.res.cont){c.r++;c.opp=cupOpp(tm.pl,c.r,c.noms[c.r],c.diff);startMatch()}else renderCupSetup()});
+      [].forEach.call($('cupBox').querySelectorAll('[data-act]'),function(b){b.addEventListener('click',function(){var f=c.cont;c.cont=null;if(f)f(b.getAttribute('data-act'))})});
+      [].forEach.call($('cupBox').querySelectorAll('[data-pen]'),function(b){b.addEventListener('click',function(){c.penPick(+b.getAttribute('data-pen'))})});
+      var sk=$('cupSkip');if(sk)sk.addEventListener('click',function(){if(c.pk&&!c.pk.over){var q=c.pk;while(!q.over){c.penPick(rnd(3));if(q.over)break}return}c.skip=true;var f=c.cont;c.cont=null;if(c.choice&&f)f(c.choice.me?'shoot':'pos');else if(!f&&c.playing){}})
+    }
+    // FIFA-achtige wedstrijd: 11 tegen 11, meelopende camera, spelregels
+    function fifaMatch(c,tm,done,run){
+      var VW=1000,VH=625,WD=1700,HD=1100,FR=60,HALF=70*FR,GY1=HD/2-72,GY2=HD/2+72,box=$('cupBox');
+      box.innerHTML='<div class="hint" style="text-align:center;font-weight:800;margin:4px 0">'+CUPR[c.r]+' · tegen '+esc(FLAGS[c.opp.nat]?FLAGS[c.opp.nat].n:'')+'</div><div class="ftac"><button class="btn small" type="button" data-t="ver">🛡️ Verdedigend</button><button class="btn small" type="button" data-t="geb">⚖️ Gebalanceerd</button><button class="btn small" type="button" data-t="aan">🔥 Aanvallend</button><button class="btn small" type="button" id="fSub">🔄 Wissel</button></div><div class="fifa" style="position:relative"><canvas id="fcv" width="1000" height="625"></canvas><div class="fctl"><div id="fpad" aria-label="Stuur je speler"><i id="fknob"></i></div><div class="fbtns"><button class="btn" type="button" id="fPass">PASS<small>spatie</small></button><button class="btn main" type="button" id="fShoot">SCHIET<small>houd V vast</small></button></div></div><div id="fsub" class="fsub" hidden></div><p class="hint" style="text-align:center;margin:4px 0">Muis = je speler loopt naar je muis en je richt ermee · <b>Spatie</b> = pass (naar de kant van je muis) of schuiftackle · <b>V ingedrukt houden</b> = kracht opladen, loslaten = schieten · WASD werkt ook · jouw team speelt naar rechts ➡️</p></div>';
+      var cv=$('fcv'),g=cv.getContext('2d'),FM=FORM[G.lineup.f||'4-3-3'];
+      function roleOf(pos){return pos==='GK'?'GK':/ST|LW|RW/.test(pos)?'A':/CM|CAM|LM|RM/.test(pos)?'M':'D'}
+      var P=[],T0=[],T1=[];
+      function mk(team,i,st,name,card){var sl=FM[i],hx=WD*(.035+(90-sl[1])/80*.43),hy=HD*(.07+sl[0]/100*.86);if(team===1){hx=WD-hx;hy=HD-hy}
+        var p={team:team,role:roleOf(sl[2]),pos:sl[2],x:hx,y:hy,hx:hx,hy:hy,vx:0,vy:0,fx:team===0?1:-1,fy:0,pac:st.pac,sho:st.sho,pas:st.pas,dri:st.dri,def:st.def,gk:st.gk,name:name,cd:0,think:20,en:100,card:card||null,burst:0,i:i};return p}
+      for(var i=0;i<FM.length;i++){
+        var cd=tm.pl[i].c,s=cd.stats,r=rat(cd);
+        var p=mk(0,i,{pac:s[0],sho:s[1],pas:s[2],dri:s[3],def:s[4],gk:r},cd.name,cd);T0.push(p);P.push(p);
+        var o=c.opp,q=mk(1,i,{pac:(o.att+o.mid)/2,sho:o.att,pas:o.mid,dri:o.mid,def:o.def,gk:o.gk},'');T1.push(q);P.push(q)}
+      var inLine=tm.pl.map(function(x){return x.c});
+      var bench=saved.filter(function(cd){return inLine.indexOf(cd)<0&&inLine.every(function(x){return x.id!==cd.id})}).slice(0,8);
+      var gk0=T0.filter(function(q){return q.role==='GK'})[0]||T0[T0.length-1],gk1=T1.filter(function(q){return q.role==='GK'})[0]||T1[T1.length-1];
+      var ball={x:WD/2,y:HD/2,vx:0,vy:0,o:null,noP:null,noT:0,lastT:0},sc=[0,0],clock=0,pause=0,after=null,msg='',over=false,inp={x:0,y:0},pass=false,held={},half=1,kick=0,sp=null,
+        shootHold=false,shootRel=false,charge=0,cam={x:WD/2-VW/2,y:HD/2-VH/2},mouseOn=false,mx=0,my=0,padOn=false,tacL=$('cupTac').value,subOpen=false,buf=[],rep=null,repP=0,kickT=0,poss=[1,1],shots=[0,0],fouls=[0,0],cards=[0,0];
+      function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
+      function clampv(v,a,b){return Math.min(b,Math.max(a,v))}
+      function speedOf(p){return (1.55+p.pac/100*1.5)*(p.team===1?(DIFFS[c.diff||'nor']||.93):(.7+.3*(p.en||100)/100))}
+      function goalX(team){return team===0?WD:0}
+      function resetPos(kteam){P.forEach(function(p){p.x=p.hx;p.y=p.hy;p.vx=p.vy=0;p.cd=0;p.burst=0});ball.x=WD/2;ball.y=HD/2;ball.vx=ball.vy=0;ball.o=null;ball.noT=0;sp=null;
+        var arr=(kteam===0?T0:T1).filter(function(q){return q.role==='A'}),kp=arr[0]||(kteam===0?T0:T1)[0];kp.x=WD/2+(kteam===0?-16:16);kp.y=HD/2;ball.o=kp;ball.lastT=kteam;kick=60}
+      function ctrlPick(){if(sp&&sp.team===0&&sp.taker)return sp.taker;if(ball.o&&ball.o.team===0&&ball.o.role!=='GK')return ball.o;var b=null,bd=1e9;T0.forEach(function(p){if(p.role==='GK')return;var d=dist(p,ball);if(d<bd){bd=d;b=p}});return b}
+      function doPass(o,t,pw){if(!t)return;var d=Math.hypot(t.x-o.x,t.y-o.y)||1,lead=Math.min(26,d/12);
+        var tx=t.x+t.vx*lead,ty=t.y+t.vy*lead,dd=Math.hypot(tx-o.x,ty-o.y)||1,sp2=clampv(4.2+dd*.017,6,13)*(pw||1);
+        var er=(100-o.pas)/100*.16*(Math.random()*2-1);var a=Math.atan2(ty-o.y,tx-o.x)+er;
+        ball.vx=Math.cos(a)*sp2;ball.vy=Math.sin(a)*sp2;ball.o=null;ball.noP=o;ball.noT=22;ball.lastT=o.team;sp=null;beep(420,.08,'square',.05)}
+      function aimShoot(o,tx,ty,power){var gx=goalX(o.team),a=Math.atan2(ty-o.y,tx-o.x);
+        // richthulp: wijst je richting naar het doel, dan mik je binnen de palen
+        var ddx=Math.cos(a);if((gx>o.x&&ddx>.15)||(gx<o.x&&ddx<-.15)){var k=(gx-o.x)/Math.cos(a),yy=o.y+Math.sin(a)*k;if(yy>GY1-50&&yy<GY2+50){yy=clampv(yy,GY1+14,GY2-14);a=Math.atan2(yy-o.y,gx-o.x)}}
+        var err=(100-o.sho)/100*.3*(.5+power*.8)*(Math.random()*2-1)+(Math.random()-.5)*.05;a+=err;var spd=7+power*8.5;
+        ball.vx=Math.cos(a)*spd;ball.vy=Math.sin(a)*spd;ball.o=null;ball.noP=o;ball.noT=26;ball.lastT=o.team;ball.shot=o.team;shots[o.team]++;sp=null;beep(180,.15,'sawtooth',.08)}
+      function doShootAI(o){var gx=goalX(o.team),ty=GY1+16+Math.random()*(GY2-GY1-32);aimShoot(o,gx,ty,.8)}
+      function bestPass(o,dx,dy){var best=null,bs=-9,mate=(o.team===0?T0:T1);mate.forEach(function(t){if(t===o||t.role==='GK'&&o.role!=='GK')return;
+        var vx=t.x-o.x,vy=t.y-o.y,d=Math.hypot(vx,vy)||1,s2;
+        if(dx||dy){s2=(vx*dx+vy*dy)/d*2-d/900}else{var fwd=(o.team===0?vx:-vx)/d;s2=fwd*1.1-d/1000}
+        var free=Infinity;(o.team===0?T1:T0).forEach(function(e){free=Math.min(free,Math.hypot(e.x-t.x,e.y-t.y))});s2+=Math.min(free,160)/260;
+        if(d>90&&d<900&&s2>bs){bs=s2;best=t}});return best}
+      function setPiece(type,team,x,y,taker){
+        var pool=(team===0?T0:T1).filter(function(q){return q.role!=='GK'});
+        if(!taker){var b=null,bd=1e9;pool.forEach(function(q){var d=Math.hypot(q.x-x,q.y-y);if(d<bd){bd=d;b=q}});taker=b}
+        if(type==='goalkick')taker=team===0?gk0:gk1;
+        if(type==='pen'){var bs=-1;pool.forEach(function(q){if(q.sho>bs){bs=q.sho;taker=q}})}
+        taker.x=x;taker.y=y;taker.vx=taker.vy=0;ball.o=taker;ball.x=x;ball.y=y;ball.vx=ball.vy=0;ball.lastT=team;
+        sp={type:type,team:team,taker:taker,t:0,x:x,y:y};
+        var nm={throw:'INWORP',corner:'HOEKSCHOP',goalkick:'DOELTRAP',free:'VRIJE TRAP',pen:'PENALTY!'}[type];msg=nm;pause=type==='pen'?60:34;after=null;beep(700,.25,'sine',.1)}
+      function outOfPlay(){
+        var lt=ball.lastT;
+        if(ball.y<0||ball.y>HD){var yy=ball.y<0?10:HD-10;setPiece('throw',1-lt,clampv(ball.x,40,WD-40),yy);return}
+        if(ball.x<0||ball.x>WD){var right=ball.x>WD,defT=right?1:0; // team die dit doel verdedigt
+          if(lt===defT){setPiece('corner',1-defT,right?WD-8:8,ball.y<HD/2?8:HD-8)}else{setPiece('goalkick',defT,right?WD-70:70,HD/2)}}}
+      function inBox(team,x,y){ // strafschopgebied dat team verdedigt
+        return Math.abs(y-HD/2)<230&&(team===0?x<200:x>WD-200)}
+      function goal(team){
+        if(team===1&&c.gift){msg='🧤 REDDING!';rep=null;pause=70;after=function(){resetPos(0)};ball.vx=-ball.vx*.4;ball.x=clampv(ball.x,8,WD-8);beep(330,.2,'square',.08);return false}
+        sc[team]++;kickT=1-team;rep=buf.slice();repP=50+rep.length*2+25;pause=repP;after=function(){resetPos(kickT)};
+        msg=team===0?'⚽ GOAL! '+(ball.noP&&ball.noP.team===0?ball.noP.name:''):'⚽ Goal voor '+esc(FLAGS[c.opp.nat]?FLAGS[c.opp.nat].n:'de tegenstander');
+        beep(team===0?660:220,.4,'triangle',.15);if(team===0)beep(880,.5,'triangle',.1);return true}
+      function foul(fouler,victim){
+        fouls[fouler.team]++;beep(900,.35,'sine',.1);ball.o=null;ball.vx=ball.vy=0;
+        var yel=Math.random()<.18;if(yel)cards[fouler.team]++;
+        if(inBox(fouler.team,victim.x,victim.y)){setPiece('pen',victim.team,victim.team===0?WD-140:140,HD/2)}
+        else setPiece('free',victim.team,victim.x,victim.y,victim);
+        msg=(yel?'🟨 ':'')+'OVERTREDING';if(sp&&sp.type==='pen')msg='🟨 PENALTY!';pause=Math.max(pause,50)}
+      function update(){
+        if(over||subOpen)return;
+        if(pause>0){pause--;if(pause===0){var f=after;after=null;msg='';rep=null;if(f)f()}return}
+        clock++;
+        var sn=[];P.forEach(function(q){sn.push(q.x,q.y)});sn.push(ball.x,ball.y);buf.push(sn);if(buf.length>130)buf.shift();
+        if(clock===HALF&&half===1){half=2;pause=90;msg='⏸️ RUST';after=function(){resetPos(1)};beep(500,.4,'square',.08);return}
+        if(clock>=2*HALF){pause=80;msg='⏹️ EINDE';after=function(){over=true};beep(500,.5,'square',.1);return}
+        if(kick>0)kick--;
+        if(ball.o)poss[ball.o.team]++;
+        if(shootHold)charge=Math.min(1,charge+1/48);
+        var cp=ctrlPick();
+        if(held.l)inp.x=-1;else if(held.r)inp.x=1;else if(!padOn)inp.x=0;
+        if(held.u)inp.y=-1;else if(held.d)inp.y=1;else if(!padOn)inp.y=0;
+        var useMouse=!held.l&&!held.r&&!held.u&&!held.d&&!padOn&&mouseOn;
+        var wmx=cam.x+mx,wmy=cam.y+my;
+        if(useMouse&&cp&&!(sp&&sp.taker===cp)){var mdx=wmx-cp.x,mdy=wmy-cp.y,md=Math.hypot(mdx,mdy);if(md<14){inp.x=inp.y=0}else{var mf=Math.min(1,md/90);inp.x=mdx/md*mf;inp.y=mdy/md*mf}}
+        var carrier=ball.o;
+        // richting van pass: naar de muis, anders je looprichting
+        var adx=0,ady=0;if(cp){if(mouseOn&&!held.l&&!held.r&&!held.u&&!held.d&&!padOn){var ax=wmx-cp.x,ay=wmy-cp.y,am=Math.hypot(ax,ay);if(am>30){adx=ax/am;ady=ay/am}}else{var im=Math.hypot(inp.x,inp.y);if(im>.2){adx=inp.x/im;ady=inp.y/im}}}
+        if(pass){pass=false;if(cp&&!(sp&&sp.type==='pen')){if(carrier===cp){doPass(cp,bestPass(cp,adx,ady))}else if(!sp){cp.burst=16;cp.slide=16}}}
+        if(shootRel){shootRel=false;var pw=Math.max(.25,charge);charge=0;
+          if(cp&&carrier===cp){var tx=(mouseOn&&Math.hypot(wmx-cp.x,wmy-cp.y)>40)?wmx:goalX(0),ty=(mouseOn&&Math.hypot(wmx-cp.x,wmy-cp.y)>40)?wmy:HD/2;
+            if(sp&&sp.type==='pen'){aimShoot(cp,tx,ty,Math.max(.6,pw))}else if(sp&&(sp.type==='corner'||sp.type==='free'||sp.type==='throw'||sp.type==='goalkick')){doPass(cp,bestPass(cp,adx||1,ady),1)}else aimShoot(cp,tx,ty,pw)}}
+        // dode bal / spelhervatting
+        if(sp){sp.t++;var aiT=sp.team===1||sp.t>520;
+          if(aiT&&sp.t>(sp.type==='pen'?85:70)){var tk=sp.taker;
+            if(sp.type==='pen')aimShoot(tk,goalX(tk.team),GY1+18+Math.random()*(GY2-GY1-36),.9);
+            else if(sp.type==='corner'){var m=(tk.team===0?T0:T1).filter(function(q){return q.role!=='GK'&&q!==tk}).sort(function(a,b){return Math.abs(a.x-goalX(tk.team))-Math.abs(b.x-goalX(tk.team))})[0];doPass(tk,m,1)}
+            else{var q=bestPass(tk,tk.team===0?1:-1,0);doPass(tk,q,sp.type==='goalkick'?1.15:1)}}}
+        // bewegen
+        P.forEach(function(p){
+          var tx=p.x,ty=p.y,sp1=speedOf(p),human=(p===cp);
+          if(p.cd>0)p.cd--;if(p.burst>0){p.burst--;sp1*=1.7}if(p.think>0)p.think--;
+          if(sp&&p===sp.taker){tx=p.x;ty=p.y;sp1=0;p.fx=sp.team===0?1:-1;if(sp.type!=='goalkick'&&Math.abs(sp.x-p.x)<1){}}
+          else if(human){var m0=Math.hypot(inp.x,inp.y);if(m0>.12){var f0=Math.min(1,m0);tx=p.x+inp.x/m0*60;ty=p.y+inp.y/m0*60;sp1*=f0}else{tx=p.x;ty=p.y;sp1=0}}
+          else if(p.role==='GK'){var gx=p.team===0?46:WD-46,ty2=HD/2;
+            var hd=ball.vx*(p.team===0?-1:1)>.5&&!ball.o;
+            if(hd){var t=Math.abs(gx-ball.x)/Math.max(.5,Math.abs(ball.vx));ty2=ball.y+ball.vy*t}else ty2=HD/2+(ball.y-HD/2)*.28;
+            tx=gx;ty=clampv(ty2,GY1-10,GY2+10);sp1=(1.6+p.gk/100*1.6)*(p.team===1?.95:1)*1.1;
+            if(ball.o===p&&!sp&&p.think<=0){doPass(p,bestPass(p,p.team===0?1:-1,0),1.15)}}
+          else{
+            var mine=(p.team===0),teamHas=ball.o?ball.o.team===p.team:false,oppHas=ball.o?ball.o.team!==p.team:false,dir=mine?1:-1;
+            if(ball.o===p&&!sp){ // AI-aanvoerder
+              var gxx=goalX(p.team),dg=Math.abs(gxx-p.x);tx=gxx;ty=HD/2+Math.sin(clock/55+p.hy)*190;
+              var pres=Infinity;(mine?T1:T0).forEach(function(e){pres=Math.min(pres,dist(e,p))});
+              if(p.think<=0){
+                if(dg<430&&Math.abs(p.y-HD/2)<260&&Math.random()<.55){doShootAI(p);p.think=45}
+                else if(pres<75){var q=bestPass(p,dir,0);if(q){doPass(p,q);p.think=40}else p.think=12}
+                else p.think=12}
+              sp1*=.92}
+            else{
+              var shift=clampv((ball.x-WD/2)*.55,-340,340),tk2=mine?(tacL==='aan'?1.8:tacL==='ver'?.3:1):1;
+              var push=teamHas?(p.role==='A'?170:p.role==='M'?100:35)*tk2*dir:(oppHas?(mine?(tacL==='aan'?-10:tacL==='ver'?-120:-45):45):0);
+              tx=p.hx+shift+push;ty=p.hy+(ball.y-HD/2)*.3;
+              var arr=(mine?T0:T1).filter(function(q){return q.role!=='GK'&&q!==cp}).sort(function(a,b){return dist(a,ball)-dist(b,ball)});
+              if(!sp){
+                if(!teamHas&&(arr[0]===p||arr[1]===p&&oppHas)){tx=ball.o?ball.o.x:ball.x;ty=ball.o?ball.o.y:ball.y}
+                else if(!ball.o&&arr[0]===p){tx=ball.x+ball.vx*6;ty=ball.y+ball.vy*6}
+                if(kick>0&&ball.o&&ball.o.team!==p.team){tx=p.x;ty=p.y}}
+              else{
+                var tkr=sp.taker;
+                if(sp.type==='corner'&&(p.role==='A'||p.role==='M'||p.role==='D'&&p.pos==='CB')){var gxs=goalX(sp.team);tx=gxs+(gxs>WD/2?-120:120)+((p.i*53)%140-70)*(gxs>WD/2?1:-1)*.5;ty=HD/2+((p.i*97)%260)-130}
+                else if(sp.type==='pen'){var ex=sp.team===0?WD-215:215;tx=sp.team===0?Math.min(p.x,ex):Math.max(p.x,ex);if(p.team!==sp.team||p!==tkr){if(Math.abs(p.y-HD/2)<260&&(sp.team===0?p.x>ex:p.x<ex))tx=ex}}
+                else if(sp.type==='free'&&p.team!==sp.team&&dist(p,tkr)<130){var vx=p.x-tkr.x,vy=p.y-tkr.y,vm=Math.hypot(vx,vy)||1;tx=tkr.x+vx/vm*140;ty=tkr.y+vy/vm*140}
+              }
+            }
+          }
+          var dx=tx-p.x,dy=ty-p.y,d=Math.hypot(dx,dy);
+          if(d>3){var s2=Math.min(sp1,d);p.vx=dx/d*s2;p.vy=dy/d*s2;p.fx=dx/d;p.fy=dy/d}else{p.vx=p.vy=0}
+          if(kick>0&&ball.o===p&&!human&&p.role!=='GK'){p.vx=p.vy=0}
+          p.x=clampv(p.x+p.vx,8,WD-8);p.y=clampv(p.y+p.vy,8,HD-8);
+          if(p.team===0&&p.role!=='GK')p.en=Math.max(25,p.en-(Math.hypot(p.vx,p.vy)>.4?.009:.0025));
+        });
+        // spelers duwen elkaar weg
+        for(var a=0;a<P.length;a++)for(var b2=a+1;b2<P.length;b2++){var pa=P[a],pb=P[b2],ddx=pb.x-pa.x,ddy=pb.y-pa.y,dd=ddx*ddx+ddy*ddy;if(dd<256&&dd>.01){var dm=Math.sqrt(dd),pu=(16-dm)/2;pa.x-=ddx/dm*pu*.5;pa.y-=ddy/dm*pu*.5;pb.x+=ddx/dm*pu*.5;pb.y+=ddy/dm*pu*.5}}
+        // bal
+        if(ball.noT>0)ball.noT--;
+        if(ball.o){var o=ball.o;ball.x=o.x+o.fx*10;ball.y=o.y+o.fy*10;ball.vx=ball.vy=0;ball.lastT=o.team;
+          if(!sp&&o.role!=='GK'){(o.team===0?T1:T0).forEach(function(e){if(ball.o!==o||e.role==='GK')return;
+            if(dist(e,o)<(e.burst>0?26:22)&&e.cd===0&&o.cd===0){var sl=e.burst>0,pr=clampv(.03+(e.def-o.dri)/1100,.01,.07)*(sl?2:1);
+              if(Math.random()<pr){
+                var fp=window.__ff||(sl?(.4-(e.def-60)/400):.12);
+                if(Math.random()<fp&&!(e.team===1&&c.gift)){foul(e,o)}
+                else{ball.o=e;e.cd=30;o.cd=30;beep(160,.06,'square',.05)}}}})}
+        }else{
+          ball.x+=ball.vx;ball.y+=ball.vy;var spd=Math.hypot(ball.vx,ball.vy);ball.vx*=.986;ball.vy*=.986;if(spd<.12){ball.vx=ball.vy=0}
+          var inMouth=ball.y>GY1&&ball.y<GY2;
+          [gk0,gk1].forEach(function(k){if(ball.o)return;var near=dist(k,ball)<20;
+            if(near&&ball.noP!==k){
+              if(spd>8){var sh=ball.noP||{sho:70};var ps=clampv(.62+(k.gk-(sh.sho||70))/190,.3,.9);
+                if(Math.random()<ps){ball.o=k;k.think=55;ball.lastT=k.team;beep(330,.15,'square',.06)}
+                else{ball.vx*=-.3;ball.vy+=(Math.random()-.5)*5;ball.noP=k;ball.noT=14;if(k.team===0)ball.lastT=0;else ball.lastT=1}}
+              else{ball.o=k;k.think=50;ball.lastT=k.team}}});
+          if(!ball.o){
+            if(ball.x<0||ball.x>WD){
+              if(inMouth){if(goal(ball.x<0?1:0))ball.x=ball.x<0?-30:WD+30;else{}}
+              else outOfPlay()}
+            else if(ball.y<0||ball.y>HD)outOfPlay();
+            if(!ball.o&&!pause&&spd<11){var best=null,bd2=14;P.forEach(function(p){if(ball.noP===p&&ball.noT>0)return;var d=dist(p,ball);if(p.role==='GK'&&d>20)return;if(d<bd2){bd2=d;best=p}});if(best){ball.o=best;ball.lastT=best.team;best.cd=10}}
+          }
+        }
+      }
+      function drawField(){
+        g.fillStyle='#2e9b46';g.fillRect(0,0,VW,VH);
+        var x0=Math.floor(cam.x/100);for(var i=x0;i<x0+10;i++){if(i%2===0){g.fillStyle='rgba(255,255,255,.05)';g.fillRect(i*100-cam.x,0,100,VH)}}
+        g.save();g.translate(-cam.x,-cam.y);g.strokeStyle='rgba(255,255,255,.85)';g.lineWidth=3;
+        g.strokeRect(0,0,WD,HD);g.beginPath();g.moveTo(WD/2,0);g.lineTo(WD/2,HD);g.stroke();g.beginPath();g.arc(WD/2,HD/2,100,0,7);g.stroke();g.fillStyle='#fff';g.beginPath();g.arc(WD/2,HD/2,4,0,7);g.fill();
+        g.strokeRect(0,HD/2-230,200,460);g.strokeRect(WD-200,HD/2-230,200,460);g.strokeRect(0,HD/2-115,70,230);g.strokeRect(WD-70,HD/2-115,70,230);
+        g.beginPath();g.arc(140,HD/2,4,0,7);g.fill();g.beginPath();g.arc(WD-140,HD/2,4,0,7);g.fill();
+        g.fillStyle='rgba(255,255,255,.35)';g.fillRect(-26,GY1,26,GY2-GY1);g.fillRect(WD,GY1,26,GY2-GY1);g.fillStyle='#fff';g.fillRect(-4,GY1-3,6,6);g.fillRect(-4,GY2-3,6,6);g.fillRect(WD-2,GY1-3,6,6);g.fillRect(WD-2,GY2-3,6,6);
+        g.restore()}
+      function drawEnt(cpl){
+        g.save();g.translate(-cam.x,-cam.y);
+        P.slice().sort(function(a,b){return a.y-b.y}).forEach(function(p){
+          if(p.x<cam.x-30||p.x>cam.x+VW+30||p.y<cam.y-30||p.y>cam.y+VH+30)return;
+          g.fillStyle='rgba(0,0,0,.25)';g.beginPath();g.ellipse(p.x,p.y+9,10,4.5,0,0,7);g.fill();
+          g.fillStyle=p.team===0?(p.role==='GK'?'#ffd24a':'#2b6dff'):(p.role==='GK'?'#9be15d':'#e5333b');g.beginPath();g.arc(p.x,p.y,10,0,7);g.fill();
+          g.strokeStyle='#fff';g.lineWidth=1.5;g.stroke();
+          if(p===cpl){g.strokeStyle='#ffe14a';g.lineWidth=3;g.beginPath();g.arc(p.x,p.y,15,0,7);g.stroke();g.fillStyle='#ffe14a';g.font='bold 12px sans-serif';g.textAlign='center';g.fillText(p.name,p.x,p.y-20);g.fillStyle='rgba(0,0,0,.5)';g.fillRect(p.x-13,p.y+16,26,4);g.fillStyle=p.en>60?'#3de07a':p.en>40?'#ffd24a':'#ff5a5a';g.fillRect(p.x-13,p.y+16,26*p.en/100,4)}
+        });
+        g.fillStyle='rgba(0,0,0,.3)';g.beginPath();g.ellipse(ball.x,ball.y+5,5.5,2.8,0,0,7);g.fill();g.fillStyle='#fff';g.beginPath();g.arc(ball.x,ball.y,5.5,0,7);g.fill();g.strokeStyle='#222';g.lineWidth=1;g.stroke();
+        if(shootHold&&cpl&&mouseOn){g.strokeStyle='rgba(255,255,255,.6)';g.setLineDash([6,6]);g.lineWidth=2;g.beginPath();g.moveTo(cpl.x,cpl.y);g.lineTo(cam.x+mx,cam.y+my);g.stroke();g.setLineDash([])}
+        g.restore()}
+      function draw0(lab){
+        var f=ball;var tx=clampv(f.x-VW/2,0,WD-VW),ty=clampv(f.y-VH/2,0,HD-VH);cam.x+=(tx-cam.x)*(lab?1:.12);cam.y+=(ty-cam.y)*(lab?1:.12);
+        drawField();
+        var cpl=ctrlPick();drawEnt(cpl);
+        // radar
+        var rw=170,rh=rw*HD/WD,rx=8,ry=VH-rh-8;g.fillStyle='rgba(0,0,0,.45)';g.fillRect(rx,ry,rw,rh);g.strokeStyle='rgba(255,255,255,.5)';g.lineWidth=1;g.strokeRect(rx,ry,rw,rh);g.beginPath();g.moveTo(rx+rw/2,ry);g.lineTo(rx+rw/2,ry+rh);g.stroke();
+        P.forEach(function(p){g.fillStyle=p.team===0?'#6fa0ff':'#ff6b72';g.fillRect(rx+p.x/WD*rw-1.5,ry+p.y/HD*rh-1.5,3,3)});g.fillStyle='#fff';g.fillRect(rx+ball.x/WD*rw-2,ry+ball.y/HD*rh-2,4,4);
+        var vx0=rx+cam.x/WD*rw,vy0=ry+cam.y/HD*rh;g.strokeStyle='rgba(255,255,255,.8)';g.strokeRect(vx0,vy0,VW/WD*rw,VH/HD*rh);
+        var mn=Math.min(90,Math.round(clock/(2*HALF)*90));
+        g.fillStyle='rgba(0,0,0,.65)';g.fillRect(VW/2-140,6,280,28);g.fillStyle='#fff';g.font='bold 16px sans-serif';g.textAlign='center';
+        g.fillText((FLAGS[c.nat].n).slice(0,9)+'  '+sc[0]+' – '+sc[1]+'  '+(FLAGS[c.opp.nat]?FLAGS[c.opp.nat].n:'').slice(0,9)+'   '+mn+"'",VW/2,26);
+        if(shootHold){g.fillStyle='rgba(0,0,0,.55)';g.fillRect(VW/2-90,VH-30,180,16);g.fillStyle=charge>.85?'#ff5a5a':charge>.5?'#ffd24a':'#3de07a';g.fillRect(VW/2-88,VH-28,176*charge,12)}
+        if(lab){g.fillStyle='rgba(0,0,0,.5)';g.fillRect(0,VH-56,VW,40);g.fillStyle='#fff';g.font='bold 24px sans-serif';g.fillText(lab,VW/2,VH-27)}
+        else if(msg){g.fillStyle='rgba(0,0,0,.55)';g.fillRect(0,VH/2-34,VW,68);g.fillStyle='#ffe14a';g.font='bold 34px sans-serif';g.fillText(msg.replace(/&[^;]+;/g,''),VW/2,VH/2+12)}}
+      function draw(){
+        var sv=null,lab=null;
+        if(rep&&pause>0&&msg&&msg.indexOf('⏸')<0&&msg.indexOf('⏹')<0){var r=pause-25;
+          if(r>0&&r<=rep.length*2){var ix=Math.min(rep.length-1,Math.floor((rep.length*2-r)/2)),sn=rep[ix];sv=P.map(function(q){return [q.x,q.y]});sv.push([ball.x,ball.y]);P.forEach(function(q,i){q.x=sn[i*2];q.y=sn[i*2+1]});ball.x=sn[P.length*2];ball.y=sn[P.length*2+1];lab='🎬 HERHALING'}}
+        window.__fm=msg;draw0(lab);
+        if(sv){P.forEach(function(q,i){q.x=sv[i][0];q.y=sv[i][1]});ball.x=sv[P.length][0];ball.y=sv[P.length][1]}}
+      // invoer
+      function kd(e){if(!document.body.contains(cv))return;var k=e.key.toLowerCase();
+        if(k==='arrowleft'||k==='a'){held.l=1}else if(k==='arrowright'||k==='d'){held.r=1}else if(k==='arrowup'||k==='w'){held.u=1}else if(k==='arrowdown'||k==='s'){held.d=1}
+        else if(k===' '){if(!e.repeat)pass=true}else if(k==='v'){if(!e.repeat){shootHold=true;charge=0}}else return;e.preventDefault()}
+      function ku(e){var k=e.key.toLowerCase();if(k==='arrowleft'||k==='a')held.l=0;else if(k==='arrowright'||k==='d')held.r=0;else if(k==='arrowup'||k==='w')held.u=0;else if(k==='arrowdown'||k==='s')held.d=0;else if(k==='v'&&shootHold){shootHold=false;shootRel=true}}
+      document.addEventListener('keydown',kd);document.addEventListener('keyup',ku);
+      cv.addEventListener('pointermove',function(e){if(e.pointerType!=='mouse')return;var r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/r.width*VW;my=(e.clientY-r.top)/r.height*VH;mouseOn=true});
+      cv.addEventListener('pointerleave',function(){mouseOn=false});
+      var pad=$('fpad'),kb=$('fknob');
+      function pm(e){var r=pad.getBoundingClientRect(),dx=(e.clientX-r.left-r.width/2)/(r.width/2),dy=(e.clientY-r.top-r.height/2)/(r.height/2),m=Math.hypot(dx,dy)||1,f=Math.min(1,m);inp.x=dx/m*f;inp.y=dy/m*f;if(f<.2){inp.x=inp.y=0}kb.style.transform='translate('+(inp.x*30)+'px,'+(inp.y*30)+'px)'}
+      pad.addEventListener('pointerdown',function(e){padOn=true;try{pad.setPointerCapture(e.pointerId)}catch(x){}pm(e)});
+      pad.addEventListener('pointermove',function(e){if(padOn)pm(e)});
+      function pe(){padOn=false;inp.x=inp.y=0;kb.style.transform=''}
+      pad.addEventListener('pointerup',pe);pad.addEventListener('pointercancel',pe);
+      $('fPass').addEventListener('pointerdown',function(e){e.preventDefault();pass=true});
+      var sb0=$('fShoot');sb0.addEventListener('pointerdown',function(e){e.preventDefault();shootHold=true;charge=0});
+      function rel(){if(shootHold){shootHold=false;shootRel=true}}sb0.addEventListener('pointerup',rel);sb0.addEventListener('pointerleave',rel);sb0.addEventListener('pointercancel',rel);
+      function tacUI(){[].forEach.call(box.querySelectorAll('[data-t]'),function(b){b.classList.toggle('main',b.getAttribute('data-t')===tacL)})}
+      [].forEach.call(box.querySelectorAll('[data-t]'),function(b){b.addEventListener('click',function(){tacL=b.getAttribute('data-t');tacUI();beep(500,.08,'square',.05)})});tacUI();
+      var selF=-1,selB=-1,fp=[];
+      function subRender(){
+        var sb=$('fsub');fp=T0.filter(function(q){return q.role!=='GK'});
+        sb.innerHTML='<b>🔄 Wissel (de wedstrijd staat stil)</b><div class="fsubcols"><div><div class="hint">Op het veld · energie</div>'+fp.map(function(q,i){return '<button class="btn small'+(selF===i?' main':'')+'" type="button" data-f="'+i+'">'+esc(q.name)+' ⚡'+Math.round(q.en)+'%</button>'}).join('')+'</div><div><div class="hint">Op de bank</div>'+(bench.length?bench.map(function(cd,i){return '<button class="btn small'+(selB===i?' main':'')+'" type="button" data-b="'+i+'">'+esc(cd.name)+' ('+rat(cd)+')</button>'}).join(''):'<div class="hint">Geen spelers op de bank. Maak en bewaar meer kaarten.</div>')+'</div></div><div style="text-align:center;margin-top:8px"><button class="btn main" type="button" id="fDoSub">Wissel!</button> <button class="btn small" type="button" id="fCloseSub">Verder spelen</button></div>';
+        [].forEach.call(sb.querySelectorAll('[data-f]'),function(b){b.addEventListener('click',function(){selF=+b.getAttribute('data-f');subRender()})});
+        [].forEach.call(sb.querySelectorAll('[data-b]'),function(b){b.addEventListener('click',function(){selB=+b.getAttribute('data-b');subRender()})});
+        $('fCloseSub').addEventListener('click',function(){subOpen=false;sb.hidden=true});
+        $('fDoSub').addEventListener('click',function(){
+          if(selF<0||selB<0)return;var q=fp[selF],cd=bench[selB],old=q.card,st=cd.stats;
+          q.card=cd;q.name=cd.name;q.pac=st[0];q.sho=st[1];q.pas=st[2];q.dri=st[3];q.def=st[4];q.en=100;bench[selB]=old;selF=-1;selB=-1;beep(600,.1,'triangle',.08);subRender()})}
+      $('fSub').addEventListener('click',function(){subOpen=!subOpen;$('fsub').hidden=!subOpen;if(subOpen)subRender()});
+      window.__fdbg={pen:function(){var v=T0[5];v.x=WD-100;v.y=HD/2;foul(T1[4],v)},sp:function(){return sp&&sp.type}};
+      resetPos(0);msg='🔔 AANTRAP';pause=70;after=null;beep(300,.3,'square',.08);
+      var last=performance.now(),acc=0;
+      function stop(){document.removeEventListener('keydown',kd);document.removeEventListener('keyup',ku)}
+      function loop(now){
+        if(run!==CUPRUN||!document.body.contains(cv)){stop();return}
+        acc+=Math.min(100,now-last);last=now;var n=window.__fs||1;
+        while(acc>=1000/FR){for(var i=0;i<n;i++)update();acc-=1000/FR;if(over)break}
+        draw();
+        if(over){stop();c.gm=sc[0];c.go=sc[1];if(c.gift&&c.gm===0){c.gm=1}
+          var pt=poss[0]+poss[1];c.feed=[{t:'📊 Balbezit '+Math.round(poss[0]/pt*100)+'%–'+Math.round(poss[1]/pt*100)+' · schoten '+shots[0]+'–'+shots[1]+' · overtredingen '+fouls[0]+'–'+fouls[1]+' · gele kaarten '+cards[0]+'–'+cards[1]}];
+          c.playing=false;done();return}
+        requestAnimationFrame(loop)}
+      requestAnimationFrame(loop);
+    }
+    function startMatch(){
+      var tm=cupTeam();if(tm.miss){renderCupSetup();return}
+      var c=CUP;c.pk=null;c.choice=null;$('cupStart').hidden=true;c.my=lines(tm.pl);var tac=$('cupTac').value;
+      c.ta=tac==='aan'?1.07:tac==='ver'?.95:1;c.td=tac==='aan'?.95:tac==='ver'?1.07:1;
+      c.gm=0;c.go=0;c.min=0;c.feed=[];c.res=null;c.playing=true;c.skip=false;c.over=false;
+      var run=++CUPRUN,names=tm.pl.map(function(x){return {n:x.c.name,p:x.pos,w:(/ST/.test(x.pos)?5:/LW|RW/.test(x.pos)?4:/CAM/.test(x.pos)?3:/CM/.test(x.pos)?2:.5)}});
+      function pick(){var t=sum(names.map(function(x){return x.w})),r=Math.random()*t;for(var i=0;i<names.length;i++){r-=names[i].w;if(r<=0)return names[i].n}return names[0].n}
+      var N=14,tick=0;
+      c.feed.push({t:'🔔 De wedstrijd begint! '+esc(c.opp.name)+' tegen jouw team.'});beep(300,.3,'square',.08);drawCup();
+      function goal(meAtt,who,extra){
+        if(c.gift&&!meAtt){c.feed.push({t:c.min+"' 🧤 Wat een redding! Jouw team houdt de nul."});return}
+        if(meAtt)c.gm++;else c.go++;
+        c.feed.push({g:meAtt?'me':'opp',t:c.min+"' ⚽ GOAL! "+esc(who)+(meAtt?' scoort voor jouw team!':' scoort voor '+esc(c.opp.name)+'.')+(extra||'')+' ('+c.gm+'–'+c.go+')'});
+        beep(meAtt?660:220,.4,'triangle',.14);if(meAtt)beep(880,.5,'triangle',.1);
+      }
+      function miss(t){c.feed.push({t:c.min+"' "+t});beep(220,.15,'sine',.05)}
+      function clamp2(v,a,b){return Math.min(b,Math.max(a,v))}
+      function resolve(meAtt,who,act){
+        var m=c.my,o=c.opp;
+        if(meAtt){
+          if(act==='shoot'){
+            if(Math.random()<clamp2(.62+(m.att*c.ta-o.def)/100,.3,.9)){ if(Math.random()<clamp2(.42+(m.att*c.ta-o.gk)/110,.15,.8))goal(true,who,' Met een schot!');else miss('🧤 '+esc(who)+' schiet, maar de keeper redt!')}
+            else miss('😬 '+esc(who)+' schiet naast!')
+          }else if(act==='pass'){
+            if(Math.random()<clamp2(.62+(m.mid-o.def)/100,.3,.9)){ if(Math.random()<clamp2(.55+(m.att-o.gk)/140,.25,.85))goal(true,who,' Na een mooie pass!');else miss('🧤 '+esc(who)+' krijgt de bal, maar de keeper is er eerder.')}
+            else miss('✂️ De pass wordt onderschept door '+esc(o.name)+'.')
+          }else{
+            if(Math.random()<clamp2(.5+(m.att*c.ta-o.def)/90,.25,.8)){ if(Math.random()<clamp2(.58+(m.att-o.gk)/140,.25,.85))goal(true,who,' Na een prachtige dribbel!');else miss('🧤 '+esc(who)+' dribbelt voorbij iedereen, maar de keeper redt.')}
+            else miss('🛡️ '+esc(who)+' verliest de bal bij de dribbel.')
+          }
+        }else{
+          if(act==='tackle'){
+            if(Math.random()<clamp2(.5+(m.def*c.td-o.att)/90,.25,.8))miss('🛡️ Mooie tackle! Jouw verdediger pakt de bal.');
+            else if(Math.random()<.65)goal(false,who,' Je tackle komt te laat!');else miss('😅 Je tackle komt te laat, maar het schot gaat naast.')
+          }else if(act==='keeper'){
+            if(Math.random()<clamp2(.45+(m.gk*c.td-o.att)/90,.2,.8))miss('🧤 Jouw keeper komt uit en pakt de bal!');
+            else if(Math.random()<.8)goal(false,who,' De keeper kwam te laat uit!');else miss('😅 Het schot gaat over.')
+          }else{
+            if(Math.random()<clamp2(.42+(o.att-m.def*c.td)/110,.15,.7)){ if(Math.random()<clamp2(.4+(o.att-m.gk*c.td)/110,.15,.8))goal(false,who);else miss('🧤 Wat een redding van jouw keeper!')}
+            else miss('😮‍💨 '+esc(who)+' schiet naast.')
+          }
+        }
+      }
+      function ask(meAtt,who){
+        c.choice={me:meAtt,who:who};c.feed.push({t:c.min+"' "+(meAtt?'🔥 Kans voor jouw team! <b>'+esc(who)+'</b> heeft de bal. Wat doe je?':'⚠️ Gevaar! <b>'+esc(who)+'</b> komt aanvallen van '+esc(c.opp.name)+'. Wat doe je?')});
+        beep(meAtt?520:180,.25,'square',.07);drawCup();
+      }
+      function step(){
+        if(run!==CUPRUN||!CUP)return;
+        if(tick>=N){if(c.gift&&c.gm===0){c.min=90;goal(true,pick(),' In de allerlaatste minuut!')}return finish()}
+        tick++;c.min=Math.round(tick*90/N);
+        var mine=c.my.mid*(c.ta),theirs=c.opp.mid,pm=mine/(mine+theirs),meAtt=Math.random()<pm;
+        if(Math.random()<.6){
+          var who=meAtt?pick():c.opp.pl[rnd(c.opp.pl.length)];
+          if(c.skip){resolve(meAtt,who,meAtt?'shoot':'pos')}
+          else{ask(meAtt,who);c.cont=function(act){c.choice=null;resolve(meAtt,who,act);drawCup();setTimeout(step,900)};return}
+        }else c.feed.push({t:c.min+"' "+(meAtt?'Jouw team zit goed in de wedstrijd...':esc(c.opp.name)+' voetbalt rustig rond.')});
+        if(tick===Math.round(N/2)){c.feed.push({t:'⏸️ Rust! Stand '+c.gm+'–'+c.go})}
+        drawCup();setTimeout(step,c.skip?0:850);
+      }
+      function conclude(won,pen){
+        c.res={won:won};var r=c.r,last=r===6,draw=c.gm===c.go&&r<3&&!pen,M=DIFFM[c.diff||'nor'];
+        var st=G.lineup.cupSt||(G.lineup.cupSt={w:0,d:0,l:0,gf:0,ga:0});if(won)st.w++;else if(draw)st.d++;else st.l++;st.gf+=c.gm;st.ga+=c.go;
+        if(r<3){
+          var add=Math.round((won?5:(draw?2:0))*M);c.gt[0].p+=won?3:(draw?1:0);c.gt[r+1].p+=won?0:(draw?1:3);G.pts+=add;gsave();
+          var gt=c.gt.slice().sort(function(a,b){return b.p-a.p||(b.me?1:0)-(a.me?1:0)}),rank=gt.indexOf(c.gt[0])+1;
+          var base=(won?'Gewonnen! ':(draw?'Gelijkspel. ':'Verloren. '))+c.gm+'–'+c.go+pen+(add?' · +'+add+' punten':'');
+          if(r<2){c.res.cont=true;c.res.msg=base;c.res.next='Volgende wedstrijd ›'}
+          else if(rank<=2){c.res.cont=true;c.res.msg=base+' · Je gaat door naar de achtste finale! (plek '+rank+')';c.res.next='Achtste finale ›';flash()}
+          else{c.over=true;c.res.msg=base+' · Je wordt '+rank+'e in de groep en bent uitgeschakeld.';c.res.next='Opnieuw proberen'}
+        }else if(won){var add2=Math.round((5+(r-2)*5+(last?30:0))*M);if(last){G.lineup.cups=((G.lineup.cups|0)+1);var tr=G.lineup.trophies||(G.lineup.trophies=[]);tr.push({k:c.nat,d:dayKey(),df:c.diff||'nor'});if(tr.length>24)tr.shift()}G.pts+=add2;gsave();
+          c.res.msg=last?'🏆 JE WINT HET WK! 🏆 '+c.gm+'–'+c.go+pen+' · +'+add2+' punten':'Gewonnen! '+c.gm+'–'+c.go+pen+' · +'+add2+' punten';c.res.next=last?'Nieuw toernooi':CUPR[r+1]+' ›';if(last)c.over=true;else c.res.cont=true;flash();beep(784,.5,'triangle',.15);beep(1175,.7,'triangle',.1)}
+        else{c.over=true;c.res.msg='Verloren: '+c.gm+'–'+c.go+pen+'. Je bent uitgeschakeld.';c.res.next='Opnieuw proberen'}
+        drawCup();
+      }
+      var DIRN=['links','midden','rechts'];
+      function penStep(){
+        var k=c.pk;
+        // klaar?
+        if(k.turn==='shoot'&&k.i>=1){
+          var done=false;
+          if(k.i<=5){var la=5-k.i+1;if(k.a>k.b+la||k.b>k.a+la)done=true}
+          else if(k.a!==k.b)done=true;
+          if(done){c.playing=false;k.over=true;c.feed.push({t:'🥅 Penalty\'s afgelopen: '+k.a+'–'+k.b});return conclude(k.a>k.b,' (penalty\'s '+k.a+'–'+k.b+')')}
+        }
+        drawCup();
+      }
+      function penPick(d){
+        var k=c.pk,m=c.my,o=c.opp;
+        if(k.turn==='shoot'){
+          var kd=rnd(3),keep=Math.random()<.5?kd:rnd(3);
+          var out=Math.random()<clamp2(.1-(m.att-70)/400,.03,.2);
+          if(out){c.feed.push({t:'😬 Penalty '+(k.i+1)+': je schiet over!'})}
+          else if(keep===d&&Math.random()<clamp2(.7+(o.gk-m.att)/300,.5,.9)){c.feed.push({t:'🧤 Penalty '+(k.i+1)+': de keeper duikt naar '+DIRN[d]+' en redt!'})}
+          else{k.a++;c.feed.push({g:'me',t:'⚽ Penalty '+(k.i+1)+': GOAL in het '+DIRN[d]+'! ('+k.a+'–'+k.b+')'});beep(660,.3,'triangle',.12)}
+          k.turn='dive';k.i=k.i;
+        }else{
+          var sd=rnd(3);
+          if(Math.random()<.1){c.feed.push({t:'😮‍💨 '+esc(c.opp.name)+' schiet over!'})}
+          else if(sd===d&&Math.random()<clamp2(.72+(m.gk-o.att)/300,.5,.9)){c.feed.push({t:'🧤 JIJ REDT! Je dook naar '+DIRN[d]+' en pakt hem!'});beep(330,.25,'square',.08)}
+          else{k.b++;c.feed.push({g:'opp',t:'⚽ '+esc(c.opp.name)+' scoort in het '+DIRN[sd]+'. ('+k.a+'–'+k.b+')'});beep(220,.3,'triangle',.12)}
+          k.turn='shoot';k.i++;
+        }
+        penStep();
+      }
+      c.penPick=penPick;
+      function finish(){
+        c.playing=false;
+        c.feed.push({t:'🔔 Einde van de wedstrijd: '+c.gm+'–'+c.go});
+        if(c.gm!==c.go||c.r<3)return conclude(c.gm>c.go,'');
+        if(c.skip){
+          var a=0,b=0,pa=.75,pb=.75;for(var i=0;i<5;i++){if(Math.random()<pa)a++;if(Math.random()<pb)b++}
+          while(a===b){if(Math.random()<pa)a++;if(Math.random()<pb)b++}
+          c.feed.push({t:'🥅 Penalty\'s! '+a+'–'+b});return conclude(a>b,' (penalty\'s '+a+'–'+b+')');
+        }
+        c.pk={a:0,b:0,i:0,turn:'shoot'};c.playing=true;c.feed.push({t:'🥅 Gelijkspel! Penalty\'s beslissen. Jij begint.'});beep(300,.3,'square',.08);drawCup();
+      }
+      if($('cupMode').value==='fifa'){fifaMatch(c,tm,function(){c.playing=false;finish()},run)}else setTimeout(step,c.skip?0:900);
+    }
+    $('cupStart').addEventListener('click',function(){
+      var tm=cupTeam();if(tm.miss){renderCupSetup();return}
+      var gf=false;try{if(!localStorage.getItem('vk-cadeau-beker')){gf=true;localStorage.setItem('vk-cadeau-beker','1')}}catch(e){}
+      var nat=$('cupNat').value,others=Object.keys(FLAGS).filter(function(k){return FLAGS[k].n&&FLAGS[k].bg&&k!==nat}).sort(function(){return Math.random()-.5}).slice(0,7);
+      var gt=[{k:nat,p:0,me:true},{k:others[0],p:0},{k:others[1],p:0},{k:others[2],p:0}];
+      [[1,2],[1,3],[2,3]].forEach(function(q){var x=Math.random();if(x<.4)gt[q[0]].p+=3;else if(x<.6){gt[q[0]].p++;gt[q[1]].p++}else gt[q[1]].p+=3});
+      CUP={r:0,nat:nat,noms:others,gt:gt,opp:cupOpp(tm.pl,0,others[0],$('cupDiff').value),diff:$('cupDiff').value,feed:[],gm:0,go:0,gift:gf};startMatch();
+    });
     var PEN=null,ZN=['links boven','midden boven','rechts boven','links onder','midden onder','rechts onder'];
     function penCard(){var c=cardById($('penCard').value);return c||null}
     function renderPenSetup(){
